@@ -16,18 +16,18 @@
       <description>Randomness Like many engineers, I like patterns and routines, but at the same time I value randomness in my life. Randomness brings momentum to life, but there is also the risk that it can threaten the normal course of life.</description>
     </item>
     <item>
-      <title>About me ...</title>
-      <link>http://localhost:1313/about/</link>
-      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
-      <guid>http://localhost:1313/about/</guid>
-      <description>I&amp;rsquo;m a Ph.D. student at Keio University in Japan.&#xA;I love to give shape to my ideas through coding.&#xA;You can address me in English, Japanese or French.&#xA;Research I study path/motion planning for a tethered mobile robot, which is anchored to a fixed base by a cable for power supply or communication. Currently I am focusing on motion planning that explicitly considers the impact of the cable on the environments.</description>
-    </item>
-    <item>
       <title>Publications</title>
       <link>http://localhost:1313/publications/</link>
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
       <guid>http://localhost:1313/publications/</guid>
       <description> Journal Papers My first journal paper is currently in under-review status.&#xA;(Please stay tuned for it!) International Conferences Path Planning with Cable-obstacles Avoidance for a Tethered Mobile Robot in Unstructured Environments&#xA;Ryuki Shimada and Genya Ishigami&#xA;The 34th International Symposium on Space Technology and Science (ISTS), 2023-k-04, Kurume City Plaza, June 2023&#xA;[Paper] </description>
+    </item>
+    <item>
+      <title>Ryuki Shimada</title>
+      <link>http://localhost:1313/about/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      <guid>http://localhost:1313/about/</guid>
+      <description>I&amp;rsquo;m a Ph.D. student at Keio University in Japan.&#xA;I love to give shape to my ideas through coding.&#xA;You can address me in English, Japanese or French.&#xA;Research I study path/motion planning for a tethered mobile robot, which is anchored to a fixed base by a cable for power supply or communication.&#xA;Currently I am focusing on motion planning that explicitly considers the impact of the cable on the environments.</description>
     </item>
   </channel>
 </rss>

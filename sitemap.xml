@@ -17,10 +17,10 @@
     <loc>http://localhost:1313/tags/untagged/</loc>
     <lastmod>2024-06-17T07:12:55+09:00</lastmod>
   </url><url>
-    <loc>http://localhost:1313/about/</loc>
-  </url><url>
     <loc>http://localhost:1313/categories/</loc>
   </url><url>
     <loc>http://localhost:1313/publications/</loc>
+  </url><url>
+    <loc>http://localhost:1313/about/</loc>
   </url>
 </urlset>
