@@ -1,0 +1,53 @@
+title = "Ryuki Shimada"
+author = "Ryuki Shimada"
+baseURL = "https://rieuky.github.io"
+languageCode = "en-us"
+
+theme = "hugo-blog-awesome"
+
+enableEmoji = true
+ignoreErrors = ["additional-script-loading-error"]
+
+[params]
+    goToTop = true
+    defaultColor = "dark"
+
+[params.author]
+    avatar = "profile.png"
+    intro = "Ryuki Shimada"
+    name = "Ryuki Shimada"
+    description = "Hi, I'm a Ph.D. student passionate about creating robotic tech that makes a real change in disaster response. Exited to share my research with you!"
+
+[menu]
+    [[menu.main]]
+        pageRef = "/"
+        name = "Home"
+        url = "/"
+        weight = 10
+    [[menu.main]]
+        pageRef = "publications"
+        name = "Publications"
+        url = "/publications/"
+        weight = 20
+    [[menu.main]]
+        pageRef = "blog"
+        name = "Blog"
+        url = "/blog/"
+        weight = 30
+    [[menu.main]]
+        pageRef = "about"
+        name = "About"
+        url = "/about/"
+        weight = 40
+
+[[params.socialIcons]]
+name = "github"
+url = "https://github.com/rieuky"
+
+[[params.socialIcons]]
+name = "linkedin"
+url = "https://www.linkedin.com/in/ryuki-shimada-60790a16a/"
+
+[[params.socialIcons]]
+name = "email"
+url = "mailto:ryukishimada218@keio.jp"
