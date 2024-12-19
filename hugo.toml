@@ -30,11 +30,6 @@ ignoreErrors = ["additional-script-loading-error"]
         url = "/publications/"
         weight = 20
     [[menu.main]]
-        pageRef = "blog"
-        name = "Blog"
-        url = "/blog/"
-        weight = 30
-    [[menu.main]]
         pageRef = "about"
         name = "About"
         url = "/about/"
