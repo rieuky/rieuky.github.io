@@ -15,7 +15,7 @@ title:
 - Mechanics
 
 ### Academic Background
-- Doctoral Program (*Sep. 2023 - current*)  
+- Doctoral program (*Sep. 2023 - current*)  
   Graduate School of Integrated Design Engineering, Keio Univerisity  
   (Advisor: Dr. Genya Ishigami)
 - M.S. in Engineering (*Sep. 2021 - Sep. 2023*)  
