@@ -40,6 +40,10 @@ name = "github"
 url = "https://github.com/rieuky"
 
 [[params.socialIcons]]
+name = "googlescholar"
+url = "https://scholar.google.co.jp/citations?user=Az5KGOYAAAAJ&hl=en"
+
+[[params.socialIcons]]
 name = "linkedin"
 url = "https://www.linkedin.com/in/ryuki-shimada-60790a16a/"
 
