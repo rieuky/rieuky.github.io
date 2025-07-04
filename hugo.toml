@@ -16,7 +16,7 @@ ignoreErrors = ["additional-script-loading-error"]
     avatar = "profile.png"
     intro = "Ryuki Shimada"
     name = "Ryuki Shimada"
-    description = "Make it work, make it right, make it fast."
+    description = "Make it work, make it right, make it fast"
 
 [menu]
     [[menu.main]]
