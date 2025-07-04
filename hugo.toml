@@ -16,7 +16,7 @@ ignoreErrors = ["additional-script-loading-error"]
     avatar = "profile.png"
     intro = "Ryuki Shimada"
     name = "Ryuki Shimada"
-    description = "Hi, I'm a Ph.D. student passionate about creating robotic tech that makes a real change in disaster response. Exited to share my research with you!"
+    description = "Make it work, make it right, make it fast."
 
 [menu]
     [[menu.main]]
