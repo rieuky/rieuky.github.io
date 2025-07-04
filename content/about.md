@@ -8,7 +8,7 @@ title:
 ### Bio
 - I'm a Ph.D. student at [Ishigami Lab.](http://www.srg.mech.keio.ac.jp/en/), Keio University, Japan.
 - I speak 3 languages: *Japanese, English, and French*.
-- I have 2 Master's degrees: *M.S. in Engineering* and *Diplôme ď'Ingénieur* (Engineer's degree in France).
+- I have 2 Master's degrees: *M.S. in Engineering* and *Diplôme d'Ingénieur* (Engineer's degree in France).
 
 ### Research Interests
 - Tethered mobile robot system
