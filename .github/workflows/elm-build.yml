@@ -1,0 +1,51 @@
+name: Build Elm
+
+on:
+  push:
+    paths:
+      - 'src/**'
+      - 'elm.json'
+      - '.github/workflows/elm-build.yml'
+  pull_request:
+    paths:
+      - 'src/**'
+      - 'elm.json'
+
+permissions:
+  contents: write
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+
+      - name: Cache Elm home
+        uses: actions/cache@v4
+        with:
+          path: ~/.elm
+          key: ${{ runner.os }}-elm-${{ hashFiles('elm.json') }}
+
+      - name: Install Elm compiler
+        run: npm install -g elm@0.19.1-5
+
+      - name: Build Elm -> main.js
+        run: elm make src/Main.elm --optimize --output=main.js
+
+      - name: Auto-commit built artifacts (push events only)
+        if: github.event_name == 'push'
+        uses: stefanzweifel/git-auto-commit-action@v5
+        with:
+          commit_message: "chore(ci): rebuild Elm on push"
+          branch: ${{ github.ref_name }}
+          file_pattern: |
+            main.js
+
