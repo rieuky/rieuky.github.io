@@ -1,0 +1,134 @@
+/* Import Google Fonts */
+@import url('https://fonts.googleapis.com/css2?family=Lato:wght@400;700&display=swap');
+
+/* Basic styling */
+a {
+  color: #1772d0;
+  text-decoration: none;
+}
+
+a:focus,
+a:hover {
+  color: #f09228;
+  text-decoration: none;
+}
+
+body,
+td,
+th,
+tr,
+p,
+a {
+  font-family: 'Lato', Verdana, Helvetica, sans-serif;
+  font-size: 14px;
+}
+
+strong {
+  font-family: 'Lato', Verdana, Helvetica, sans-serif;
+  font-size: 14px;
+}
+
+h2 {
+  margin: 0;
+  font-weight: normal;
+  font-family: 'Lato', Verdana, Helvetica, sans-serif;
+  font-size: 22px;
+}
+
+.papertitle {
+  font-family: 'Lato', Verdana, Helvetica, sans-serif;
+  font-size: 14px;
+  font-weight: 700;
+}
+
+.name {
+  padding-top: 20px;
+  margin: 0;
+  font-family: 'Lato', Verdana, Helvetica, sans-serif;
+  font-size: 32px;
+  text-align: center;
+}
+
+span.highlight {
+  background-color: #ffffd0;
+}
+
+/* Container and layout */
+.container {
+  width: 100%;
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 0;
+}
+
+.header-section {
+  display: flex;
+  align-items: center;
+  margin-bottom: 20px;
+}
+
+.text-content {
+  flex: 1;
+  padding-right: 20px;
+}
+
+.profile-image {
+  flex: 0 0 200px;
+  text-align: center;
+}
+
+.profile-photo {
+  width: 100%;
+  max-width: 200px;
+  border-radius: 50%;
+  object-fit: cover;
+}
+
+.links {
+  text-align: center;
+  margin-top: 10px;
+}
+
+.research-section {
+  margin: 20px 0;
+}
+
+.publications-section {
+  margin: 20px 0;
+}
+
+.paper {
+  display: flex;
+  margin: 20px 0;
+  align-items: flex-start;
+}
+
+.paper img {
+  margin-right: 20px;
+  flex-shrink: 0;
+}
+
+.paper-info {
+  flex: 1;
+}
+
+.footer-note {
+  color: #888888;
+  font-size: 12px;
+  text-align: center;
+  margin: 24px 0 40px;
+}
+
+.paper-image-container {
+  position: relative;
+  cursor: pointer;
+}
+
+.paper-image {
+  transition: opacity 0.3s ease;
+  border-radius: 4px;
+}
+
+.paper-image-container:hover .paper-image {
+  opacity: 0.9;
+}

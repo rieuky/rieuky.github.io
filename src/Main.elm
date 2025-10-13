@@ -1,0 +1,232 @@
+module Main exposing (main)
+
+import Browser
+import Html exposing (..)
+import Html.Attributes exposing (..)
+import Html.Events exposing (..)
+import Json.Decode as Decode
+import Set exposing (Set)
+
+
+main : Program () Model Msg
+main =
+    Browser.sandbox
+        { init = init
+        , update = update
+        , view = view
+        }
+
+
+type alias Model =
+    { hoveredPaper : Maybe String
+    , noGif : Set String
+    }
+
+
+type Msg
+    = MouseEnter String
+    | MouseLeave
+    | GifLoadFailed String
+
+
+init : Model
+init =
+    { hoveredPaper = Nothing
+    , noGif = Set.empty
+    }
+
+
+
+-- Generate image path from paper ID and extension
+
+
+getImagePath : String -> String -> String
+getImagePath paperId extension =
+    "images/" ++ paperId ++ extension
+
+
+update : Msg -> Model -> Model
+update msg model =
+    case msg of
+        MouseEnter paperId ->
+            { model | hoveredPaper = Just paperId }
+
+        MouseLeave ->
+            { model | hoveredPaper = Nothing }
+
+        GifLoadFailed paperId ->
+            { model | noGif = Set.insert paperId model.noGif }
+
+
+view : Model -> Html Msg
+view model =
+    div [ class "container" ]
+        [ headerSection
+        , publicationsSection model
+        , fellowshipsSection
+        , footerNote
+        ]
+
+
+headerSection : Html Msg
+headerSection =
+    div [ class "header-section" ]
+        [ div [ class "text-content" ]
+            [ h1 [ class "name" ] [ text "Ryuki Shimada" ]
+            , p []
+                [ text "I'm a Ph.D. student at "
+                , a [ href "https://www.st.keio.ac.jp/en/" ] [ text "Keio University" ]
+                , text " in Greater Tokyo Area, advised by Prof. "
+                , a [ href "https://www.st.keio.ac.jp/en/tprofile/mech/ishigami.html" ] [ text "Genya Ishigami" ]
+                , text ". I am working on perception and planning in disaster-response robots. "
+                , text "I received two Master's degrees: "
+                , em [] [ text "M.S. in Engineering" ]
+                , text " from Keio University and "
+                , em [] [ text "Diplôme d'Ingénieur" ]
+                , text " (Engineer's degree in France) from "
+                , a [ href "https://www.ec-nantes.fr/engineering-programme-diplome-dingenieur/course-specialisations-yrs-23/robotics?l=1" ] [ text "Ecole Centrale de Nantes" ]
+                , text ". I speak three languages: Japanese, English, and French, so feel free to address me in your preferred language."
+                ]
+            , div [ class "links" ]
+                [ a [ href "https://github.com/rieuky" ] [ text "Github" ]
+                , text " / "
+                , a [ href "https://scholar.google.com/citations?user=Az5KGOYAAAAJ&hl=en" ] [ text "Google Scholar" ]
+                , text " / "
+                , a [ href "https://www.linkedin.com/in/ryuki-shimada-60790a16a/" ] [ text "LinkedIn" ]
+                , text " / "
+                , a [ href "mailto:ryukishimada218@keio.jp" ] [ text "Email" ]
+                ]
+            ]
+        , div [ class "profile-image" ]
+            [ img [ src "images/profile.jpg", alt "profile photo", class "profile-photo" ] [] ]
+        ]
+
+
+publicationsSection : Model -> Html Msg
+publicationsSection model =
+    div [ class "publications-section" ]
+        [ h2 [] [ text "Publications" ]
+        , div [ class "paper" ]
+            [ viewPaperImage model "frobt_2023"
+            , div [ class "paper-info" ]
+                [ a [ href "https://www.frontiersin.org/journals/robotics-and-ai/articles/10.3389/frobt.2024.1388634/full" ] [ span [ class "papertitle" ] [ text "Tangle- and Contact-free Path Planning for a Tethered Mobile Robot" ] ]
+                , br [] []
+                , strong [] [ text "Ryuki Shimada" ]
+                , text " and Genya Ishigami"
+                , br [] []
+                , em [] [ text "Frontiers in Robotics and AI" ]
+                , text ", 2023"
+                , br [] []
+                , a [ href "https://www.frontiersin.org/journals/robotics-and-ai/articles/10.3389/frobt.2024.1388634/full" ] [ text "Paper" ]
+                , p [] [ text "A learning-based homotopy-aware path planning method for a tethered mobile robot to avoid cable-obstacles and cable-robot contacts while navigating to goals." ]
+                ]
+            ]
+        , div [ class "paper" ]
+            [ viewPaperImage model "ists_2023"
+            , div [ class "paper-info" ]
+                [ a [ href "https://archive.ists.ne.jp/upload_pdf/2023-k-2-02.pdf" ] [ span [ class "papertitle" ] [ text "Path Planning with Cable-obstacles Avoidance for a Tethered Mobile Robot in Unstructured Environments" ] ]
+                , br [] []
+                , strong [] [ text "Ryuki Shimada" ]
+                , text " and Genya Ishigami"
+                , br [] []
+                , em [] [ text "ISTS" ]
+                , text ", 2023"
+                , span [ style "color" "red" ] [ text " (Oral Presentation)" ]
+                , br [] []
+                , a [ href "https://archive.ists.ne.jp/upload_pdf/2023-k-2-02.pdf" ] [ text "Paper" ]
+                , p [] [ text "A path refinement method for a tethered mobile robot to avoid cable-obstacle contact by considering path curvature and distance from cable base." ]
+                ]
+            ]
+        ]
+
+
+
+-- Subscribe to error event on <img>
+
+
+onError : msg -> Attribute msg
+onError msg =
+    on "error" (Decode.succeed msg)
+
+
+viewPaperImage : Model -> String -> Html Msg
+viewPaperImage model paperId =
+    let
+        isHovered =
+            model.hoveredPaper == Just paperId
+
+        gifSupported =
+            not (Set.member paperId model.noGif)
+
+        imgSrc =
+            if isHovered && gifSupported then
+                getImagePath paperId ".gif"
+
+            else
+                getImagePath paperId ".jpg"
+    in
+    div
+        [ class "paper-image-container"
+        , onMouseEnter (MouseEnter paperId)
+        , onMouseLeave MouseLeave
+        ]
+        [ img
+            ([ src imgSrc
+             , alt
+                (if isHovered then
+                    paperId ++ " Animation"
+
+                 else
+                    paperId
+                )
+             , width 160
+             , class "paper-image"
+             ]
+                ++ (if isHovered && gifSupported then
+                        [ onError (GifLoadFailed paperId) ]
+
+                    else
+                        []
+                   )
+            )
+            []
+        ]
+
+
+
+-- Simple list of fellowships and scholarships
+
+
+fellowshipsSection : Html Msg
+fellowshipsSection =
+    div [ class "research-section" ]
+        [ h2 [] [ text "Fellowships and Scholarships" ]
+        , ul []
+            [ li []
+                [ strong [] [ a [ href "https://www.jst.go.jp/jisedai/spring/en/index.html" ] [ text "JST Support for Pioneering Research Initiated by the Next Generation (SPRING)" ] ]
+                , text ", "
+                , strong [] [ text "JPY 188K/month" ]
+                , text ", Apr. 2025 – Mar. 2026"
+                ]
+            , li []
+                [ strong [] [ a [ href "https://jp.ambafrance.org/Bourses-France-Excellence-fr" ] [ text "French Government Scholarship (France Excellence Japon)" ] ]
+                , text ", "
+                , strong [] [ text "EUR 700/month" ]
+                , text ", Sep. 2019 – Sep. 2021"
+                ]
+            ]
+        ]
+
+
+
+-- Footer attribution
+
+
+footerNote : Html Msg
+footerNote =
+    div [ class "footer-note" ]
+        [ text "Written in "
+        , a [ href "https://elm-lang.org" ] [ text "Elm · " ]
+        , text "CSS: "
+        , a [ href "https://github.com/jonbarron/jonbarron.github.io?tab=readme-ov-file" ] [ text "jonbarron/jonbarron.github.io" ]
+        ]
