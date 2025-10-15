@@ -88,7 +88,7 @@ headerSection =
                 , text ". I speak three languages: Japanese, English, and French, so feel free to address me in your preferred language."
                 ]
             , div [ class "links" ]
-                [ a [ href "https://github.com/rieuky" ] [ text "Github" ]
+                [ a [ href "https://github.com/rieuky" ] [ text "GitHub" ]
                 , text " / "
                 , a [ href "https://scholar.google.com/citations?user=Az5KGOYAAAAJ&hl=en" ] [ text "Google Scholar" ]
                 , text " / "
