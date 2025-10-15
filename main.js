@@ -5549,7 +5549,7 @@ var $author$project$Main$headerSection = A2(
 								]),
 							_List_fromArray(
 								[
-									$elm$html$Html$text('Github')
+									$elm$html$Html$text('GitHub')
 								])),
 							$elm$html$Html$text(' / '),
 							A2(
