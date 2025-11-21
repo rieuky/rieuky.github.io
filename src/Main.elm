@@ -98,7 +98,7 @@ headerSection =
                 ]
             ]
         , div [ class "profile-image" ]
-            [ img [ src "images/profile_20251121.webp", alt "profile photo", class "profile-photo" ] [] ]
+            [ img [ src "images/profile_20251121.png", alt "profile photo", class "profile-photo" ] [] ]
         ]
 
 
