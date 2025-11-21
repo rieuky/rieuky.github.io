@@ -5598,7 +5598,7 @@ var $author$project$Main$headerSection = A2(
 					$elm$html$Html$img,
 					_List_fromArray(
 						[
-							$elm$html$Html$Attributes$src('images/profile.jpg'),
+							$elm$html$Html$Attributes$src('images/profile_20251121.webp'),
 							$elm$html$Html$Attributes$alt('profile photo'),
 							$elm$html$Html$Attributes$class('profile-photo')
 						]),
