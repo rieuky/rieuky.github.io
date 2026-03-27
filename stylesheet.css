@@ -206,3 +206,49 @@ span.highlight {
 .paper-image-container:hover .paper-image {
   opacity: 0.9;
 }
+
+/* Mobile responsive (≤600px) */
+@media (max-width: 600px) {
+  .container {
+    padding: 0 16px;
+    box-sizing: border-box;
+  }
+
+  .header-section {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .profile-image {
+    order: -1;
+    flex: none;
+    width: 120px;
+    margin-bottom: 8px;
+  }
+
+  .profile-photo {
+    max-width: 120px;
+  }
+
+  .text-content {
+    padding-right: 0;
+    width: 100%;
+  }
+
+  .paper {
+    flex-direction: column;
+  }
+
+  .paper img {
+    margin-right: 0;
+    margin-bottom: 12px;
+  }
+
+  .paper-image {
+    width: 100%;
+  }
+
+  .paper-image-container {
+    width: 100%;
+  }
+}
