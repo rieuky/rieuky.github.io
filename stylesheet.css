@@ -1,15 +1,48 @@
 /* Import Google Fonts */
 @import url('https://fonts.googleapis.com/css2?family=Lato:wght@400;700&display=swap');
 
+/* --- Theme variables & Container layout --- */
+.container {
+  /* Light theme (default) */
+  --color-bg: #ffffff;
+  --color-text: #000000;
+  --color-text-muted: #888888;
+  --color-link: #1772d0;
+  --color-link-hover: #f09228;
+  --color-oral-presentation: red;
+
+  /* Layout */
+  width: 100%;
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 0;
+
+  /* Apply theme */
+  background-color: var(--color-bg);
+  color: var(--color-text);
+
+  /* Cover viewport gutters with background color (no ports needed) */
+  box-shadow: 0 0 0 100vmax var(--color-bg);
+}
+
+.container.dark {
+  --color-bg: #0d1117;
+  --color-text: #e6edf3;
+  --color-text-muted: #8b949e;
+  --color-link: #58a6ff;
+  --color-link-hover: #79c0ff;
+  --color-oral-presentation: #ff7b72;
+}
+
 /* Basic styling */
 a {
-  color: #1772d0;
+  color: var(--color-link);
   text-decoration: none;
 }
 
 a:focus,
 a:hover {
-  color: #f09228;
+  color: var(--color-link-hover);
   text-decoration: none;
 }
 
@@ -53,17 +86,58 @@ span.highlight {
   background-color: #ffffd0;
 }
 
-/* Container and layout */
-.container {
-  width: 100%;
-  max-width: 800px;
-  margin: 0 auto;
-  padding: 0;
+.oral-presentation {
+  color: var(--color-oral-presentation);
 }
 
-.header-section {
+/* Toggle bar */
+.toggle-bar {
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  gap: 12px;
+  padding: 8px 0;
+}
+
+.lang-toggle {
   display: flex;
   align-items: center;
+  font-size: 13px;
+}
+
+.lang-option,
+.theme-option {
+  cursor: pointer;
+  padding: 0 2px;
+  color: var(--color-text-muted);
+  user-select: none;
+}
+
+.lang-option:hover,
+.theme-option:hover {
+  color: var(--color-link-hover);
+}
+
+.lang-option.active,
+.theme-option.active {
+  color: var(--color-link);
+}
+
+.lang-separator,
+.theme-separator {
+  color: var(--color-text-muted);
+}
+
+.theme-toggle {
+  display: flex;
+  align-items: center;
+  font-size: 16px;
+}
+
+/* Layout */
+.header-section {
+  display: flex;
+  align-items: flex-start;
   margin-bottom: 20px;
 }
 
@@ -113,7 +187,7 @@ span.highlight {
 }
 
 .footer-note {
-  color: #888888;
+  color: var(--color-text-muted);
   font-size: 12px;
   text-align: center;
   margin: 24px 0 40px;
