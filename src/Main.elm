@@ -71,6 +71,8 @@ type alias StringContent =
     , fellowship1Period : String
     , fellowship2Name : String
     , fellowship2Period : String
+    , fellowship3Name : String
+    , fellowship3Period : String
     , footerWrittenIn : String
     , footerCssCredit : String
     }
@@ -89,6 +91,8 @@ getStrings lang =
             , fellowship1Period = ", Apr. 2025 – Mar. 2026"
             , fellowship2Name = "French Government Scholarship (France Excellence Japon)"
             , fellowship2Period = ", Sep. 2019 – Sep. 2021"
+            , fellowship3Name = "JSPS Research Fellow for Young Scientists (DC2)"
+            , fellowship3Period = ", Apr. 2026 – Mar. 2028"
             , footerWrittenIn = "Written in "
             , footerCssCredit = "CSS: "
             }
@@ -103,6 +107,8 @@ getStrings lang =
             , fellowship1Period = "、2025年4月 – 2026年3月"
             , fellowship2Name = "フランス政府奨学金（フランス・エクセレンス・ジャポン）"
             , fellowship2Period = "、2019年9月 – 2021年9月"
+            , fellowship3Name = "日本学術振興会特別研究員（DC2）"
+            , fellowship3Period = "、2026年4月 – 2028年3月"
             , footerWrittenIn = "作成言語: "
             , footerCssCredit = "CSS参考: "
             }
@@ -333,9 +339,15 @@ fellowshipsSection lang =
         [ h2 [] [ text s.fellowshipsHeading ]
         , ul []
             [ li []
+                [ strong [] [ a [ href "https://www.jsps.go.jp/english/e-pd/" ] [ text s.fellowship3Name ] ]
+                , text ", "
+                , strong [] [ text "JPY 227K/month" ]
+                , text s.fellowship3Period
+                ]
+            , li []
                 [ strong [] [ a [ href "https://www.jst.go.jp/jisedai/spring/en/index.html" ] [ text s.fellowship1Name ] ]
                 , text ", "
-                , strong [] [ text "JPY 188K/month" ]
+                , strong [] [ text "JPY 183K/month" ]
                 , text s.fellowship1Period
                 ]
             , li []
