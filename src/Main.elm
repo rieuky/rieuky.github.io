@@ -5,6 +5,7 @@ import Html exposing (..)
 import Html.Attributes exposing (..)
 import Html.Events exposing (..)
 import Json.Decode as Decode
+import Markdown
 import Set exposing (Set)
 
 
@@ -505,7 +506,7 @@ type alias Note =
     { id : String
     , title : String
     , date : String
-    , body : List (Html Msg)
+    , content : String
     }
 
 
@@ -514,9 +515,11 @@ allNotes =
     [ { id = "20250401_phd"
       , title = "博士課程について"
       , date = "2025-04-01"
-      , body =
-            [ p [] [ text "（ここにエッセイを書く）" ]
-            ]
+      , content = """
+（ここにエッセイを書く）
+
+![説明文](images/notes/example.jpg)
+"""
       }
     ]
 
@@ -547,7 +550,7 @@ noteDetailView noteId =
             div [ class "note-detail" ]
                 [ h2 [] [ text note.title ]
                 , p [ class "note-date" ] [ text note.date ]
-                , div [ class "note-body" ] note.body
+                , Markdown.toHtml [ class "note-body" ] note.content
                 , div [ class "notes-nav" ]
                     [ a [ onClickPage NotesList, href "#" ] [ text "← 一覧へ" ] ]
                 ]
