@@ -65,6 +65,7 @@ getImagePath paperId extension =
 type alias StringContent =
     { publicationsHeading : String
     , fellowshipsHeading : String
+    , scholarshipsHeading : String
     , paper1Description : String
     , paper2Description : String
     , oralPresentation : String
@@ -78,6 +79,14 @@ type alias StringContent =
     , fellowship2Amount : String
     , fellowship3Amount : String
     , fellowshipSep : String
+    , ayPrefix : String
+    , aySuffix : String
+    , keioResearchScholarshipName : String
+    , keioResearchScholarshipAmount : String
+    , keioIntlHRScholarshipName : String
+    , keioIntlHRScholarshipAmount : String
+    , keio150thScholarshipName : String
+    , keio150thScholarshipAmount : String
     , footerWrittenIn : String
     , footerCssCredit : String
     }
@@ -88,7 +97,8 @@ getStrings lang =
     case lang of
         English ->
             { publicationsHeading = "Publications"
-            , fellowshipsHeading = "Fellowships and Scholarships"
+            , fellowshipsHeading = "Fellowships"
+            , scholarshipsHeading = "Scholarships"
             , paper1Description = "A learning-based homotopy-aware path planning method for a tethered mobile robot to avoid cable-obstacles and cable-robot contacts while navigating to goals."
             , paper2Description = "A path refinement method for a tethered mobile robot to avoid cable-obstacle contact by considering path curvature and distance from cable base."
             , oralPresentation = " (Oral Presentation)"
@@ -102,13 +112,22 @@ getStrings lang =
             , fellowship2Amount = "EUR 700/month"
             , fellowship3Amount = "JPY 227K/month"
             , fellowshipSep = ", "
+            , ayPrefix = "AY "
+            , aySuffix = ""
+            , keioResearchScholarshipName = "Research Encouragement Scholarship for Graduate Students (Keio University)"
+            , keioResearchScholarshipAmount = "JPY 300K"
+            , keioIntlHRScholarshipName = "Keio University International Human Resource Development Fund (Study Abroad Encouragement)"
+            , keioIntlHRScholarshipAmount = "JPY 400K"
+            , keio150thScholarshipName = "Keio University 150th Anniversary Commemorative Scholarship for Study Abroad"
+            , keio150thScholarshipAmount = "JPY 200K"
             , footerWrittenIn = "Written in "
             , footerCssCredit = "CSS: "
             }
 
         French ->
             { publicationsHeading = "Publications"
-            , fellowshipsHeading = "Bourses et financements"
+            , fellowshipsHeading = "Fellowships"
+            , scholarshipsHeading = "Bourses"
             , paper1Description = "A learning-based homotopy-aware path planning method for a tethered mobile robot to avoid cable-obstacles and cable-robot contacts while navigating to goals."
             , paper2Description = "A path refinement method for a tethered mobile robot to avoid cable-obstacle contact by considering path curvature and distance from cable base."
             , oralPresentation = " (Présentation orale)"
@@ -122,13 +141,22 @@ getStrings lang =
             , fellowship2Amount = "EUR 700/month"
             , fellowship3Amount = "JPY 227K/month"
             , fellowshipSep = ", "
+            , ayPrefix = "AY "
+            , aySuffix = ""
+            , keioResearchScholarshipName = "Bourse d'encouragement à la recherche pour étudiants de master et de doctorat (Université Keio)"
+            , keioResearchScholarshipAmount = "JPY 300K"
+            , keioIntlHRScholarshipName = "Fonds de développement des ressources humaines internationales de l'Université Keio (encouragement aux études à l'étranger)"
+            , keioIntlHRScholarshipAmount = "JPY 400K"
+            , keio150thScholarshipName = "Bourse commémorative du 150e anniversaire de l'Université Keio pour les études à l'étranger"
+            , keio150thScholarshipAmount = "JPY 200K"
             , footerWrittenIn = "Écrit en "
             , footerCssCredit = "CSS : "
             }
 
         Japanese ->
             { publicationsHeading = "論文"
-            , fellowshipsHeading = "奨学金・フェローシップ"
+            , fellowshipsHeading = "フェローシップ"
+            , scholarshipsHeading = "奨学金"
             , paper1Description = "A learning-based homotopy-aware path planning method for a tethered mobile robot to avoid cable-obstacles and cable-robot contacts while navigating to goals."
             , paper2Description = "A path refinement method for a tethered mobile robot to avoid cable-obstacle contact by considering path curvature and distance from cable base."
             , oralPresentation = "（口頭発表）"
@@ -142,6 +170,14 @@ getStrings lang =
             , fellowship2Amount = "月700ユーロ"
             , fellowship3Amount = "月22.7万円"
             , fellowshipSep = "，"
+            , ayPrefix = ""
+            , aySuffix = "年度"
+            , keioResearchScholarshipName = "慶應義塾大学大学院，研究のすゝめ奨学金"
+            , keioResearchScholarshipAmount = "30万円"
+            , keioIntlHRScholarshipName = "慶應義塾大学，国際人材育成資金・基金（海外留学奨励金）"
+            , keioIntlHRScholarshipAmount = "40万円"
+            , keio150thScholarshipName = "慶應義塾大学，慶應義塾創立150年記念奨学金（海外学習支援）"
+            , keio150thScholarshipAmount = "20万円"
             , footerWrittenIn = "Written in: "
             , footerCssCredit = "CSS: "
             }
@@ -178,6 +214,7 @@ view model =
         , headerSection model.language
         , publicationsSection model
         , fellowshipsSection model.language
+        , scholarshipsSection model.language
         , footerNote model.language
         ]
 
@@ -398,7 +435,7 @@ viewPaperImage model paperId =
 
 
 
--- Simple list of fellowships and scholarships
+-- Fellowships (JSPS DC2, JST SPRING)
 
 
 fellowshipsSection : Language -> Html Msg
@@ -409,27 +446,86 @@ fellowshipsSection lang =
     in
     div [ class "research-section" ]
         [ h2 [] [ text s.fellowshipsHeading ]
-        , ul []
+        , ol []
             [ li []
-                [ strong [] [ a [ href "https://www.jsps.go.jp/english/e-pd/" ] [ text s.fellowship3Name ] ]
+                [ a [ href "https://www.jsps.go.jp/english/e-pd/" ] [ text s.fellowship3Name ]
                 , text s.fellowshipSep
                 , strong [] [ text s.fellowship3Amount ]
                 , text s.fellowshipSep
                 , text s.fellowship3Period
                 ]
             , li []
-                [ strong [] [ a [ href "https://www.jst.go.jp/jisedai/spring/en/index.html" ] [ text s.fellowship1Name ] ]
+                [ a [ href "https://www.jst.go.jp/jisedai/spring/en/index.html" ] [ text s.fellowship1Name ]
                 , text s.fellowshipSep
                 , strong [] [ text s.fellowship1Amount ]
                 , text s.fellowshipSep
                 , text s.fellowship1Period
                 ]
+            ]
+        ]
+
+
+
+-- Scholarships (French Gov + Keio)
+
+
+scholarshipsSection : Language -> Html Msg
+scholarshipsSection lang =
+    let
+        s =
+            getStrings lang
+    in
+    div [ class "research-section" ]
+        [ h2 [] [ text s.scholarshipsHeading ]
+        , ol []
+            [ li []
+                [ text s.keioResearchScholarshipName
+                , text s.fellowshipSep
+                , strong [] [ text s.keioResearchScholarshipAmount ]
+                , text s.fellowshipSep
+                , text (s.ayPrefix ++ "2025" ++ s.aySuffix)
+                ]
             , li []
-                [ strong [] [ a [ href "https://jp.ambafrance.org/Bourses-France-Excellence-fr" ] [ text s.fellowship2Name ] ]
+                [ text s.keioResearchScholarshipName
+                , text s.fellowshipSep
+                , strong [] [ text s.keioResearchScholarshipAmount ]
+                , text s.fellowshipSep
+                , text (s.ayPrefix ++ "2024" ++ s.aySuffix)
+                ]
+            , li []
+                [ text s.keioIntlHRScholarshipName
+                , text s.fellowshipSep
+                , strong [] [ text s.keioIntlHRScholarshipAmount ]
+                , text s.fellowshipSep
+                , text (s.ayPrefix ++ "2020" ++ s.aySuffix)
+                ]
+            , li []
+                [ text s.keioIntlHRScholarshipName
+                , text s.fellowshipSep
+                , strong [] [ text s.keioIntlHRScholarshipAmount ]
+                , text s.fellowshipSep
+                , text (s.ayPrefix ++ "2019" ++ s.aySuffix)
+                ]
+            , li []
+                [ a [ href "https://jp.ambafrance.org/Bourses-France-Excellence-fr" ] [ text s.fellowship2Name ]
                 , text s.fellowshipSep
                 , strong [] [ text s.fellowship2Amount ]
                 , text s.fellowshipSep
                 , text s.fellowship2Period
+                ]
+            , li []
+                [ text s.keio150thScholarshipName
+                , text s.fellowshipSep
+                , strong [] [ text s.keio150thScholarshipAmount ]
+                , text s.fellowshipSep
+                , text (s.ayPrefix ++ "2019" ++ s.aySuffix)
+                ]
+            , li []
+                [ text s.keio150thScholarshipName
+                , text s.fellowshipSep
+                , strong [] [ text s.keio150thScholarshipAmount ]
+                , text s.fellowshipSep
+                , text (s.ayPrefix ++ "2018" ++ s.aySuffix)
                 ]
             ]
         ]
