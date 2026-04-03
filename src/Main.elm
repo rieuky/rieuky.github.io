@@ -1,20 +1,25 @@
 module Main exposing (main)
 
 import Browser
+import Browser.Navigation as Nav
 import Html exposing (..)
 import Html.Attributes exposing (..)
 import Html.Events exposing (..)
 import Json.Decode as Decode
 import Markdown
 import Set exposing (Set)
+import Url exposing (Url)
 
 
 main : Program () Model Msg
 main =
-    Browser.sandbox
+    Browser.application
         { init = init
         , update = update
-        , view = view
+        , view = \model -> { title = "Ryuki Shimada", body = [ view model ] }
+        , subscriptions = \_ -> Sub.none
+        , onUrlChange = UrlChanged
+        , onUrlRequest = LinkClicked
         }
 
 
@@ -40,6 +45,7 @@ type alias Model =
     , language : Language
     , theme : Theme
     , page : Page
+    , key : Nav.Key
     }
 
 
@@ -49,26 +55,31 @@ type Msg
     | GifLoadFailed String
     | SetLanguage Language
     | SetTheme Theme
-    | SetPage Page
+    | LinkClicked Browser.UrlRequest
+    | UrlChanged Url
 
 
-init : Model
-init =
-    { hoveredPaper = Nothing
-    , noGif = Set.empty
-    , language = English
-    , theme = Dark
-    , page = Main
-    }
+pageFromUrl : Url -> Page
+pageFromUrl url =
+    case url.fragment of
+        Just "notes" ->
+            NotesList
+
+        _ ->
+            Main
 
 
-
--- Prevent default on anchor clicks used for internal navigation
-
-
-onClickPage : Page -> Attribute Msg
-onClickPage p =
-    preventDefaultOn "click" (Decode.succeed ( SetPage p, True ))
+init : () -> Url -> Nav.Key -> ( Model, Cmd Msg )
+init _ url key =
+    ( { hoveredPaper = Nothing
+      , noGif = Set.empty
+      , language = English
+      , theme = Dark
+      , page = pageFromUrl url
+      , key = key
+      }
+    , Cmd.none
+    )
 
 
 
@@ -165,26 +176,32 @@ getStrings lang =
             }
 
 
-update : Msg -> Model -> Model
+update : Msg -> Model -> ( Model, Cmd Msg )
 update msg model =
     case msg of
         MouseEnter paperId ->
-            { model | hoveredPaper = Just paperId }
+            ( { model | hoveredPaper = Just paperId }, Cmd.none )
 
         MouseLeave ->
-            { model | hoveredPaper = Nothing }
+            ( { model | hoveredPaper = Nothing }, Cmd.none )
 
         GifLoadFailed paperId ->
-            { model | noGif = Set.insert paperId model.noGif }
+            ( { model | noGif = Set.insert paperId model.noGif }, Cmd.none )
 
         SetLanguage lang ->
-            { model | language = lang }
+            ( { model | language = lang }, Cmd.none )
 
         SetTheme theme ->
-            { model | theme = theme }
+            ( { model | theme = theme }, Cmd.none )
 
-        SetPage p ->
-            { model | page = p }
+        LinkClicked (Browser.Internal url) ->
+            ( model, Nav.pushUrl model.key (Url.toString url) )
+
+        LinkClicked (Browser.External href) ->
+            ( model, Nav.load href )
+
+        UrlChanged url ->
+            ( { model | page = pageFromUrl url }, Cmd.none )
 
 
 view : Model -> Html Msg
@@ -274,7 +291,7 @@ headerSection model =
                  ]
                     ++ (if lang == Japanese then
                             [ text " / "
-                            , a [ onClickPage NotesList, href "#" ] [ text "雑記" ]
+                            , a [ href "#notes" ] [ text "雑記" ]
                             ]
 
                         else
@@ -499,8 +516,7 @@ footerNote lang =
 
 
 type alias Note =
-    { id : String
-    , title : String
+    { title : String
     , date : String
     , content : String
     }
@@ -508,22 +524,29 @@ type alias Note =
 
 allNotes : List Note
 allNotes =
-    [ { id = "20250401_phd"
-      , title = "博士課程について"
+    [ { title = "フランス留学の思い出①"
       , date = "2025-04-01"
       , content = """
 ![説明文](images/notes/example.jpg)
+
+（ここにエッセイを書く）
+"""
+      }
+    , { title = "フランス留学の思い出②"
+      , date = "2025-04-01"
+      , content = """
+![説明文](images/notes/example.jpg)
+
 （ここにエッセイを書く）
 """
       }
     ]
 
-
 notesListView : Html Msg
 notesListView =
     div [ class "notes-section" ]
         ([ div [ class "notes-nav" ]
-            [ a [ onClickPage Main, href "#" ] [ text "← ホームへ" ] ]
+            [ a [ href "/" ] [ text "← ホームへ" ] ]
          ]
             ++ List.map noteView allNotes
         )
