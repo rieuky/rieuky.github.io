@@ -86,6 +86,10 @@ span.highlight {
   background-color: #ffffd0;
 }
 
+em {
+  margin-right: 0.1em;
+}
+
 .oral-presentation {
   color: var(--color-oral-presentation);
 }

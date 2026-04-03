@@ -19,6 +19,7 @@ main =
 
 type Language
     = English
+    | French
     | Japanese
 
 
@@ -73,6 +74,10 @@ type alias StringContent =
     , fellowship2Period : String
     , fellowship3Name : String
     , fellowship3Period : String
+    , fellowship1Amount : String
+    , fellowship2Amount : String
+    , fellowship3Amount : String
+    , fellowshipSep : String
     , footerWrittenIn : String
     , footerCssCredit : String
     }
@@ -88,29 +93,57 @@ getStrings lang =
             , paper2Description = "A path refinement method for a tethered mobile robot to avoid cable-obstacle contact by considering path curvature and distance from cable base."
             , oralPresentation = " (Oral Presentation)"
             , fellowship1Name = "JST Support for Pioneering Research Initiated by the Next Generation (SPRING)"
-            , fellowship1Period = ", Apr. 2025 – Mar. 2026"
+            , fellowship1Period = "Apr. 2025 – Mar. 2026"
             , fellowship2Name = "French Government Scholarship (France Excellence Japon)"
-            , fellowship2Period = ", Sep. 2019 – Sep. 2021"
+            , fellowship2Period = "Sep. 2019 – Sep. 2021"
             , fellowship3Name = "JSPS Research Fellow for Young Scientists (DC2)"
-            , fellowship3Period = ", Apr. 2026 – Mar. 2028"
+            , fellowship3Period = "Apr. 2026 – Mar. 2028"
+            , fellowship1Amount = "JPY 183K/month"
+            , fellowship2Amount = "EUR 700/month"
+            , fellowship3Amount = "JPY 227K/month"
+            , fellowshipSep = ", "
             , footerWrittenIn = "Written in "
             , footerCssCredit = "CSS: "
+            }
+
+        French ->
+            { publicationsHeading = "Publications"
+            , fellowshipsHeading = "Bourses et financements"
+            , paper1Description = "A learning-based homotopy-aware path planning method for a tethered mobile robot to avoid cable-obstacles and cable-robot contacts while navigating to goals."
+            , paper2Description = "A path refinement method for a tethered mobile robot to avoid cable-obstacle contact by considering path curvature and distance from cable base."
+            , oralPresentation = " (Présentation orale)"
+            , fellowship1Name = "Bourse JST pour la recherche pionnière de la prochaine génération (SPRING)"
+            , fellowship1Period = "avr. 2025 – mars 2026"
+            , fellowship2Name = "Bourse du gouvernement français (France Excellence Japon)"
+            , fellowship2Period = "sept. 2019 – sept. 2021"
+            , fellowship3Name = "Chercheur associé JSPS pour jeunes scientifiques (DC2)"
+            , fellowship3Period = "avr. 2026 – mars 2028"
+            , fellowship1Amount = "JPY 183K/month"
+            , fellowship2Amount = "EUR 700/month"
+            , fellowship3Amount = "JPY 227K/month"
+            , fellowshipSep = ", "
+            , footerWrittenIn = "Écrit en "
+            , footerCssCredit = "CSS : "
             }
 
         Japanese ->
             { publicationsHeading = "論文"
             , fellowshipsHeading = "奨学金・フェローシップ"
-            , paper1Description = "テザー付き移動ロボットがゴールへ向かう際に、ケーブルと障害物の接触およびケーブルとロボット本体の接触を回避するための、学習ベースのホモトピー考慮型経路計画手法。"
-            , paper2Description = "経路の曲率とケーブル基点からの距離を考慮することで、テザー付き移動ロボットのケーブルと障害物の接触を回避する経路改良手法。"
+            , paper1Description = "A learning-based homotopy-aware path planning method for a tethered mobile robot to avoid cable-obstacles and cable-robot contacts while navigating to goals."
+            , paper2Description = "A path refinement method for a tethered mobile robot to avoid cable-obstacle contact by considering path curvature and distance from cable base."
             , oralPresentation = "（口頭発表）"
             , fellowship1Name = "JST次世代研究者挑戦的研究プログラム（SPRING）"
-            , fellowship1Period = "、2025年4月 – 2026年3月"
-            , fellowship2Name = "フランス政府奨学金（フランス・エクセレンス・ジャポン）"
-            , fellowship2Period = "、2019年9月 – 2021年9月"
+            , fellowship1Period = "2025年4月 – 2026年3月"
+            , fellowship2Name = "フランス政府奨学金"
+            , fellowship2Period = "2019年9月 – 2021年9月"
             , fellowship3Name = "日本学術振興会特別研究員（DC2）"
-            , fellowship3Period = "、2026年4月 – 2028年3月"
-            , footerWrittenIn = "作成言語: "
-            , footerCssCredit = "CSS参考: "
+            , fellowship3Period = "2026年4月 – 2028年3月"
+            , fellowship1Amount = "月18.3万円"
+            , fellowship2Amount = "月700ユーロ"
+            , fellowship3Amount = "月22.7万円"
+            , fellowshipSep = "，"
+            , footerWrittenIn = "Written in: "
+            , footerCssCredit = "CSS: "
             }
 
 
@@ -152,24 +185,42 @@ view model =
 toggleBar : Model -> Html Msg
 toggleBar model =
     div [ class "toggle-bar" ]
-        [ div [ class "theme-toggle" ]
+        [ div [ class "lang-toggle" ]
             [ span
-                [ classList
-                    [ ( "theme-option", True )
-                    , ( "active", model.theme == Light )
-                    ]
-                , onClick (SetTheme Light)
+                [ classList [ ( "lang-option", True ), ( "active", model.language == English ) ]
+                , onClick (SetLanguage English)
                 ]
-                [ text "☀" ]
-            , span [ class "theme-separator" ] [ text " / " ]
+                [ text "EN" ]
+            , span [ class "lang-separator" ] [ text " / " ]
             , span
-                [ classList
-                    [ ( "theme-option", True )
-                    , ( "active", model.theme == Dark )
-                    ]
-                , onClick (SetTheme Dark)
+                [ classList [ ( "lang-option", True ), ( "active", model.language == French ) ]
+                , onClick (SetLanguage French)
                 ]
-                [ text "☽" ]
+                [ text "FR" ]
+            , span [ class "lang-separator" ] [ text " / " ]
+            , span
+                [ classList [ ( "lang-option", True ), ( "active", model.language == Japanese ) ]
+                , onClick (SetLanguage Japanese)
+                ]
+                [ text "日本語" ]
+            ]
+        , span
+            [ class "theme-option active"
+            , onClick
+                (if model.theme == Dark then
+                    SetTheme Light
+
+                 else
+                    SetTheme Dark
+                )
+            ]
+            [ text
+                (if model.theme == Dark then
+                    "☀"
+
+                 else
+                    "☽"
+                )
             ]
         ]
 
@@ -200,33 +251,54 @@ bioParagraph lang =
     case lang of
         English ->
             p []
-                [ text "I'm a Ph.D. student at "
+                [ text "I am a Ph.D. student at the "
+                , a [ href "https://www.srg.mech.keio.ac.jp/" ] [ text "Space Robotics Group" ]
+                , text ", "
                 , a [ href "https://www.st.keio.ac.jp/en/" ] [ text "Keio University" ]
-                , text " in Greater Tokyo Area, advised by Prof. "
+                , text ", under the supervision of Prof. "
                 , a [ href "https://www.st.keio.ac.jp/en/tprofile/mech/ishigami.html" ] [ text "Genya Ishigami" ]
-                , text ". I am working on perception and planning in disaster-response robots. "
-                , text "I received two Master's degrees: "
+                , text ". I study autonomous navigation of tethered mobile robots in unstructured environments such as disaster sites, using techniques from path planning, multimodal perception, and machine learning. I received two Master's degrees: "
                 , em [] [ text "M.S. in Engineering" ]
                 , text " from Keio University and "
                 , em [] [ text "Diplôme d'Ingénieur" ]
-                , text " (Engineer's degree in France) from "
-                , a [ href "https://www.ec-nantes.fr/engineering-programme-diplome-dingenieur/course-specialisations-yrs-23/robotics?l=1" ] [ text "Ecole Centrale de Nantes" ]
+                , text " from "
+                , a [ href "https://www.ec-nantes.fr/engineering-programme-diplome-dingenieur/course-specialisations-yrs-23/robotics?l=1" ] [ text "École Centrale de Nantes" ]
                 , text ". I speak three languages: Japanese, English, and French, so feel free to address me in your preferred language."
+                ]
+
+        French ->
+            p []
+                [ text "Je suis doctorant au "
+                , a [ href "https://www.srg.mech.keio.ac.jp/" ] [ text "Space Robotics Group" ]
+                , text " de l'"
+                , a [ href "https://www.st.keio.ac.jp/en/" ] [ text "Université Keio" ]
+                , text ", sous la direction du Pr. "
+                , a [ href "https://www.st.keio.ac.jp/en/tprofile/mech/ishigami.html" ] [ text "Genya Ishigami" ]
+                , text ". J'étudie la navigation autonome de robots mobiles téthérés dans des environnements non structurés tels que des sites de catastrophes, en m'appuyant sur la planification de trajectoires, la perception multimodale et l'apprentissage automatique. J'ai obtenu deux masters\u{00A0}: un "
+                , em [] [ text "M.S. in Engineering" ]
+                , text " de l'Université Keio et un "
+                , em [] [ text "Diplôme d'Ingénieur" ]
+                , text " de l'"
+                , a [ href "https://www.ec-nantes.fr/engineering-programme-diplome-dingenieur/course-specialisations-yrs-23/robotics?l=1" ] [ text "École Centrale de Nantes" ]
+                , text ". Je parle trois langues : le japonais, l'anglais et le français, n'hésitez donc pas à me contacter dans la langue de votre choix."
                 ]
 
         Japanese ->
             p []
-                [ a [ href "https://www.st.keio.ac.jp/en/" ] [ text "慶應義塾大学" ]
-                , text "（神奈川県）の博士課程に在籍し、"
+                [ text "災害現場などの非構造化環境でのテザーロボット（通信・電源ケーブルによって外部と有線接続された移動ロボット）の自律移動技術を研究しています。経路計画、マルチモーダル情報処理、機械学習・強化学習などの知見を活用しています。現在、"
+                , a [ href "https://www.st.keio.ac.jp/en/" ] [ text "慶應義塾大学" ]
+                , text "の "
+                , a [ href "https://www.srg.mech.keio.ac.jp/" ] [ text "Space Robotics Group" ]
+                , text " に博士学生として在籍しています（指導教員："
                 , a [ href "https://www.st.keio.ac.jp/en/tprofile/mech/ishigami.html" ] [ text "石上玄也" ]
-                , text "教授の指導を受けています。災害対応ロボットの知覚・経路計画に関する研究を行っています。"
-                , text "修士号を2つ取得しています：慶應義塾大学より"
-                , em [] [ text "工学修士（M.S. in Engineering）" ]
-                , text "、"
-                , a [ href "https://www.ec-nantes.fr/engineering-programme-diplome-dingenieur/course-specialisations-yrs-23/robotics?l=1" ] [ text "エコール・サントラル・ド・ナント" ]
-                , text "（フランス）より"
-                , em [] [ text "ディプロム・ダンジェニウール（Diplôme d'Ingénieur）" ]
-                , text "。日本語・英語・フランス語の3言語を話しますので、お好みの言語でお気軽にご連絡ください。"
+                , text "教授）。また、修士号を２つ所持しています："
+                , em [] [ text "修士（工学）" ]
+                , text "（慶應義塾大学）、"
+                , em [] [ text "Diplôme d'Ingénieur" ]
+                , text "（"
+                , a [ href "https://www.ec-nantes.fr/engineering-programme-diplome-dingenieur/course-specialisations-yrs-23/robotics?l=1" ] [ text "エコール・サントラル・ナント" ]
+                , text "）"
+                , text "。日仏英の3言語を話しますので、お好きな言語でご連絡ください。"
                 ]
 
 
@@ -340,20 +412,23 @@ fellowshipsSection lang =
         , ul []
             [ li []
                 [ strong [] [ a [ href "https://www.jsps.go.jp/english/e-pd/" ] [ text s.fellowship3Name ] ]
-                , text ", "
-                , strong [] [ text "JPY 227K/month" ]
+                , text s.fellowshipSep
+                , strong [] [ text s.fellowship3Amount ]
+                , text s.fellowshipSep
                 , text s.fellowship3Period
                 ]
             , li []
                 [ strong [] [ a [ href "https://www.jst.go.jp/jisedai/spring/en/index.html" ] [ text s.fellowship1Name ] ]
-                , text ", "
-                , strong [] [ text "JPY 183K/month" ]
+                , text s.fellowshipSep
+                , strong [] [ text s.fellowship1Amount ]
+                , text s.fellowshipSep
                 , text s.fellowship1Period
                 ]
             , li []
                 [ strong [] [ a [ href "https://jp.ambafrance.org/Bourses-France-Excellence-fr" ] [ text s.fellowship2Name ] ]
-                , text ", "
-                , strong [] [ text "EUR 700/month" ]
+                , text s.fellowshipSep
+                , strong [] [ text s.fellowship2Amount ]
+                , text s.fellowshipSep
                 , text s.fellowship2Period
                 ]
             ]
