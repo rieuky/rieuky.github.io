@@ -32,7 +32,6 @@ type Theme
 type Page
     = Main
     | NotesList
-    | NoteDetail String
 
 
 type alias Model =
@@ -208,9 +207,6 @@ view model =
 
             NotesList ->
                 notesListView
-
-            NoteDetail noteId ->
-                noteDetailView noteId
         ]
 
 
@@ -516,9 +512,8 @@ allNotes =
       , title = "博士課程について"
       , date = "2025-04-01"
       , content = """
-（ここにエッセイを書く）
-
 ![説明文](images/notes/example.jpg)
+（ここにエッセイを書く）
 """
       }
     ]
@@ -527,37 +522,17 @@ allNotes =
 notesListView : Html Msg
 notesListView =
     div [ class "notes-section" ]
-        [ h2 [] [ text "雑記" ]
-        , ul [ class "notes-list" ]
-            (List.map
-                (\note ->
-                    li []
-                        [ a [ onClickPage (NoteDetail note.id), href "#" ] [ text note.title ]
-                        , text (" — " ++ note.date)
-                        ]
-                )
-                allNotes
-            )
-        , div [ class "notes-nav" ]
+        ([ div [ class "notes-nav" ]
             [ a [ onClickPage Main, href "#" ] [ text "← ホームへ" ] ]
+         ]
+            ++ List.map noteView allNotes
+        )
+
+
+noteView : Note -> Html Msg
+noteView note =
+    div [ class "note-entry" ]
+        [ h2 [] [ text note.title ]
+        , p [ class "note-date" ] [ text note.date ]
+        , Markdown.toHtml [ class "note-body" ] note.content
         ]
-
-
-noteDetailView : String -> Html Msg
-noteDetailView noteId =
-    case List.filter (\n -> n.id == noteId) allNotes of
-        note :: _ ->
-            div [ class "note-detail" ]
-                [ h2 [] [ text note.title ]
-                , p [ class "note-date" ] [ text note.date ]
-                , Markdown.toHtml [ class "note-body" ] note.content
-                , div [ class "notes-nav" ]
-                    [ a [ onClickPage NotesList, href "#" ] [ text "← 一覧へ" ] ]
-                ]
-
-        [] ->
-            div [ class "notes-section" ]
-                [ p [] [ text "見つかりません" ]
-                , div [ class "notes-nav" ]
-                    [ a [ onClickPage NotesList, href "#" ] [ text "← 一覧へ" ] ]
-                ]

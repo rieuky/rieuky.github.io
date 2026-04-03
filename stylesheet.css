@@ -257,29 +257,30 @@ em {
   }
 }
 
-/* Notes pages */
+/* Notes page */
 
-.notes-section,
-.note-detail {
+.notes-section {
   max-width: 680px;
-  margin: 2rem auto;
+  margin: 0 auto;
   padding: 0 1rem;
 }
 
-.notes-list {
-  list-style: none;
-  padding: 0;
-  margin: 1.5rem 0;
+.notes-nav {
+  margin-bottom: 2rem;
 }
 
-.notes-list li {
-  margin-bottom: 0.6rem;
+.note-entry {
+  margin-bottom: 4rem;
+}
+
+.note-entry h2 {
+  margin-bottom: 0.25rem;
 }
 
 .note-date {
   color: var(--color-muted);
   font-size: 0.9rem;
-  margin-top: -0.5rem;
+  margin-top: 0;
   margin-bottom: 1.5rem;
 }
 
@@ -288,8 +289,7 @@ em {
   margin-bottom: 1rem;
 }
 
-.notes-nav {
-  margin-top: 2rem;
-  padding-top: 1rem;
-  border-top: 1px solid var(--color-muted);
+.note-body img {
+  max-width: 100%;
+  margin: 1rem 0;
 }
