@@ -46,6 +46,7 @@ jobs:
         with:
           commit_message: "chore(ci): rebuild Elm on push"
           branch: ${{ github.ref_name }}
+          add_options: '--force'
           file_pattern: |
             main.js
 
