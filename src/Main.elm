@@ -28,11 +28,18 @@ type Theme
     | Dark
 
 
+type Page
+    = Main
+    | NotesList
+    | NoteDetail String
+
+
 type alias Model =
     { hoveredPaper : Maybe String
     , noGif : Set String
     , language : Language
     , theme : Theme
+    , page : Page
     }
 
 
@@ -42,6 +49,7 @@ type Msg
     | GifLoadFailed String
     | SetLanguage Language
     | SetTheme Theme
+    | SetPage Page
 
 
 init : Model
@@ -50,7 +58,17 @@ init =
     , noGif = Set.empty
     , language = English
     , theme = Dark
+    , page = Main
     }
+
+
+
+-- Prevent default on anchor clicks used for internal navigation
+
+
+onClickPage : Page -> Attribute Msg
+onClickPage p =
+    preventDefaultOn "click" (Decode.succeed ( SetPage p, True ))
 
 
 
@@ -165,6 +183,9 @@ update msg model =
         SetTheme theme ->
             { model | theme = theme }
 
+        SetPage p ->
+            { model | page = p }
+
 
 view : Model -> Html Msg
 view model =
@@ -175,10 +196,20 @@ view model =
             ]
         ]
         [ toggleBar model
-        , headerSection model.language
-        , publicationsSection model
-        , fellowshipsSection model.language
-        , footerNote model.language
+        , case model.page of
+            Main ->
+                div []
+                    [ headerSection model
+                    , publicationsSection model
+                    , fellowshipsSection model.language
+                    , footerNote model.language
+                    ]
+
+            NotesList ->
+                notesListView
+
+            NoteDetail noteId ->
+                noteDetailView noteId
         ]
 
 
@@ -225,21 +256,34 @@ toggleBar model =
         ]
 
 
-headerSection : Language -> Html Msg
-headerSection lang =
+headerSection : Model -> Html Msg
+headerSection model =
+    let
+        lang =
+            model.language
+    in
     div [ class "header-section" ]
         [ div [ class "text-content" ]
             [ h1 [ class "name" ] [ text "Ryuki Shimada" ]
             , bioParagraph lang
             , div [ class "links" ]
-                [ a [ href "https://github.com/rieuky" ] [ text "GitHub" ]
-                , text " / "
-                , a [ href "https://scholar.google.com/citations?user=Az5KGOYAAAAJ&hl=en" ] [ text "Google Scholar" ]
-                , text " / "
-                , a [ href "https://www.linkedin.com/in/ryuki-shimada-60790a16a/" ] [ text "LinkedIn" ]
-                , text " / "
-                , a [ href "mailto:ryukishimada218@keio.jp" ] [ text "Email" ]
-                ]
+                ([ a [ href "https://github.com/rieuky" ] [ text "GitHub" ]
+                 , text " / "
+                 , a [ href "https://scholar.google.com/citations?user=Az5KGOYAAAAJ&hl=en" ] [ text "Google Scholar" ]
+                 , text " / "
+                 , a [ href "https://www.linkedin.com/in/ryuki-shimada-60790a16a/" ] [ text "LinkedIn" ]
+                 , text " / "
+                 , a [ href "mailto:ryukishimada218@keio.jp" ] [ text "Email" ]
+                 ]
+                    ++ (if lang == Japanese then
+                            [ text " / "
+                            , a [ onClickPage NotesList, href "#" ] [ text "雑記" ]
+                            ]
+
+                        else
+                            []
+                       )
+                )
             ]
         , div [ class "profile-image" ]
             [ img [ src "images/profile_20251121.png", alt "profile photo", class "profile-photo" ] [] ]
@@ -451,3 +495,66 @@ footerNote lang =
         , text s.footerCssCredit
         , a [ href "https://github.com/jonbarron/jonbarron.github.io?tab=readme-ov-file" ] [ text "jonbarron/jonbarron.github.io" ]
         ]
+
+
+
+-- Notes (Japanese only)
+
+
+type alias Note =
+    { id : String
+    , title : String
+    , date : String
+    , body : List (Html Msg)
+    }
+
+
+allNotes : List Note
+allNotes =
+    [ { id = "20250401_phd"
+      , title = "博士課程について"
+      , date = "2025-04-01"
+      , body =
+            [ p [] [ text "（ここにエッセイを書く）" ]
+            ]
+      }
+    ]
+
+
+notesListView : Html Msg
+notesListView =
+    div [ class "notes-section" ]
+        [ h2 [] [ text "雑記" ]
+        , ul [ class "notes-list" ]
+            (List.map
+                (\note ->
+                    li []
+                        [ a [ onClickPage (NoteDetail note.id), href "#" ] [ text note.title ]
+                        , text (" — " ++ note.date)
+                        ]
+                )
+                allNotes
+            )
+        , div [ class "notes-nav" ]
+            [ a [ onClickPage Main, href "#" ] [ text "← ホームへ" ] ]
+        ]
+
+
+noteDetailView : String -> Html Msg
+noteDetailView noteId =
+    case List.filter (\n -> n.id == noteId) allNotes of
+        note :: _ ->
+            div [ class "note-detail" ]
+                [ h2 [] [ text note.title ]
+                , p [ class "note-date" ] [ text note.date ]
+                , div [ class "note-body" ] note.body
+                , div [ class "notes-nav" ]
+                    [ a [ onClickPage NotesList, href "#" ] [ text "← 一覧へ" ] ]
+                ]
+
+        [] ->
+            div [ class "notes-section" ]
+                [ p [] [ text "見つかりません" ]
+                , div [ class "notes-nav" ]
+                    [ a [ onClickPage NotesList, href "#" ] [ text "← 一覧へ" ] ]
+                ]
