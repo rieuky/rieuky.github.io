@@ -5542,7 +5542,7 @@ var $author$project$Main$bioParagraph = function (lang) {
 						$elm$html$Html$a,
 						_List_fromArray(
 							[
-								$elm$html$Html$Attributes$href('https://www.srg.mech.keio.ac.jp/')
+								$elm$html$Html$Attributes$href('https://www.srg.mech.keio.ac.jp/en/')
 							]),
 						_List_fromArray(
 							[
@@ -5610,7 +5610,7 @@ var $author$project$Main$bioParagraph = function (lang) {
 						$elm$html$Html$a,
 						_List_fromArray(
 							[
-								$elm$html$Html$Attributes$href('https://www.srg.mech.keio.ac.jp/')
+								$elm$html$Html$Attributes$href('https://www.srg.mech.keio.ac.jp/en/')
 							]),
 						_List_fromArray(
 							[
