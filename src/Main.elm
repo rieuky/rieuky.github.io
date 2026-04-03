@@ -252,7 +252,7 @@ bioParagraph lang =
         English ->
             p []
                 [ text "I am a Ph.D. student at the "
-                , a [ href "https://www.srg.mech.keio.ac.jp/" ] [ text "Space Robotics Group" ]
+                , a [ href "https://www.srg.mech.keio.ac.jp/en/" ] [ text "Space Robotics Group" ]
                 , text ", "
                 , a [ href "https://www.st.keio.ac.jp/en/" ] [ text "Keio University" ]
                 , text ", under the supervision of Prof. "
@@ -269,7 +269,7 @@ bioParagraph lang =
         French ->
             p []
                 [ text "Je suis doctorant au "
-                , a [ href "https://www.srg.mech.keio.ac.jp/" ] [ text "Space Robotics Group" ]
+                , a [ href "https://www.srg.mech.keio.ac.jp/en/" ] [ text "Space Robotics Group" ]
                 , text " de l'"
                 , a [ href "https://www.st.keio.ac.jp/en/" ] [ text "Université Keio" ]
                 , text ", sous la direction du Pr. "
