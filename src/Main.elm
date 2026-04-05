@@ -195,7 +195,7 @@ getStrings lang =
             }
 
         Japanese ->
-            { publicationsHeading = "論文"
+            { publicationsHeading = "業績"
             , fellowshipsHeading = "奨学金・フェローシップ"
             , paper1Description = "A learning-based homotopy-aware path planning method for a tethered mobile robot to avoid cable-obstacles and cable-robot contacts while navigating to goals."
             , paper2Description = "A path refinement method for a tethered mobile robot to avoid cable-obstacle contact by considering path curvature and distance from cable base."
@@ -336,14 +336,7 @@ headerSection model =
                  , text " / "
                  , a [ href "mailto:ryukishimada218@keio.jp" ] [ text "Email" ]
                  ]
-                    ++ (if lang == Japanese then
-                            [ text " / "
-                            , a [ href "#notes" ] [ text "雑記" ]
-                            ]
-
-                        else
-                            []
-                       )
+                    ++ []
                 )
             ]
         , div [ class "profile-image" ]
