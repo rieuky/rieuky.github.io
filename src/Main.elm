@@ -61,7 +61,7 @@ type Msg
 pageFromUrl : Url -> Page
 pageFromUrl url =
     case url.fragment of
-        Just "cite/frobt2023" ->
+        Just "cite/frobt2024" ->
             BibTeXPage bibtexFrobt2023
 
         _ ->
@@ -353,7 +353,7 @@ publicationsSection model =
     div [ class "publications-section" ]
         [ h2 [] [ text s.publicationsHeading ]
         , div [ class "paper" ]
-            [ viewPaperImage model "frobt_2023"
+            [ viewPaperImage model "frobt_2024"
             , div [ class "paper-info" ]
                 [ a [ href "https://www.frontiersin.org/journals/robotics-and-ai/articles/10.3389/frobt.2024.1388634/full" ] [ span [ class "papertitle" ] [ text "Tangle- and Contact-free Path Planning for a Tethered Mobile Robot" ] ]
                 , br [] []
@@ -361,11 +361,11 @@ publicationsSection model =
                 , text " and Genya Ishigami"
                 , br [] []
                 , em [] [ text "Frontiers in Robotics and AI" ]
-                , text ", 2023"
+                , text ", 2024"
                 , br [] []
                 , a [ href "https://www.frontiersin.org/journals/robotics-and-ai/articles/10.3389/frobt.2024.1388634/full" ] [ text "Paper" ]
                 , text " / "
-                , a [ href "#cite/frobt2023", class "cite-link" ] [ text "Cite" ]
+                , a [ href "#cite/frobt2024", class "cite-link" ] [ text "Cite" ]
                 , p [] [ text s.paper1Description ]
                 ]
             ]
