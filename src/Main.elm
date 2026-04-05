@@ -71,6 +71,7 @@ type alias StringContent =
     , fellowship1Name : String
     , fellowship1Period : String
     , fellowship2Name : String
+    , fellowship2Url : String
     , fellowship2Period : String
     , fellowship3Name : String
     , fellowship3Period : String
@@ -94,7 +95,8 @@ getStrings lang =
             , oralPresentation = " (Oral Presentation)"
             , fellowship1Name = "JST Support for Pioneering Research Initiated by the Next Generation (SPRING)"
             , fellowship1Period = "Apr. 2025 – Mar. 2026"
-            , fellowship2Name = "French Government Scholarship (France Excellence Japon)"
+            , fellowship2Name = "French Government Scholarship (Bourse France Excellence Japon)"
+            , fellowship2Url = "https://jp.diplomatie.gouv.fr/fr/bourses-france-excellence"
             , fellowship2Period = "Sep. 2019 – Sep. 2021"
             , fellowship3Name = "JSPS Research Fellow for Young Scientists (DC2)"
             , fellowship3Period = "Apr. 2026 – Mar. 2028"
@@ -114,7 +116,8 @@ getStrings lang =
             , oralPresentation = " (Présentation orale)"
             , fellowship1Name = "Bourse JST pour la recherche pionnière de la prochaine génération (SPRING)"
             , fellowship1Period = "avr. 2025 – mars 2026"
-            , fellowship2Name = "Bourse du gouvernement français (France Excellence Japon)"
+            , fellowship2Name = "Bourse du gouvernement français (Bourse France Excellence Japon)"
+            , fellowship2Url = "https://jp.diplomatie.gouv.fr/fr/bourses-france-excellence"
             , fellowship2Period = "sept. 2019 – sept. 2021"
             , fellowship3Name = "Chercheur associé JSPS pour jeunes scientifiques (DC2)"
             , fellowship3Period = "avr. 2026 – mars 2028"
@@ -134,7 +137,8 @@ getStrings lang =
             , oralPresentation = "（口頭発表）"
             , fellowship1Name = "JST次世代研究者挑戦的研究プログラム（SPRING）"
             , fellowship1Period = "2025年4月 – 2026年3月"
-            , fellowship2Name = "フランス政府奨学金"
+            , fellowship2Name = "フランス政府奨学金（Bourse France Excellence Japon）"
+            , fellowship2Url = "https://jp.diplomatie.gouv.fr/ja/Bourses-France-Excellence"
             , fellowship2Period = "2019年9月 – 2021年9月"
             , fellowship3Name = "日本学術振興会特別研究員（DC2）"
             , fellowship3Period = "2026年4月 – 2028年3月"
@@ -425,7 +429,7 @@ fellowshipsSection lang =
                 , text s.fellowship1Period
                 ]
             , li []
-                [ strong [] [ a [ href "https://jp.ambafrance.org/Bourses-France-Excellence-fr" ] [ text s.fellowship2Name ] ]
+                [ strong [] [ a [ href s.fellowship2Url ] [ text s.fellowship2Name ] ]
                 , text s.fellowshipSep
                 , strong [] [ text s.fellowship2Amount ]
                 , text s.fellowshipSep
