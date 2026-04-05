@@ -35,7 +35,8 @@ type Theme
 
 
 type Page
-    = Main
+    = MainPage
+    | BibTeXPage String
     | NotesList
 
 
@@ -62,11 +63,17 @@ type Msg
 pageFromUrl : Url -> Page
 pageFromUrl url =
     case url.fragment of
+        Just "cite/frobt2024" ->
+            BibTeXPage bibtexFrobt2024
+
+        Just "cite/ists2023" ->
+            BibTeXPage bibtexIsts2023
+
         Just "notes" ->
             NotesList
 
         _ ->
-            Main
+            MainPage
 
 
 init : () -> Url -> Nav.Key -> ( Model, Cmd Msg )
@@ -100,6 +107,7 @@ type alias StringContent =
     , fellowship1Name : String
     , fellowship1Period : String
     , fellowship2Name : String
+    , fellowship2Url : String
     , fellowship2Period : String
     , fellowship3Name : String
     , fellowship3Period : String
@@ -123,7 +131,8 @@ getStrings lang =
             , oralPresentation = " (Oral Presentation)"
             , fellowship1Name = "JST Support for Pioneering Research Initiated by the Next Generation (SPRING)"
             , fellowship1Period = "Apr. 2025 – Mar. 2026"
-            , fellowship2Name = "French Government Scholarship (France Excellence Japon)"
+            , fellowship2Name = "French Government Scholarship (Bourse France Excellence Japon)"
+            , fellowship2Url = "https://jp.diplomatie.gouv.fr/fr/bourses-france-excellence"
             , fellowship2Period = "Sep. 2019 – Sep. 2021"
             , fellowship3Name = "JSPS Research Fellow for Young Scientists (DC2)"
             , fellowship3Period = "Apr. 2026 – Mar. 2028"
@@ -143,7 +152,8 @@ getStrings lang =
             , oralPresentation = " (Présentation orale)"
             , fellowship1Name = "Bourse JST pour la recherche pionnière de la prochaine génération (SPRING)"
             , fellowship1Period = "avr. 2025 – mars 2026"
-            , fellowship2Name = "Bourse du gouvernement français (France Excellence Japon)"
+            , fellowship2Name = "Bourse du gouvernement français (Bourse France Excellence Japon)"
+            , fellowship2Url = "https://jp.diplomatie.gouv.fr/fr/bourses-france-excellence"
             , fellowship2Period = "sept. 2019 – sept. 2021"
             , fellowship3Name = "Chercheur associé JSPS pour jeunes scientifiques (DC2)"
             , fellowship3Period = "avr. 2026 – mars 2028"
@@ -163,7 +173,8 @@ getStrings lang =
             , oralPresentation = "（口頭発表）"
             , fellowship1Name = "JST次世代研究者挑戦的研究プログラム（SPRING）"
             , fellowship1Period = "2025年4月 – 2026年3月"
-            , fellowship2Name = "フランス政府奨学金"
+            , fellowship2Name = "フランス政府奨学金（Bourse France Excellence Japon）"
+            , fellowship2Url = "https://jp.diplomatie.gouv.fr/ja/Bourses-France-Excellence"
             , fellowship2Period = "2019年9月 – 2021年9月"
             , fellowship3Name = "日本学術振興会特別研究員（DC2）"
             , fellowship3Period = "2026年4月 – 2028年3月"
@@ -197,8 +208,8 @@ update msg model =
         LinkClicked (Browser.Internal url) ->
             ( model, Nav.pushUrl model.key (Url.toString url) )
 
-        LinkClicked (Browser.External href) ->
-            ( model, Nav.load href )
+        LinkClicked (Browser.External url) ->
+            ( model, Nav.load url )
 
         UrlChanged url ->
             ( { model | page = pageFromUrl url }, Cmd.none )
@@ -206,25 +217,26 @@ update msg model =
 
 view : Model -> Html Msg
 view model =
-    div
-        [ classList
-            [ ( "container", True )
-            , ( "dark", model.theme == Dark )
-            ]
-        ]
-        [ toggleBar model
-        , case model.page of
-            Main ->
-                div []
-                    [ headerSection model
-                    , publicationsSection model
-                    , fellowshipsSection model.language
-                    , footerNote model.language
-                    ]
+    case model.page of
+        MainPage ->
+            div
+                [ classList [ ( "container", True ), ( "dark", model.theme == Dark ) ] ]
+                [ toggleBar model
+                , headerSection model
+                , publicationsSection model
+                , fellowshipsSection model.language
+                , footerNote model.language
+                ]
 
-            NotesList ->
-                notesListView
-        ]
+        BibTeXPage content ->
+            bibTeXView content
+
+        NotesList ->
+            div
+                [ classList [ ( "container", True ), ( "dark", model.theme == Dark ) ] ]
+                [ toggleBar model
+                , notesListView
+                ]
 
 
 toggleBar : Model -> Html Msg
@@ -369,7 +381,7 @@ publicationsSection model =
     div [ class "publications-section" ]
         [ h2 [] [ text s.publicationsHeading ]
         , div [ class "paper" ]
-            [ viewPaperImage model "frobt_2023"
+            [ viewPaperImage model "frobt_2024"
             , div [ class "paper-info" ]
                 [ a [ href "https://www.frontiersin.org/journals/robotics-and-ai/articles/10.3389/frobt.2024.1388634/full" ] [ span [ class "papertitle" ] [ text "Tangle- and Contact-free Path Planning for a Tethered Mobile Robot" ] ]
                 , br [] []
@@ -377,9 +389,11 @@ publicationsSection model =
                 , text " and Genya Ishigami"
                 , br [] []
                 , em [] [ text "Frontiers in Robotics and AI" ]
-                , text ", 2023"
+                , text ", 2024"
                 , br [] []
                 , a [ href "https://www.frontiersin.org/journals/robotics-and-ai/articles/10.3389/frobt.2024.1388634/full" ] [ text "Paper" ]
+                , text " / "
+                , a [ href "#cite/frobt2024", class "cite-link" ] [ text "Cite" ]
                 , p [] [ text s.paper1Description ]
                 ]
             ]
@@ -396,6 +410,8 @@ publicationsSection model =
                 , span [ class "oral-presentation" ] [ text s.oralPresentation ]
                 , br [] []
                 , a [ href "https://archive.ists.ne.jp/upload_pdf/2023-k-2-02.pdf" ] [ text "Paper" ]
+                , text " / "
+                , a [ href "#cite/ists2023", class "cite-link" ] [ text "Cite" ]
                 , p [] [ text s.paper2Description ]
                 ]
             ]
@@ -483,7 +499,7 @@ fellowshipsSection lang =
                 , text s.fellowship1Period
                 ]
             , li []
-                [ strong [] [ a [ href "https://jp.ambafrance.org/Bourses-France-Excellence-fr" ] [ text s.fellowship2Name ] ]
+                [ strong [] [ a [ href s.fellowship2Url ] [ text s.fellowship2Name ] ]
                 , text s.fellowshipSep
                 , strong [] [ text s.fellowship2Amount ]
                 , text s.fellowshipSep
@@ -509,6 +525,39 @@ footerNote lang =
         , text s.footerCssCredit
         , a [ href "https://github.com/jonbarron/jonbarron.github.io?tab=readme-ov-file" ] [ text "jonbarron/jonbarron.github.io" ]
         ]
+
+
+
+-- BibTeX
+
+
+bibtexFrobt2024 : String
+bibtexFrobt2024 =
+    """@article{shimada2024tangle,
+  title={Tangle- and contact-free path planning for a tethered mobile robot using deep reinforcement learning},
+  author={Shimada, Ryuki and Ishigami, Genya},
+  journal={Frontiers in Robotics and AI},
+  volume={11},
+  pages={1388634},
+  year={2024},
+  publisher={Frontiers Media SA}
+}"""
+
+
+bibtexIsts2023 : String
+bibtexIsts2023 =
+    """@inproceedings{shimada2023path,
+  title={Path planning with cable-obstacles avoidance for a tethered mobile robot in unstructured environments},
+  author={Shimada, Ryuki and Ishigami, Genya},
+  booktitle={Proceedings of the International Symposium on Space Technology and Science},
+  year={2023}
+}"""
+
+
+bibTeXView : String -> Html Msg
+bibTeXView content =
+    div [ class "bibtex-raw" ]
+        [ pre [] [ text content ] ]
 
 
 
@@ -541,6 +590,7 @@ allNotes =
 """
       }
     ]
+
 
 notesListView : Html Msg
 notesListView =

@@ -257,6 +257,37 @@ em {
   }
 }
 
+/* Cite link */
+
+.cite-link {
+  color: var(--color-link);
+  cursor: pointer;
+}
+
+.cite-link:hover {
+  color: var(--color-link-hover);
+}
+
+/* BibTeX raw page */
+
+.bibtex-raw {
+  position: fixed;
+  inset: 0;
+  background: #000;
+  margin: 0;
+  padding: 1rem;
+  overflow: auto;
+}
+
+.bibtex-raw pre {
+  color: #fff;
+  font-family: monospace;
+  font-size: 0.95rem;
+  line-height: 1.6;
+  margin: 0;
+  white-space: pre;
+}
+
 /* Notes page */
 
 .notes-section {
