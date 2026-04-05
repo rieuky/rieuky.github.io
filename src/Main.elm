@@ -60,29 +60,58 @@ type Msg
     | UrlChanged Url
 
 
-pageFromUrl : Url -> Page
-pageFromUrl url =
-    case url.fragment of
-        Just "cite/frobt2024" ->
-            BibTeXPage bibtexFrobt2024
+type alias UrlState =
+    { page : Page
+    , language : Language
+    }
 
-        Just "cite/ists2023" ->
-            BibTeXPage bibtexIsts2023
+
+stateFromUrl : Url -> Language -> UrlState
+stateFromUrl url currentLang =
+    case url.fragment of
+        Just "ja" ->
+            { page = MainPage, language = Japanese }
+
+        Just "fr" ->
+            { page = MainPage, language = French }
 
         Just "notes" ->
-            NotesList
+            { page = NotesList, language = Japanese }
+
+        Just "cite/frobt2024" ->
+            { page = BibTeXPage bibtexFrobt2024, language = currentLang }
+
+        Just "cite/ists2023" ->
+            { page = BibTeXPage bibtexIsts2023, language = currentLang }
 
         _ ->
-            MainPage
+            { page = MainPage, language = English }
+
+
+langToFragment : Language -> String
+langToFragment lang =
+    case lang of
+        English ->
+            "/"
+
+        French ->
+            "/#fr"
+
+        Japanese ->
+            "/#ja"
 
 
 init : () -> Url -> Nav.Key -> ( Model, Cmd Msg )
 init _ url key =
+    let
+        s =
+            stateFromUrl url English
+    in
     ( { hoveredPaper = Nothing
       , noGif = Set.empty
-      , language = English
+      , language = s.language
       , theme = Dark
-      , page = pageFromUrl url
+      , page = s.page
       , key = key
       }
     , Cmd.none
@@ -200,7 +229,9 @@ update msg model =
             ( { model | noGif = Set.insert paperId model.noGif }, Cmd.none )
 
         SetLanguage lang ->
-            ( { model | language = lang }, Cmd.none )
+            ( { model | language = lang }
+            , Nav.pushUrl model.key (langToFragment lang)
+            )
 
         SetTheme theme ->
             ( { model | theme = theme }, Cmd.none )
@@ -212,7 +243,11 @@ update msg model =
             ( model, Nav.load url )
 
         UrlChanged url ->
-            ( { model | page = pageFromUrl url }, Cmd.none )
+            let
+                s =
+                    stateFromUrl url model.language
+            in
+            ( { model | page = s.page, language = s.language }, Cmd.none )
 
 
 view : Model -> Html Msg
