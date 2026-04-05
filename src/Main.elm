@@ -1,19 +1,24 @@
 module Main exposing (main)
 
 import Browser
+import Browser.Navigation as Nav
 import Html exposing (..)
 import Html.Attributes exposing (..)
 import Html.Events exposing (..)
 import Json.Decode as Decode
 import Set exposing (Set)
+import Url exposing (Url)
 
 
 main : Program () Model Msg
 main =
-    Browser.sandbox
+    Browser.application
         { init = init
         , update = update
-        , view = view
+        , view = \model -> { title = "Ryuki Shimada", body = [ view model ] }
+        , subscriptions = \_ -> Sub.none
+        , onUrlChange = UrlChanged
+        , onUrlRequest = LinkClicked
         }
 
 
@@ -28,11 +33,18 @@ type Theme
     | Dark
 
 
+type Page
+    = MainPage
+    | BibTeXPage String
+
+
 type alias Model =
     { hoveredPaper : Maybe String
     , noGif : Set String
     , language : Language
     , theme : Theme
+    , page : Page
+    , key : Nav.Key
     }
 
 
@@ -42,15 +54,31 @@ type Msg
     | GifLoadFailed String
     | SetLanguage Language
     | SetTheme Theme
+    | LinkClicked Browser.UrlRequest
+    | UrlChanged Url
 
 
-init : Model
-init =
-    { hoveredPaper = Nothing
-    , noGif = Set.empty
-    , language = English
-    , theme = Dark
-    }
+pageFromUrl : Url -> Page
+pageFromUrl url =
+    case url.fragment of
+        Just "cite/frobt2023" ->
+            BibTeXPage bibtexFrobt2023
+
+        _ ->
+            MainPage
+
+
+init : () -> Url -> Nav.Key -> ( Model, Cmd Msg )
+init _ url key =
+    ( { hoveredPaper = Nothing
+      , noGif = Set.empty
+      , language = English
+      , theme = Dark
+      , page = pageFromUrl url
+      , key = key
+      }
+    , Cmd.none
+    )
 
 
 
@@ -151,39 +179,49 @@ getStrings lang =
             }
 
 
-update : Msg -> Model -> Model
+update : Msg -> Model -> ( Model, Cmd Msg )
 update msg model =
     case msg of
         MouseEnter paperId ->
-            { model | hoveredPaper = Just paperId }
+            ( { model | hoveredPaper = Just paperId }, Cmd.none )
 
         MouseLeave ->
-            { model | hoveredPaper = Nothing }
+            ( { model | hoveredPaper = Nothing }, Cmd.none )
 
         GifLoadFailed paperId ->
-            { model | noGif = Set.insert paperId model.noGif }
+            ( { model | noGif = Set.insert paperId model.noGif }, Cmd.none )
 
         SetLanguage lang ->
-            { model | language = lang }
+            ( { model | language = lang }, Cmd.none )
 
         SetTheme theme ->
-            { model | theme = theme }
+            ( { model | theme = theme }, Cmd.none )
+
+        LinkClicked (Browser.Internal url) ->
+            ( model, Nav.pushUrl model.key (Url.toString url) )
+
+        LinkClicked (Browser.External url) ->
+            ( model, Nav.load url )
+
+        UrlChanged url ->
+            ( { model | page = pageFromUrl url }, Cmd.none )
 
 
 view : Model -> Html Msg
 view model =
-    div
-        [ classList
-            [ ( "container", True )
-            , ( "dark", model.theme == Dark )
-            ]
-        ]
-        [ toggleBar model
-        , headerSection model.language
-        , publicationsSection model
-        , fellowshipsSection model.language
-        , footerNote model.language
-        ]
+    case model.page of
+        MainPage ->
+            div
+                [ classList [ ( "container", True ), ( "dark", model.theme == Dark ) ] ]
+                [ toggleBar model
+                , headerSection model.language
+                , publicationsSection model
+                , fellowshipsSection model.language
+                , footerNote model.language
+                ]
+
+        BibTeXPage content ->
+            bibTeXView content
 
 
 toggleBar : Model -> Html Msg
@@ -326,6 +364,8 @@ publicationsSection model =
                 , text ", 2023"
                 , br [] []
                 , a [ href "https://www.frontiersin.org/journals/robotics-and-ai/articles/10.3389/frobt.2024.1388634/full" ] [ text "Paper" ]
+                , text " / "
+                , a [ href "#cite/frobt2023", class "cite-link" ] [ text "Cite" ]
                 , p [] [ text s.paper1Description ]
                 ]
             ]
@@ -455,3 +495,26 @@ footerNote lang =
         , text s.footerCssCredit
         , a [ href "https://github.com/jonbarron/jonbarron.github.io?tab=readme-ov-file" ] [ text "jonbarron/jonbarron.github.io" ]
         ]
+
+
+
+-- BibTeX
+
+
+bibtexFrobt2023 : String
+bibtexFrobt2023 =
+    """@article{shimada2024tangle,
+  title={Tangle- and contact-free path planning for a tethered mobile robot using deep reinforcement learning},
+  author={Shimada, Ryuki and Ishigami, Genya},
+  journal={Frontiers in Robotics and AI},
+  volume={11},
+  pages={1388634},
+  year={2024},
+  publisher={Frontiers Media SA}
+}"""
+
+
+bibTeXView : String -> Html Msg
+bibTeXView content =
+    div [ class "bibtex-raw" ]
+        [ pre [] [ text content ] ]
