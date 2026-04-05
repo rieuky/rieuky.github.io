@@ -6,6 +6,7 @@ import Html exposing (..)
 import Html.Attributes exposing (..)
 import Html.Events exposing (..)
 import Json.Decode as Decode
+import Markdown
 import Set exposing (Set)
 import Url exposing (Url)
 
@@ -36,6 +37,7 @@ type Theme
 type Page
     = MainPage
     | BibTeXPage String
+    | NotesList
 
 
 type alias Model =
@@ -58,26 +60,58 @@ type Msg
     | UrlChanged Url
 
 
-pageFromUrl : Url -> Page
-pageFromUrl url =
+type alias UrlState =
+    { page : Page
+    , language : Language
+    }
+
+
+stateFromUrl : Url -> Language -> UrlState
+stateFromUrl url currentLang =
     case url.fragment of
+        Just "ja" ->
+            { page = MainPage, language = Japanese }
+
+        Just "fr" ->
+            { page = MainPage, language = French }
+
+        Just "notes" ->
+            { page = NotesList, language = Japanese }
+
         Just "cite/frobt2024" ->
-            BibTeXPage bibtexFrobt2024
+            { page = BibTeXPage bibtexFrobt2024, language = currentLang }
 
         Just "cite/ists2023" ->
-            BibTeXPage bibtexIsts2023
+            { page = BibTeXPage bibtexIsts2023, language = currentLang }
 
         _ ->
-            MainPage
+            { page = MainPage, language = English }
+
+
+langToFragment : Language -> String
+langToFragment lang =
+    case lang of
+        English ->
+            "/"
+
+        French ->
+            "/#fr"
+
+        Japanese ->
+            "/#ja"
 
 
 init : () -> Url -> Nav.Key -> ( Model, Cmd Msg )
 init _ url key =
+    let
+        s =
+            stateFromUrl url English
+    in
     ( { hoveredPaper = Nothing
       , noGif = Set.empty
-      , language = English
+      , language = s.language
       , theme = Dark
-      , page = pageFromUrl url
+      , page = s.page
       , key = key
       }
     , Cmd.none
@@ -161,7 +195,7 @@ getStrings lang =
             }
 
         Japanese ->
-            { publicationsHeading = "論文"
+            { publicationsHeading = "業績"
             , fellowshipsHeading = "奨学金・フェローシップ"
             , paper1Description = "A learning-based homotopy-aware path planning method for a tethered mobile robot to avoid cable-obstacles and cable-robot contacts while navigating to goals."
             , paper2Description = "A path refinement method for a tethered mobile robot to avoid cable-obstacle contact by considering path curvature and distance from cable base."
@@ -195,7 +229,9 @@ update msg model =
             ( { model | noGif = Set.insert paperId model.noGif }, Cmd.none )
 
         SetLanguage lang ->
-            ( { model | language = lang }, Cmd.none )
+            ( { model | language = lang }
+            , Nav.pushUrl model.key (langToFragment lang)
+            )
 
         SetTheme theme ->
             ( { model | theme = theme }, Cmd.none )
@@ -207,7 +243,11 @@ update msg model =
             ( model, Nav.load url )
 
         UrlChanged url ->
-            ( { model | page = pageFromUrl url }, Cmd.none )
+            let
+                s =
+                    stateFromUrl url model.language
+            in
+            ( { model | page = s.page, language = s.language }, Cmd.none )
 
 
 view : Model -> Html Msg
@@ -217,7 +257,7 @@ view model =
             div
                 [ classList [ ( "container", True ), ( "dark", model.theme == Dark ) ] ]
                 [ toggleBar model
-                , headerSection model.language
+                , headerSection model
                 , publicationsSection model
                 , fellowshipsSection model.language
                 , footerNote model.language
@@ -225,6 +265,13 @@ view model =
 
         BibTeXPage content ->
             bibTeXView content
+
+        NotesList ->
+            div
+                [ classList [ ( "container", True ), ( "dark", model.theme == Dark ) ] ]
+                [ toggleBar model
+                , notesListView
+                ]
 
 
 toggleBar : Model -> Html Msg
@@ -270,21 +317,27 @@ toggleBar model =
         ]
 
 
-headerSection : Language -> Html Msg
-headerSection lang =
+headerSection : Model -> Html Msg
+headerSection model =
+    let
+        lang =
+            model.language
+    in
     div [ class "header-section" ]
         [ div [ class "text-content" ]
             [ h1 [ class "name" ] [ text "Ryuki Shimada" ]
             , bioParagraph lang
             , div [ class "links" ]
-                [ a [ href "https://github.com/rieuky" ] [ text "GitHub" ]
-                , text " / "
-                , a [ href "https://scholar.google.com/citations?user=Az5KGOYAAAAJ&hl=en" ] [ text "Google Scholar" ]
-                , text " / "
-                , a [ href "https://www.linkedin.com/in/ryuki-shimada-60790a16a/" ] [ text "LinkedIn" ]
-                , text " / "
-                , a [ href "mailto:ryukishimada218@keio.jp" ] [ text "Email" ]
-                ]
+                ([ a [ href "https://github.com/rieuky" ] [ text "GitHub" ]
+                 , text " / "
+                 , a [ href "https://scholar.google.com/citations?user=Az5KGOYAAAAJ&hl=en" ] [ text "Google Scholar" ]
+                 , text " / "
+                 , a [ href "https://www.linkedin.com/in/ryuki-shimada-60790a16a/" ] [ text "LinkedIn" ]
+                 , text " / "
+                 , a [ href "mailto:ryukishimada218@keio.jp" ] [ text "Email" ]
+                 ]
+                    ++ []
+                )
             ]
         , div [ class "profile-image" ]
             [ img [ src "images/profile_20251121.png", alt "profile photo", class "profile-photo" ] [] ]
@@ -533,3 +586,54 @@ bibTeXView : String -> Html Msg
 bibTeXView content =
     div [ class "bibtex-raw" ]
         [ pre [] [ text content ] ]
+
+
+
+-- Notes (Japanese only)
+
+
+type alias Note =
+    { title : String
+    , date : String
+    , content : String
+    }
+
+
+allNotes : List Note
+allNotes =
+    [ { title = "フランス留学の思い出①"
+      , date = "2025-04-01"
+      , content = """
+![説明文](images/notes/example.jpg)
+
+（ここにエッセイを書く）
+"""
+      }
+    , { title = "フランス留学の思い出②"
+      , date = "2025-04-01"
+      , content = """
+![説明文](images/notes/example.jpg)
+
+（ここにエッセイを書く）
+"""
+      }
+    ]
+
+
+notesListView : Html Msg
+notesListView =
+    div [ class "notes-section" ]
+        ([ div [ class "notes-nav" ]
+            [ a [ href "/" ] [ text "← ホームへ" ] ]
+         ]
+            ++ List.map noteView allNotes
+        )
+
+
+noteView : Note -> Html Msg
+noteView note =
+    div [ class "note-entry" ]
+        [ h2 [] [ text note.title ]
+        , p [ class "note-date" ] [ text note.date ]
+        , Markdown.toHtml [ class "note-body" ] note.content
+        ]

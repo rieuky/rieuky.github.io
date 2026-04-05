@@ -287,3 +287,40 @@ em {
   margin: 0;
   white-space: pre;
 }
+
+/* Notes page */
+
+.notes-section {
+  max-width: 680px;
+  margin: 0 auto;
+  padding: 0 1rem;
+}
+
+.notes-nav {
+  margin-bottom: 2rem;
+}
+
+.note-entry {
+  margin-bottom: 4rem;
+}
+
+.note-entry h2 {
+  margin-bottom: 0.25rem;
+}
+
+.note-date {
+  color: var(--color-muted);
+  font-size: 0.9rem;
+  margin-top: 0;
+  margin-bottom: 1.5rem;
+}
+
+.note-body p {
+  line-height: 1.8;
+  margin-bottom: 1rem;
+}
+
+.note-body img {
+  max-width: 100%;
+  margin: 1rem 0;
+}
