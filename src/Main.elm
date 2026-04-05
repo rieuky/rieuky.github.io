@@ -62,7 +62,10 @@ pageFromUrl : Url -> Page
 pageFromUrl url =
     case url.fragment of
         Just "cite/frobt2024" ->
-            BibTeXPage bibtexFrobt2023
+            BibTeXPage bibtexFrobt2024
+
+        Just "cite/ists2023" ->
+            BibTeXPage bibtexIsts2023
 
         _ ->
             MainPage
@@ -382,6 +385,8 @@ publicationsSection model =
                 , span [ class "oral-presentation" ] [ text s.oralPresentation ]
                 , br [] []
                 , a [ href "https://archive.ists.ne.jp/upload_pdf/2023-k-2-02.pdf" ] [ text "Paper" ]
+                , text " / "
+                , a [ href "#cite/ists2023", class "cite-link" ] [ text "Cite" ]
                 , p [] [ text s.paper2Description ]
                 ]
             ]
@@ -501,8 +506,8 @@ footerNote lang =
 -- BibTeX
 
 
-bibtexFrobt2023 : String
-bibtexFrobt2023 =
+bibtexFrobt2024 : String
+bibtexFrobt2024 =
     """@article{shimada2024tangle,
   title={Tangle- and contact-free path planning for a tethered mobile robot using deep reinforcement learning},
   author={Shimada, Ryuki and Ishigami, Genya},
@@ -511,6 +516,16 @@ bibtexFrobt2023 =
   pages={1388634},
   year={2024},
   publisher={Frontiers Media SA}
+}"""
+
+
+bibtexIsts2023 : String
+bibtexIsts2023 =
+    """@inproceedings{shimada2023path,
+  title={Path planning with cable-obstacles avoidance for a tethered mobile robot in unstructured environments},
+  author={Shimada, Ryuki and Ishigami, Genya},
+  booktitle={Proceedings of the International Symposium on Space Technology and Science},
+  year={2023}
 }"""
 
 
