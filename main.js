@@ -519,11 +519,11 @@ function _Debug_crash_UNUSED(identifier, fact1, fact2, fact3, fact4)
 
 function _Debug_regionToString(region)
 {
-	if (region.ai.R === region.ao.R)
+	if (region.al.U === region.ar.U)
 	{
-		return 'on line ' + region.ai.R;
+		return 'on line ' + region.al.U;
 	}
-	return 'on lines ' + region.ai.R + ' through ' + region.ao.R;
+	return 'on lines ' + region.al.U + ' through ' + region.ar.U;
 }
 
 
@@ -1857,9 +1857,9 @@ var _Platform_worker = F4(function(impl, flagDecoder, debugMetadata, args)
 	return _Platform_initialize(
 		flagDecoder,
 		args,
-		impl.aW,
-		impl.a4,
-		impl.a2,
+		impl.aZ,
+		impl.a7,
+		impl.a5,
 		function() { return function() {} }
 	);
 });
@@ -2705,8 +2705,8 @@ var _VirtualDom_mapEventRecord = F2(function(func, record)
 {
 	return {
 		r: func(record.r),
-		aj: record.aj,
-		ag: record.ag
+		am: record.am,
+		aj: record.aj
 	}
 });
 
@@ -2975,10 +2975,10 @@ function _VirtualDom_makeCallback(eventNode, initialHandler)
 
 		var value = result.a;
 		var message = !tag ? value : tag < 3 ? value.a : value.r;
-		var stopPropagation = tag == 1 ? value.b : tag == 3 && value.aj;
+		var stopPropagation = tag == 1 ? value.b : tag == 3 && value.am;
 		var currentEventNode = (
 			stopPropagation && event.stopPropagation(),
-			(tag == 2 ? value.b : tag == 3 && value.ag) && event.preventDefault(),
+			(tag == 2 ? value.b : tag == 3 && value.aj) && event.preventDefault(),
 			eventNode
 		);
 		var tagger;
@@ -3928,11 +3928,11 @@ var _Browser_element = _Debugger_element || F4(function(impl, flagDecoder, debug
 	return _Platform_initialize(
 		flagDecoder,
 		args,
-		impl.aW,
-		impl.a4,
-		impl.a2,
+		impl.aZ,
+		impl.a7,
+		impl.a5,
 		function(sendToApp, initialModel) {
-			var view = impl.a5;
+			var view = impl.a8;
 			/**/
 			var domNode = args['node'];
 			//*/
@@ -3964,12 +3964,12 @@ var _Browser_document = _Debugger_document || F4(function(impl, flagDecoder, deb
 	return _Platform_initialize(
 		flagDecoder,
 		args,
-		impl.aW,
-		impl.a4,
-		impl.a2,
+		impl.aZ,
+		impl.a7,
+		impl.a5,
 		function(sendToApp, initialModel) {
-			var divertHrefToApp = impl.ah && impl.ah(sendToApp)
-			var view = impl.a5;
+			var divertHrefToApp = impl.ak && impl.ak(sendToApp)
+			var view = impl.a8;
 			var title = _VirtualDom_doc.title;
 			var bodyNode = _VirtualDom_doc.body;
 			var currNode = _VirtualDom_virtualize(bodyNode);
@@ -3977,12 +3977,12 @@ var _Browser_document = _Debugger_document || F4(function(impl, flagDecoder, deb
 			{
 				_VirtualDom_divertHrefToApp = divertHrefToApp;
 				var doc = view(model);
-				var nextNode = _VirtualDom_node('body')(_List_Nil)(doc.aM);
+				var nextNode = _VirtualDom_node('body')(_List_Nil)(doc.aP);
 				var patches = _VirtualDom_diff(currNode, nextNode);
 				bodyNode = _VirtualDom_applyPatches(bodyNode, currNode, patches, sendToApp);
 				currNode = nextNode;
 				_VirtualDom_divertHrefToApp = 0;
-				(title !== doc.Z) && (_VirtualDom_doc.title = title = doc.Z);
+				(title !== doc.ab) && (_VirtualDom_doc.title = title = doc.ab);
 			});
 		}
 	);
@@ -4038,12 +4038,12 @@ function _Browser_makeAnimator(model, draw)
 
 function _Browser_application(impl)
 {
-	var onUrlChange = impl.aY;
-	var onUrlRequest = impl.aZ;
+	var onUrlChange = impl.a$;
+	var onUrlRequest = impl.a0;
 	var key = function() { key.a(onUrlChange(_Browser_getUrl())); };
 
 	return _Browser_document({
-		ah: function(sendToApp)
+		ak: function(sendToApp)
 		{
 			key.a = sendToApp;
 			_Browser_window.addEventListener('popstate', key);
@@ -4059,9 +4059,9 @@ function _Browser_application(impl)
 					var next = $elm$url$Url$fromString(href).a;
 					sendToApp(onUrlRequest(
 						(next
-							&& curr.az === next.az
-							&& curr.ar === next.ar
-							&& curr.aw.a === next.aw.a
+							&& curr.aC === next.aC
+							&& curr.au === next.au
+							&& curr.az.a === next.az.a
 						)
 							? $elm$browser$Browser$Internal(next)
 							: $elm$browser$Browser$External(href)
@@ -4069,13 +4069,13 @@ function _Browser_application(impl)
 				}
 			});
 		},
-		aW: function(flags)
+		aZ: function(flags)
 		{
-			return A3(impl.aW, flags, _Browser_getUrl(), key);
+			return A3(impl.aZ, flags, _Browser_getUrl(), key);
 		},
-		a5: impl.a5,
-		a4: impl.a4,
-		a2: impl.a2
+		a8: impl.a8,
+		a7: impl.a7,
+		a5: impl.a5
 	});
 }
 
@@ -4141,17 +4141,17 @@ var _Browser_decodeEvent = F2(function(decoder, event)
 function _Browser_visibilityInfo()
 {
 	return (typeof _VirtualDom_doc.hidden !== 'undefined')
-		? { aU: 'hidden', aO: 'visibilitychange' }
+		? { aX: 'hidden', aR: 'visibilitychange' }
 		:
 	(typeof _VirtualDom_doc.mozHidden !== 'undefined')
-		? { aU: 'mozHidden', aO: 'mozvisibilitychange' }
+		? { aX: 'mozHidden', aR: 'mozvisibilitychange' }
 		:
 	(typeof _VirtualDom_doc.msHidden !== 'undefined')
-		? { aU: 'msHidden', aO: 'msvisibilitychange' }
+		? { aX: 'msHidden', aR: 'msvisibilitychange' }
 		:
 	(typeof _VirtualDom_doc.webkitHidden !== 'undefined')
-		? { aU: 'webkitHidden', aO: 'webkitvisibilitychange' }
-		: { aU: 'hidden', aO: 'visibilitychange' };
+		? { aX: 'webkitHidden', aR: 'webkitvisibilitychange' }
+		: { aX: 'hidden', aR: 'visibilitychange' };
 }
 
 
@@ -4232,12 +4232,12 @@ var _Browser_call = F2(function(functionName, id)
 function _Browser_getViewport()
 {
 	return {
-		aD: _Browser_getScene(),
-		aG: {
-			aI: _Browser_window.pageXOffset,
-			aJ: _Browser_window.pageYOffset,
-			aH: _Browser_doc.documentElement.clientWidth,
-			aq: _Browser_doc.documentElement.clientHeight
+		aG: _Browser_getScene(),
+		aJ: {
+			aL: _Browser_window.pageXOffset,
+			aM: _Browser_window.pageYOffset,
+			aK: _Browser_doc.documentElement.clientWidth,
+			at: _Browser_doc.documentElement.clientHeight
 		}
 	};
 }
@@ -4247,8 +4247,8 @@ function _Browser_getScene()
 	var body = _Browser_doc.body;
 	var elem = _Browser_doc.documentElement;
 	return {
-		aH: Math.max(body.scrollWidth, body.offsetWidth, elem.scrollWidth, elem.offsetWidth, elem.clientWidth),
-		aq: Math.max(body.scrollHeight, body.offsetHeight, elem.scrollHeight, elem.offsetHeight, elem.clientHeight)
+		aK: Math.max(body.scrollWidth, body.offsetWidth, elem.scrollWidth, elem.offsetWidth, elem.clientWidth),
+		at: Math.max(body.scrollHeight, body.offsetHeight, elem.scrollHeight, elem.offsetHeight, elem.clientHeight)
 	};
 }
 
@@ -4271,15 +4271,15 @@ function _Browser_getViewportOf(id)
 	return _Browser_withNode(id, function(node)
 	{
 		return {
-			aD: {
-				aH: node.scrollWidth,
-				aq: node.scrollHeight
-			},
 			aG: {
-				aI: node.scrollLeft,
-				aJ: node.scrollTop,
-				aH: node.clientWidth,
-				aq: node.clientHeight
+				aK: node.scrollWidth,
+				at: node.scrollHeight
+			},
+			aJ: {
+				aL: node.scrollLeft,
+				aM: node.scrollTop,
+				aK: node.clientWidth,
+				at: node.clientHeight
 			}
 		};
 	});
@@ -4309,18 +4309,18 @@ function _Browser_getElement(id)
 		var x = _Browser_window.pageXOffset;
 		var y = _Browser_window.pageYOffset;
 		return {
-			aD: _Browser_getScene(),
-			aG: {
-				aI: x,
-				aJ: y,
-				aH: _Browser_doc.documentElement.clientWidth,
-				aq: _Browser_doc.documentElement.clientHeight
+			aG: _Browser_getScene(),
+			aJ: {
+				aL: x,
+				aM: y,
+				aK: _Browser_doc.documentElement.clientWidth,
+				at: _Browser_doc.documentElement.clientHeight
 			},
-			aQ: {
-				aI: x + rect.left,
-				aJ: y + rect.top,
-				aH: rect.width,
-				aq: rect.height
+			aT: {
+				aL: x + rect.left,
+				aM: y + rect.top,
+				aK: rect.width,
+				at: rect.height
 			}
 		};
 	});
@@ -4430,9 +4430,9 @@ function _Markdown_formatOptions(options)
 {
 	function toHighlight(code, lang)
 	{
-		if (!lang && $elm$core$Maybe$isJust(options.an))
+		if (!lang && $elm$core$Maybe$isJust(options.aq))
 		{
-			lang = options.an.a;
+			lang = options.aq.a;
 		}
 
 		if (typeof hljs !== 'undefined' && lang && hljs.listLanguages().indexOf(lang) >= 0)
@@ -4443,15 +4443,15 @@ function _Markdown_formatOptions(options)
 		return code;
 	}
 
-	var gfm = options.aT.a;
+	var gfm = options.aW.a;
 
 	return {
 		highlight: toHighlight,
 		gfm: gfm,
-		tables: gfm && gfm.a3,
-		breaks: gfm && gfm.aN,
-		sanitize: options.a0,
-		smartypants: options.a1
+		tables: gfm && gfm.a6,
+		breaks: gfm && gfm.aQ,
+		sanitize: options.a3,
+		smartypants: options.a4
 	};
 }
 var $elm$core$List$cons = _List_cons;
@@ -4964,7 +4964,7 @@ var $elm$url$Url$Http = 0;
 var $elm$url$Url$Https = 1;
 var $elm$url$Url$Url = F6(
 	function (protocol, host, port_, path, query, fragment) {
-		return {aS: fragment, ar: host, au: path, aw: port_, az: protocol, aA: query};
+		return {aV: fragment, au: host, ax: path, az: port_, aC: protocol, aD: query};
 	});
 var $elm$core$String$contains = _String_contains;
 var $elm$core$String$length = _String_length;
@@ -5262,7 +5262,7 @@ var $author$project$Main$bibtexFrobt2024 = '@article{shimada2024tangle,\n  title
 var $author$project$Main$bibtexIsts2023 = '@inproceedings{shimada2023path,\n  title={Path planning with cable-obstacles avoidance for a tethered mobile robot in unstructured environments},\n  author={Shimada, Ryuki and Ishigami, Genya},\n  booktitle={Proceedings of the International Symposium on Space Technology and Science},\n  year={2023}\n}';
 var $author$project$Main$stateFromUrl = F2(
 	function (url, currentLang) {
-		var _v0 = url.aS;
+		var _v0 = url.aV;
 		_v0$5:
 		while (true) {
 			if (!_v0.$) {
@@ -5296,7 +5296,7 @@ var $author$project$Main$init = F3(
 	function (_v0, url, key) {
 		var s = A2($author$project$Main$stateFromUrl, url, 0);
 		return _Utils_Tuple2(
-			{Q: $elm$core$Maybe$Nothing, ad: key, a: s.a, S: $elm$core$Set$empty, h: s.h, x: 1},
+			{T: $elm$core$Maybe$Nothing, ag: key, a: s.a, V: $elm$core$Set$empty, h: s.h, x: 1},
 			$elm$core$Platform$Cmd$none);
 	});
 var $elm$core$Platform$Sub$batch = _Platform_batch;
@@ -5449,7 +5449,7 @@ var $elm$url$Url$addPrefixed = F3(
 	});
 var $elm$url$Url$toString = function (url) {
 	var http = function () {
-		var _v0 = url.az;
+		var _v0 = url.aC;
 		if (!_v0) {
 			return 'http://';
 		} else {
@@ -5459,17 +5459,17 @@ var $elm$url$Url$toString = function (url) {
 	return A3(
 		$elm$url$Url$addPrefixed,
 		'#',
-		url.aS,
+		url.aV,
 		A3(
 			$elm$url$Url$addPrefixed,
 			'?',
-			url.aA,
+			url.aD,
 			_Utils_ap(
 				A2(
 					$elm$url$Url$addPort,
-					url.aw,
-					_Utils_ap(http, url.ar)),
-				url.au)));
+					url.az,
+					_Utils_ap(http, url.au)),
+				url.ax)));
 };
 var $author$project$Main$update = F2(
 	function (msg, model) {
@@ -5480,14 +5480,14 @@ var $author$project$Main$update = F2(
 					_Utils_update(
 						model,
 						{
-							Q: $elm$core$Maybe$Just(paperId)
+							T: $elm$core$Maybe$Just(paperId)
 						}),
 					$elm$core$Platform$Cmd$none);
 			case 1:
 				return _Utils_Tuple2(
 					_Utils_update(
 						model,
-						{Q: $elm$core$Maybe$Nothing}),
+						{T: $elm$core$Maybe$Nothing}),
 					$elm$core$Platform$Cmd$none);
 			case 2:
 				var paperId = msg.a;
@@ -5495,7 +5495,7 @@ var $author$project$Main$update = F2(
 					_Utils_update(
 						model,
 						{
-							S: A2($elm$core$Set$insert, paperId, model.S)
+							V: A2($elm$core$Set$insert, paperId, model.V)
 						}),
 					$elm$core$Platform$Cmd$none);
 			case 3:
@@ -5506,7 +5506,7 @@ var $author$project$Main$update = F2(
 						{a: lang}),
 					A2(
 						$elm$browser$Browser$Navigation$pushUrl,
-						model.ad,
+						model.ag,
 						$author$project$Main$langToFragment(lang)));
 			case 4:
 				var theme = msg.a;
@@ -5522,7 +5522,7 @@ var $author$project$Main$update = F2(
 						model,
 						A2(
 							$elm$browser$Browser$Navigation$pushUrl,
-							model.ad,
+							model.ag,
 							$elm$url$Url$toString(url)));
 				} else {
 					var url = msg.a.a;
@@ -5600,11 +5600,11 @@ var $elm$html$Html$a = _VirtualDom_node('a');
 var $author$project$Main$getStrings = function (lang) {
 	switch (lang) {
 		case 0:
-			return {D: 'JPY 183K/month', E: 'JST Support for Pioneering Research Initiated by the Next Generation (SPRING)', F: 'Apr. 2025 – Mar. 2026', G: 'EUR 700/month', H: 'French Government Scholarship (Bourse France Excellence Japon)', I: 'Sep. 2019 – Sep. 2021', J: 'https://jp.diplomatie.gouv.fr/fr/bourses-france-excellence', K: 'JPY 227K/month', L: 'JSPS Research Fellow for Young Scientists (DC2)', M: 'Apr. 2026 – Mar. 2028', l: ', ', N: 'Fellowships and Scholarships', O: 'CSS: ', P: 'Written in ', T: ' (Oral Presentation)', U: 'A learning-based homotopy-aware path planning method for a tethered mobile robot to avoid cable-obstacles and cable-robot contacts while navigating to goals.', V: 'A path refinement method for a tethered mobile robot to avoid cable-obstacle contact by considering path curvature and distance from cable base.', W: 'Publications'};
+			return {D: 'JPY 183K/month', E: 'JST Support for Pioneering Research Initiated by the Next Generation (SPRING)', F: 'Apr. 2025 – Mar. 2026', G: 'EUR 700/month', H: 'French Government Scholarship (Bourse France Excellence Japon)', I: 'Sep. 2019 – Sep. 2021', J: 'https://jp.diplomatie.gouv.fr/fr/bourses-france-excellence', K: 'JPY 227K/month', L: 'JSPS Research Fellow for Young Scientists (DC2)', M: 'Apr. 2026 – Mar. 2028', N: 'JPY 100K', O: 'The Keio University Doctorate Student Grant-in-Aid Program from Ushioda Memorial Fund 2026', P: 'Apr. 2026 – Mar. 2027', k: ', ', Q: 'Fellowships and Scholarships', R: 'CSS: ', S: 'Written in ', W: ' (Oral Presentation)', X: 'A learning-based homotopy-aware path planning method for a tethered mobile robot to avoid cable-obstacles and cable-robot contacts while navigating to goals.', Y: 'A path refinement method for a tethered mobile robot to avoid cable-obstacle contact by considering path curvature and distance from cable base.', Z: 'Publications'};
 		case 1:
-			return {D: 'JPY 183K/month', E: 'Bourse JST pour la recherche pionnière de la prochaine génération (SPRING)', F: 'avr. 2025 – mars 2026', G: 'EUR 700/month', H: 'Bourse du gouvernement français (Bourse France Excellence Japon)', I: 'sept. 2019 – sept. 2021', J: 'https://jp.diplomatie.gouv.fr/fr/bourses-france-excellence', K: 'JPY 227K/month', L: 'Chercheur associé JSPS pour jeunes scientifiques (DC2)', M: 'avr. 2026 – mars 2028', l: ', ', N: 'Bourses et financements', O: 'CSS : ', P: 'Écrit en ', T: ' (Présentation orale)', U: 'A learning-based homotopy-aware path planning method for a tethered mobile robot to avoid cable-obstacles and cable-robot contacts while navigating to goals.', V: 'A path refinement method for a tethered mobile robot to avoid cable-obstacle contact by considering path curvature and distance from cable base.', W: 'Publications'};
+			return {D: 'JPY 183K/month', E: 'Bourse JST pour la recherche pionnière de la prochaine génération (SPRING)', F: 'avr. 2025 – mars 2026', G: 'EUR 700/month', H: 'Bourse du gouvernement français (Bourse France Excellence Japon)', I: 'sept. 2019 – sept. 2021', J: 'https://jp.diplomatie.gouv.fr/fr/bourses-france-excellence', K: 'JPY 227K/month', L: 'Chercheur associé JSPS pour jeunes scientifiques (DC2)', M: 'avr. 2026 – mars 2028', N: 'JPY 100K', O: 'Programme de soutien à la recherche des doctorants de l\'Université Keio par le Fonds commémoratif Ushioda (2026)', P: 'avr. 2026 – mars 2027', k: ', ', Q: 'Bourses et financements', R: 'CSS : ', S: 'Écrit en ', W: ' (Présentation orale)', X: 'A learning-based homotopy-aware path planning method for a tethered mobile robot to avoid cable-obstacles and cable-robot contacts while navigating to goals.', Y: 'A path refinement method for a tethered mobile robot to avoid cable-obstacle contact by considering path curvature and distance from cable base.', Z: 'Publications'};
 		default:
-			return {D: '月18.3万円', E: 'JST次世代研究者挑戦的研究プログラム（SPRING）', F: '2025年4月 – 2026年3月', G: '月700ユーロ', H: 'フランス政府奨学金（Bourse France Excellence Japon）', I: '2019年9月 – 2021年9月', J: 'https://jp.diplomatie.gouv.fr/ja/Bourses-France-Excellence', K: '月22.7万円', L: '日本学術振興会特別研究員（DC2）', M: '2026年4月 – 2028年3月', l: '，', N: '奨学金・フェローシップ', O: 'CSS: ', P: 'Written in: ', T: '（口頭発表）', U: 'A learning-based homotopy-aware path planning method for a tethered mobile robot to avoid cable-obstacles and cable-robot contacts while navigating to goals.', V: 'A path refinement method for a tethered mobile robot to avoid cable-obstacle contact by considering path curvature and distance from cable base.', W: '業績'};
+			return {D: '月18.3万円', E: 'JST次世代研究者挑戦的研究プログラム（SPRING）', F: '2025年4月 – 2026年3月', G: '月700ユーロ', H: 'フランス政府奨学金（Bourse France Excellence Japon）', I: '2019年9月 – 2021年9月', J: 'https://jp.diplomatie.gouv.fr/ja/Bourses-France-Excellence', K: '月22.7万円', L: '日本学術振興会特別研究員（DC2）', M: '2026年4月 – 2028年3月', N: '10万円', O: '潮田記念基金による博士課程学生研究支援プログラム（2026年度）', P: '2026年4月 – 2027年3月', k: '，', Q: '奨学金・フェローシップ', R: 'CSS: ', S: 'Written in: ', W: '（口頭発表）', X: 'A learning-based homotopy-aware path planning method for a tethered mobile robot to avoid cable-obstacles and cable-robot contacts while navigating to goals.', Y: 'A path refinement method for a tethered mobile robot to avoid cable-obstacle contact by considering path curvature and distance from cable base.', Z: '業績'};
 	}
 };
 var $elm$html$Html$h2 = _VirtualDom_node('h2');
@@ -5632,7 +5632,7 @@ var $author$project$Main$fellowshipsSection = function (lang) {
 				_List_Nil,
 				_List_fromArray(
 					[
-						$elm$html$Html$text(s.N)
+						$elm$html$Html$text(s.Q)
 					])),
 				A2(
 				$elm$html$Html$ul,
@@ -5660,7 +5660,7 @@ var $author$project$Main$fellowshipsSection = function (lang) {
 												$elm$html$Html$text(s.L)
 											]))
 									])),
-								$elm$html$Html$text(s.l),
+								$elm$html$Html$text(s.k),
 								A2(
 								$elm$html$Html$strong,
 								_List_Nil,
@@ -5668,8 +5668,31 @@ var $author$project$Main$fellowshipsSection = function (lang) {
 									[
 										$elm$html$Html$text(s.K)
 									])),
-								$elm$html$Html$text(s.l),
+								$elm$html$Html$text(s.k),
 								$elm$html$Html$text(s.M)
+							])),
+						A2(
+						$elm$html$Html$li,
+						_List_Nil,
+						_List_fromArray(
+							[
+								A2(
+								$elm$html$Html$strong,
+								_List_Nil,
+								_List_fromArray(
+									[
+										$elm$html$Html$text(s.O)
+									])),
+								$elm$html$Html$text(s.k),
+								A2(
+								$elm$html$Html$strong,
+								_List_Nil,
+								_List_fromArray(
+									[
+										$elm$html$Html$text(s.N)
+									])),
+								$elm$html$Html$text(s.k),
+								$elm$html$Html$text(s.P)
 							])),
 						A2(
 						$elm$html$Html$li,
@@ -5692,7 +5715,7 @@ var $author$project$Main$fellowshipsSection = function (lang) {
 												$elm$html$Html$text(s.E)
 											]))
 									])),
-								$elm$html$Html$text(s.l),
+								$elm$html$Html$text(s.k),
 								A2(
 								$elm$html$Html$strong,
 								_List_Nil,
@@ -5700,7 +5723,7 @@ var $author$project$Main$fellowshipsSection = function (lang) {
 									[
 										$elm$html$Html$text(s.D)
 									])),
-								$elm$html$Html$text(s.l),
+								$elm$html$Html$text(s.k),
 								$elm$html$Html$text(s.F)
 							])),
 						A2(
@@ -5724,7 +5747,7 @@ var $author$project$Main$fellowshipsSection = function (lang) {
 												$elm$html$Html$text(s.H)
 											]))
 									])),
-								$elm$html$Html$text(s.l),
+								$elm$html$Html$text(s.k),
 								A2(
 								$elm$html$Html$strong,
 								_List_Nil,
@@ -5732,7 +5755,7 @@ var $author$project$Main$fellowshipsSection = function (lang) {
 									[
 										$elm$html$Html$text(s.G)
 									])),
-								$elm$html$Html$text(s.l),
+								$elm$html$Html$text(s.k),
 								$elm$html$Html$text(s.I)
 							]))
 					]))
@@ -5748,7 +5771,7 @@ var $author$project$Main$footerNote = function (lang) {
 			]),
 		_List_fromArray(
 			[
-				$elm$html$Html$text(s.P),
+				$elm$html$Html$text(s.S),
 				A2(
 				$elm$html$Html$a,
 				_List_fromArray(
@@ -5759,7 +5782,7 @@ var $author$project$Main$footerNote = function (lang) {
 					[
 						$elm$html$Html$text('Elm · ')
 					])),
-				$elm$html$Html$text(s.O),
+				$elm$html$Html$text(s.R),
 				A2(
 				$elm$html$Html$a,
 				_List_fromArray(
@@ -6074,7 +6097,20 @@ var $author$project$Main$headerSection = function (model) {
 											$elm$html$Html$text('Email')
 										]))
 								]),
-							_List_Nil))
+							(lang === 2) ? _List_fromArray(
+								[
+									$elm$html$Html$text(' / '),
+									A2(
+									$elm$html$Html$a,
+									_List_fromArray(
+										[
+											$elm$html$Html$Attributes$href('#notes')
+										]),
+									_List_fromArray(
+										[
+											$elm$html$Html$text('雑記')
+										]))
+								]) : _List_Nil))
 					])),
 				A2(
 				$elm$html$Html$div,
@@ -6098,15 +6134,15 @@ var $author$project$Main$headerSection = function (model) {
 };
 var $author$project$Main$allNotes = _List_fromArray(
 	[
-		{ab: '\n![説明文](images/notes/example.jpg)\n\n（ここにエッセイを書く）\n', ac: '2025-04-01', Z: 'フランス留学の思い出①'},
-		{ab: '\n![説明文](images/notes/example.jpg)\n\n（ここにエッセイを書く）\n', ac: '2025-04-01', Z: 'フランス留学の思い出②'}
+		{ae: '\n「彼らはこの夏からフランス政府給費留学生として渡仏するエリートたちです。」\n\nK先生は講義終盤、そう言って壇上にふたりの学生を招き入れた。臆面もなくエリートという言葉を使った先生に周囲は少し引いたようだったが、私はその言葉にかえって引き寄せられた。壇上にあがったふたりは、そんな紹介をされながらも誇らしげな様子はなく、むしろ気恥ずかしそうだった。\n\n「フランス政府から年間百万円以上のお金をもらってフランスの学位を取りに行きます。しかも帰国後は、政府給費留学経験者だけが参加を許される秘密結社に招待されます。」\n\n人と違う経験をして「何者か」になりたかった当時の私にとって、K先生の言葉はあまりにも刺激が強すぎたのだろう。ふたりが自己紹介をし終えるよりもまえに、留学しようと決めた。大学一年生の五月だった。\n', af: '2025-04-05', ab: '留学のきっかけ'},
+		{ae: '\n![説明文](images/notes/example.jpg)\n\n（ここにエッセイを書く）\n', af: '2025-04-01', ab: 'フランス留学の思い出②'}
 	]);
 var $elm_explorations$markdown$Markdown$defaultOptions = {
-	an: $elm$core$Maybe$Nothing,
-	aT: $elm$core$Maybe$Just(
-		{aN: false, a3: false}),
-	a0: true,
-	a1: false
+	aq: $elm$core$Maybe$Nothing,
+	aW: $elm$core$Maybe$Just(
+		{aQ: false, a6: false}),
+	a3: true,
+	a4: false
 };
 var $elm$core$Maybe$isJust = function (maybe) {
 	if (!maybe.$) {
@@ -6131,7 +6167,7 @@ var $author$project$Main$noteView = function (note) {
 				_List_Nil,
 				_List_fromArray(
 					[
-						$elm$html$Html$text(note.Z)
+						$elm$html$Html$text(note.ab)
 					])),
 				A2(
 				$elm$html$Html$p,
@@ -6141,7 +6177,7 @@ var $author$project$Main$noteView = function (note) {
 					]),
 				_List_fromArray(
 					[
-						$elm$html$Html$text(note.ac)
+						$elm$html$Html$text(note.af)
 					])),
 				A2(
 				$elm_explorations$markdown$Markdown$toHtml,
@@ -6149,7 +6185,7 @@ var $author$project$Main$noteView = function (note) {
 					[
 						$elm$html$Html$Attributes$class('note-body')
 					]),
-				note.ab)
+				note.ae)
 			]));
 };
 var $author$project$Main$notesListView = A2(
@@ -6279,9 +6315,9 @@ var $elm$html$Html$Attributes$width = function (n) {
 var $author$project$Main$viewPaperImage = F2(
 	function (model, paperId) {
 		var isHovered = _Utils_eq(
-			model.Q,
+			model.T,
 			$elm$core$Maybe$Just(paperId));
-		var gifSupported = !A2($elm$core$Set$member, paperId, model.S);
+		var gifSupported = !A2($elm$core$Set$member, paperId, model.V);
 		var imgSrc = (isHovered && gifSupported) ? A2($author$project$Main$getImagePath, paperId, '.gif') : A2($author$project$Main$getImagePath, paperId, '.jpg');
 		return A2(
 			$elm$html$Html$div,
@@ -6328,7 +6364,7 @@ var $author$project$Main$publicationsSection = function (model) {
 				_List_Nil,
 				_List_fromArray(
 					[
-						$elm$html$Html$text(s.W)
+						$elm$html$Html$text(s.Z)
 					])),
 				A2(
 				$elm$html$Html$div,
@@ -6412,7 +6448,7 @@ var $author$project$Main$publicationsSection = function (model) {
 								_List_Nil,
 								_List_fromArray(
 									[
-										$elm$html$Html$text(s.U)
+										$elm$html$Html$text(s.X)
 									]))
 							]))
 					])),
@@ -6478,7 +6514,7 @@ var $author$project$Main$publicationsSection = function (model) {
 									]),
 								_List_fromArray(
 									[
-										$elm$html$Html$text(s.T)
+										$elm$html$Html$text(s.W)
 									])),
 								A2($elm$html$Html$br, _List_Nil, _List_Nil),
 								A2(
@@ -6508,7 +6544,7 @@ var $author$project$Main$publicationsSection = function (model) {
 								_List_Nil,
 								_List_fromArray(
 									[
-										$elm$html$Html$text(s.V)
+										$elm$html$Html$text(s.Y)
 									]))
 							]))
 					]))
@@ -6678,20 +6714,20 @@ var $author$project$Main$view = function (model) {
 };
 var $author$project$Main$main = $elm$browser$Browser$application(
 	{
-		aW: $author$project$Main$init,
-		aY: $author$project$Main$UrlChanged,
-		aZ: $author$project$Main$LinkClicked,
-		a2: function (_v0) {
+		aZ: $author$project$Main$init,
+		a$: $author$project$Main$UrlChanged,
+		a0: $author$project$Main$LinkClicked,
+		a5: function (_v0) {
 			return $elm$core$Platform$Sub$none;
 		},
-		a4: $author$project$Main$update,
-		a5: function (model) {
+		a7: $author$project$Main$update,
+		a8: function (model) {
 			return {
-				aM: _List_fromArray(
+				aP: _List_fromArray(
 					[
 						$author$project$Main$view(model)
 					]),
-				Z: 'Ryuki Shimada'
+				ab: 'Ryuki Shimada'
 			};
 		}
 	});
