@@ -140,9 +140,12 @@ type alias StringContent =
     , fellowship2Period : String
     , fellowship3Name : String
     , fellowship3Period : String
+    , fellowship4Name : String
+    , fellowship4Period : String
     , fellowship1Amount : String
     , fellowship2Amount : String
     , fellowship3Amount : String
+    , fellowship4Amount : String
     , fellowshipSep : String
     , footerWrittenIn : String
     , footerCssCredit : String
@@ -165,9 +168,12 @@ getStrings lang =
             , fellowship2Period = "Sep. 2019 – Sep. 2021"
             , fellowship3Name = "JSPS Research Fellow for Young Scientists (DC2)"
             , fellowship3Period = "Apr. 2026 – Mar. 2028"
+            , fellowship4Name = "The Keio University Doctorate Student Grant-in-Aid Program from Ushioda Memorial Fund 2026"
+            , fellowship4Period = "Apr. 2026 – Mar. 2027"
             , fellowship1Amount = "JPY 183K/month"
             , fellowship2Amount = "EUR 700/month"
             , fellowship3Amount = "JPY 227K/month"
+            , fellowship4Amount = "JPY 100K"
             , fellowshipSep = ", "
             , footerWrittenIn = "Written in "
             , footerCssCredit = "CSS: "
@@ -186,9 +192,12 @@ getStrings lang =
             , fellowship2Period = "sept. 2019 – sept. 2021"
             , fellowship3Name = "Chercheur associé JSPS pour jeunes scientifiques (DC2)"
             , fellowship3Period = "avr. 2026 – mars 2028"
+            , fellowship4Name = "Programme de soutien à la recherche des doctorants de l'Université Keio par le Fonds commémoratif Ushioda (2026)"
+            , fellowship4Period = "avr. 2026 – mars 2027"
             , fellowship1Amount = "JPY 183K/month"
             , fellowship2Amount = "EUR 700/month"
             , fellowship3Amount = "JPY 227K/month"
+            , fellowship4Amount = "JPY 100K"
             , fellowshipSep = ", "
             , footerWrittenIn = "Écrit en "
             , footerCssCredit = "CSS : "
@@ -207,9 +216,12 @@ getStrings lang =
             , fellowship2Period = "2019年9月 – 2021年9月"
             , fellowship3Name = "日本学術振興会特別研究員（DC2）"
             , fellowship3Period = "2026年4月 – 2028年3月"
+            , fellowship4Name = "潮田記念基金による博士課程学生研究支援プログラム（2026年度）"
+            , fellowship4Period = "2026年4月 – 2027年3月"
             , fellowship1Amount = "月18.3万円"
             , fellowship2Amount = "月700ユーロ"
             , fellowship3Amount = "月22.7万円"
+            , fellowship4Amount = "10万円"
             , fellowshipSep = "，"
             , footerWrittenIn = "Written in: "
             , footerCssCredit = "CSS: "
@@ -336,7 +348,14 @@ headerSection model =
                  , text " / "
                  , a [ href "mailto:ryukishimada218@keio.jp" ] [ text "Email" ]
                  ]
-                    ++ []
+                    ++ (if lang == Japanese then
+                            [ text " / "
+                            , a [ href "#notes" ] [ text "雑記" ]
+                            ]
+
+                        else
+                            []
+                       )
                 )
             ]
         , div [ class "profile-image" ]
@@ -520,6 +539,13 @@ fellowshipsSection lang =
                 , text s.fellowship3Period
                 ]
             , li []
+                [ strong [] [ text s.fellowship4Name ]
+                , text s.fellowshipSep
+                , strong [] [ text s.fellowship4Amount ]
+                , text s.fellowshipSep
+                , text s.fellowship4Period
+                ]
+            , li []
                 [ strong [] [ a [ href "https://www.jst.go.jp/jisedai/spring/en/index.html" ] [ text s.fellowship1Name ] ]
                 , text s.fellowshipSep
                 , strong [] [ text s.fellowship1Amount ]
@@ -601,12 +627,16 @@ type alias Note =
 
 allNotes : List Note
 allNotes =
-    [ { title = "フランス留学の思い出①"
-      , date = "2025-04-01"
+    [ { title = "留学のきっかけ"
+      , date = "2025-04-05"
       , content = """
-![説明文](images/notes/example.jpg)
+「彼らはこの夏からフランス政府給費留学生として渡仏するエリートたちです。」
 
-（ここにエッセイを書く）
+K先生は講義終盤、そう言って壇上にふたりの学生を招き入れた。臆面もなくエリートという言葉を使った先生に周囲は少し引いたようだったが、私はその言葉にかえって引き寄せられた。壇上にあがったふたりは、そんな紹介をされながらも誇らしげな様子はなく、むしろ気恥ずかしそうだった。
+
+「フランス政府から年間百万円以上のお金をもらってフランスの学位を取りに行きます。しかも帰国後は、政府給費留学経験者だけが参加を許される秘密結社に招待されます。」
+
+人と違う経験をして「何者か」になりたかった当時の私にとって、K先生の言葉はあまりにも刺激が強すぎたのだろう。ふたりが自己紹介をし終えるよりもまえに、留学しようと決めた。大学一年生の五月だった。
 """
       }
     , { title = "フランス留学の思い出②"
