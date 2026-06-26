@@ -519,11 +519,11 @@ function _Debug_crash_UNUSED(identifier, fact1, fact2, fact3, fact4)
 
 function _Debug_regionToString(region)
 {
-	if (region.al.U === region.ar.U)
+	if (region.N.B === region.S.B)
 	{
-		return 'on line ' + region.al.U;
+		return 'on line ' + region.N.B;
 	}
-	return 'on lines ' + region.al.U + ' through ' + region.ar.U;
+	return 'on lines ' + region.N.B + ' through ' + region.S.B;
 }
 
 
@@ -1857,9 +1857,9 @@ var _Platform_worker = F4(function(impl, flagDecoder, debugMetadata, args)
 	return _Platform_initialize(
 		flagDecoder,
 		args,
-		impl.aZ,
-		impl.a7,
-		impl.a5,
+		impl.ax,
+		impl.aF,
+		impl.aD,
 		function() { return function() {} }
 	);
 });
@@ -2704,9 +2704,9 @@ var _VirtualDom_mapEventTuple = F2(function(func, tuple)
 var _VirtualDom_mapEventRecord = F2(function(func, record)
 {
 	return {
-		r: func(record.r),
-		am: record.am,
-		aj: record.aj
+		o: func(record.o),
+		O: record.O,
+		L: record.L
 	}
 });
 
@@ -2974,11 +2974,11 @@ function _VirtualDom_makeCallback(eventNode, initialHandler)
 		// 3 = Custom
 
 		var value = result.a;
-		var message = !tag ? value : tag < 3 ? value.a : value.r;
-		var stopPropagation = tag == 1 ? value.b : tag == 3 && value.am;
+		var message = !tag ? value : tag < 3 ? value.a : value.o;
+		var stopPropagation = tag == 1 ? value.b : tag == 3 && value.O;
 		var currentEventNode = (
 			stopPropagation && event.stopPropagation(),
-			(tag == 2 ? value.b : tag == 3 && value.aj) && event.preventDefault(),
+			(tag == 2 ? value.b : tag == 3 && value.L) && event.preventDefault(),
 			eventNode
 		);
 		var tagger;
@@ -3928,11 +3928,11 @@ var _Browser_element = _Debugger_element || F4(function(impl, flagDecoder, debug
 	return _Platform_initialize(
 		flagDecoder,
 		args,
-		impl.aZ,
-		impl.a7,
-		impl.a5,
+		impl.ax,
+		impl.aF,
+		impl.aD,
 		function(sendToApp, initialModel) {
-			var view = impl.a8;
+			var view = impl.aG;
 			/**/
 			var domNode = args['node'];
 			//*/
@@ -3964,12 +3964,12 @@ var _Browser_document = _Debugger_document || F4(function(impl, flagDecoder, deb
 	return _Platform_initialize(
 		flagDecoder,
 		args,
-		impl.aZ,
-		impl.a7,
-		impl.a5,
+		impl.ax,
+		impl.aF,
+		impl.aD,
 		function(sendToApp, initialModel) {
-			var divertHrefToApp = impl.ak && impl.ak(sendToApp)
-			var view = impl.a8;
+			var divertHrefToApp = impl.M && impl.M(sendToApp)
+			var view = impl.aG;
 			var title = _VirtualDom_doc.title;
 			var bodyNode = _VirtualDom_doc.body;
 			var currNode = _VirtualDom_virtualize(bodyNode);
@@ -3977,12 +3977,12 @@ var _Browser_document = _Debugger_document || F4(function(impl, flagDecoder, deb
 			{
 				_VirtualDom_divertHrefToApp = divertHrefToApp;
 				var doc = view(model);
-				var nextNode = _VirtualDom_node('body')(_List_Nil)(doc.aP);
+				var nextNode = _VirtualDom_node('body')(_List_Nil)(doc.ap);
 				var patches = _VirtualDom_diff(currNode, nextNode);
 				bodyNode = _VirtualDom_applyPatches(bodyNode, currNode, patches, sendToApp);
 				currNode = nextNode;
 				_VirtualDom_divertHrefToApp = 0;
-				(title !== doc.ab) && (_VirtualDom_doc.title = title = doc.ab);
+				(title !== doc.aE) && (_VirtualDom_doc.title = title = doc.aE);
 			});
 		}
 	);
@@ -4038,12 +4038,12 @@ function _Browser_makeAnimator(model, draw)
 
 function _Browser_application(impl)
 {
-	var onUrlChange = impl.a$;
-	var onUrlRequest = impl.a0;
+	var onUrlChange = impl.az;
+	var onUrlRequest = impl.aA;
 	var key = function() { key.a(onUrlChange(_Browser_getUrl())); };
 
 	return _Browser_document({
-		ak: function(sendToApp)
+		M: function(sendToApp)
 		{
 			key.a = sendToApp;
 			_Browser_window.addEventListener('popstate', key);
@@ -4059,9 +4059,9 @@ function _Browser_application(impl)
 					var next = $elm$url$Url$fromString(href).a;
 					sendToApp(onUrlRequest(
 						(next
-							&& curr.aC === next.aC
-							&& curr.au === next.au
-							&& curr.az.a === next.az.a
+							&& curr.ac === next.ac
+							&& curr.V === next.V
+							&& curr._.a === next._.a
 						)
 							? $elm$browser$Browser$Internal(next)
 							: $elm$browser$Browser$External(href)
@@ -4069,13 +4069,13 @@ function _Browser_application(impl)
 				}
 			});
 		},
-		aZ: function(flags)
+		ax: function(flags)
 		{
-			return A3(impl.aZ, flags, _Browser_getUrl(), key);
+			return A3(impl.ax, flags, _Browser_getUrl(), key);
 		},
-		a8: impl.a8,
-		a7: impl.a7,
-		a5: impl.a5
+		aG: impl.aG,
+		aF: impl.aF,
+		aD: impl.aD
 	});
 }
 
@@ -4141,17 +4141,17 @@ var _Browser_decodeEvent = F2(function(decoder, event)
 function _Browser_visibilityInfo()
 {
 	return (typeof _VirtualDom_doc.hidden !== 'undefined')
-		? { aX: 'hidden', aR: 'visibilitychange' }
+		? { av: 'hidden', aq: 'visibilitychange' }
 		:
 	(typeof _VirtualDom_doc.mozHidden !== 'undefined')
-		? { aX: 'mozHidden', aR: 'mozvisibilitychange' }
+		? { av: 'mozHidden', aq: 'mozvisibilitychange' }
 		:
 	(typeof _VirtualDom_doc.msHidden !== 'undefined')
-		? { aX: 'msHidden', aR: 'msvisibilitychange' }
+		? { av: 'msHidden', aq: 'msvisibilitychange' }
 		:
 	(typeof _VirtualDom_doc.webkitHidden !== 'undefined')
-		? { aX: 'webkitHidden', aR: 'webkitvisibilitychange' }
-		: { aX: 'hidden', aR: 'visibilitychange' };
+		? { av: 'webkitHidden', aq: 'webkitvisibilitychange' }
+		: { av: 'hidden', aq: 'visibilitychange' };
 }
 
 
@@ -4232,12 +4232,12 @@ var _Browser_call = F2(function(functionName, id)
 function _Browser_getViewport()
 {
 	return {
-		aG: _Browser_getScene(),
-		aJ: {
-			aL: _Browser_window.pageXOffset,
-			aM: _Browser_window.pageYOffset,
-			aK: _Browser_doc.documentElement.clientWidth,
-			at: _Browser_doc.documentElement.clientHeight
+		ag: _Browser_getScene(),
+		aj: {
+			al: _Browser_window.pageXOffset,
+			am: _Browser_window.pageYOffset,
+			ak: _Browser_doc.documentElement.clientWidth,
+			U: _Browser_doc.documentElement.clientHeight
 		}
 	};
 }
@@ -4247,8 +4247,8 @@ function _Browser_getScene()
 	var body = _Browser_doc.body;
 	var elem = _Browser_doc.documentElement;
 	return {
-		aK: Math.max(body.scrollWidth, body.offsetWidth, elem.scrollWidth, elem.offsetWidth, elem.clientWidth),
-		at: Math.max(body.scrollHeight, body.offsetHeight, elem.scrollHeight, elem.offsetHeight, elem.clientHeight)
+		ak: Math.max(body.scrollWidth, body.offsetWidth, elem.scrollWidth, elem.offsetWidth, elem.clientWidth),
+		U: Math.max(body.scrollHeight, body.offsetHeight, elem.scrollHeight, elem.offsetHeight, elem.clientHeight)
 	};
 }
 
@@ -4271,15 +4271,15 @@ function _Browser_getViewportOf(id)
 	return _Browser_withNode(id, function(node)
 	{
 		return {
-			aG: {
-				aK: node.scrollWidth,
-				at: node.scrollHeight
+			ag: {
+				ak: node.scrollWidth,
+				U: node.scrollHeight
 			},
-			aJ: {
-				aL: node.scrollLeft,
-				aM: node.scrollTop,
-				aK: node.clientWidth,
-				at: node.clientHeight
+			aj: {
+				al: node.scrollLeft,
+				am: node.scrollTop,
+				ak: node.clientWidth,
+				U: node.clientHeight
 			}
 		};
 	});
@@ -4309,18 +4309,18 @@ function _Browser_getElement(id)
 		var x = _Browser_window.pageXOffset;
 		var y = _Browser_window.pageYOffset;
 		return {
-			aG: _Browser_getScene(),
-			aJ: {
-				aL: x,
-				aM: y,
-				aK: _Browser_doc.documentElement.clientWidth,
-				at: _Browser_doc.documentElement.clientHeight
+			ag: _Browser_getScene(),
+			aj: {
+				al: x,
+				am: y,
+				ak: _Browser_doc.documentElement.clientWidth,
+				U: _Browser_doc.documentElement.clientHeight
 			},
-			aT: {
-				aL: x + rect.left,
-				aM: y + rect.top,
-				aK: rect.width,
-				at: rect.height
+			as: {
+				al: x + rect.left,
+				am: y + rect.top,
+				ak: rect.width,
+				U: rect.height
 			}
 		};
 	});
@@ -4354,105 +4354,6 @@ function _Browser_load(url)
 			_VirtualDom_doc.location.reload(false);
 		}
 	}));
-}
-
-
-
-
-// VIRTUAL-DOM WIDGETS
-
-
-var _Markdown_toHtml = F3(function(options, factList, rawMarkdown)
-{
-	return _VirtualDom_custom(
-		factList,
-		{
-			a: options,
-			b: rawMarkdown
-		},
-		_Markdown_render,
-		_Markdown_diff
-	);
-});
-
-
-
-// WIDGET IMPLEMENTATION
-
-
-function _Markdown_render(model)
-{
-	return A2(_Markdown_replace, model, _VirtualDom_doc.createElement('div'));
-}
-
-
-function _Markdown_diff(x, y)
-{
-	return x.b === y.b && x.a === y.a
-		? false
-		: _Markdown_replace(y);
-}
-
-
-var _Markdown_replace = F2(function(model, div)
-{
-	div.innerHTML = _Markdown_marked(model.b, _Markdown_formatOptions(model.a));
-	return div;
-});
-
-
-
-// ACTUAL MARKDOWN PARSER
-
-
-var _Markdown_marked = function() {
-	// catch the `marked` object regardless of the outer environment.
-	// (ex. a CommonJS module compatible environment.)
-	// note that this depends on marked's implementation of environment detection.
-	var module = {};
-	var exports = module.exports = {};
-
-	/**
-	 * marked - a markdown parser
-	 * Copyright (c) 2011-2014, Christopher Jeffrey. (MIT Licensed)
-	 * https://github.com/chjj/marked
-	 * commit cd2f6f5b7091154c5526e79b5f3bfb4d15995a51
-	 */
-	(function(){var block={newline:/^\n+/,code:/^( {4}[^\n]+\n*)+/,fences:noop,hr:/^( *[-*_]){3,} *(?:\n+|$)/,heading:/^ *(#{1,6}) *([^\n]+?) *#* *(?:\n+|$)/,nptable:noop,lheading:/^([^\n]+)\n *(=|-){2,} *(?:\n+|$)/,blockquote:/^( *>[^\n]+(\n(?!def)[^\n]+)*\n*)+/,list:/^( *)(bull) [\s\S]+?(?:hr|def|\n{2,}(?! )(?!\1bull )\n*|\s*$)/,html:/^ *(?:comment *(?:\n|\s*$)|closed *(?:\n{2,}|\s*$)|closing *(?:\n{2,}|\s*$))/,def:/^ *\[([^\]]+)\]: *<?([^\s>]+)>?(?: +["(]([^\n]+)[")])? *(?:\n+|$)/,table:noop,paragraph:/^((?:[^\n]+\n?(?!hr|heading|lheading|blockquote|tag|def))+)\n*/,text:/^[^\n]+/};block.bullet=/(?:[*+-]|\d+\.)/;block.item=/^( *)(bull) [^\n]*(?:\n(?!\1bull )[^\n]*)*/;block.item=replace(block.item,"gm")(/bull/g,block.bullet)();block.list=replace(block.list)(/bull/g,block.bullet)("hr","\\n+(?=\\1?(?:[-*_] *){3,}(?:\\n+|$))")("def","\\n+(?="+block.def.source+")")();block.blockquote=replace(block.blockquote)("def",block.def)();block._tag="(?!(?:"+"a|em|strong|small|s|cite|q|dfn|abbr|data|time|code"+"|var|samp|kbd|sub|sup|i|b|u|mark|ruby|rt|rp|bdi|bdo"+"|span|br|wbr|ins|del|img)\\b)\\w+(?!:/|[^\\w\\s@]*@)\\b";block.html=replace(block.html)("comment",/<!--[\s\S]*?-->/)("closed",/<(tag)[\s\S]+?<\/\1>/)("closing",/<tag(?:"[^"]*"|'[^']*'|[^'">])*?>/)(/tag/g,block._tag)();block.paragraph=replace(block.paragraph)("hr",block.hr)("heading",block.heading)("lheading",block.lheading)("blockquote",block.blockquote)("tag","<"+block._tag)("def",block.def)();block.normal=merge({},block);block.gfm=merge({},block.normal,{fences:/^ *(`{3,}|~{3,})[ \.]*(\S+)? *\n([\s\S]*?)\s*\1 *(?:\n+|$)/,paragraph:/^/,heading:/^ *(#{1,6}) +([^\n]+?) *#* *(?:\n+|$)/});block.gfm.paragraph=replace(block.paragraph)("(?!","(?!"+block.gfm.fences.source.replace("\\1","\\2")+"|"+block.list.source.replace("\\1","\\3")+"|")();block.tables=merge({},block.gfm,{nptable:/^ *(\S.*\|.*)\n *([-:]+ *\|[-| :]*)\n((?:.*\|.*(?:\n|$))*)\n*/,table:/^ *\|(.+)\n *\|( *[-:]+[-| :]*)\n((?: *\|.*(?:\n|$))*)\n*/});function Lexer(options){this.tokens=[];this.tokens.links={};this.options=options||marked.defaults;this.rules=block.normal;if(this.options.gfm){if(this.options.tables){this.rules=block.tables}else{this.rules=block.gfm}}}Lexer.rules=block;Lexer.lex=function(src,options){var lexer=new Lexer(options);return lexer.lex(src)};Lexer.prototype.lex=function(src){src=src.replace(/\r\n|\r/g,"\n").replace(/\t/g,"    ").replace(/\u00a0/g," ").replace(/\u2424/g,"\n");return this.token(src,true)};Lexer.prototype.token=function(src,top,bq){var src=src.replace(/^ +$/gm,""),next,loose,cap,bull,b,item,space,i,l;while(src){if(cap=this.rules.newline.exec(src)){src=src.substring(cap[0].length);if(cap[0].length>1){this.tokens.push({type:"space"})}}if(cap=this.rules.code.exec(src)){src=src.substring(cap[0].length);cap=cap[0].replace(/^ {4}/gm,"");this.tokens.push({type:"code",text:!this.options.pedantic?cap.replace(/\n+$/,""):cap});continue}if(cap=this.rules.fences.exec(src)){src=src.substring(cap[0].length);this.tokens.push({type:"code",lang:cap[2],text:cap[3]||""});continue}if(cap=this.rules.heading.exec(src)){src=src.substring(cap[0].length);this.tokens.push({type:"heading",depth:cap[1].length,text:cap[2]});continue}if(top&&(cap=this.rules.nptable.exec(src))){src=src.substring(cap[0].length);item={type:"table",header:cap[1].replace(/^ *| *\| *$/g,"").split(/ *\| */),align:cap[2].replace(/^ *|\| *$/g,"").split(/ *\| */),cells:cap[3].replace(/\n$/,"").split("\n")};for(i=0;i<item.align.length;i++){if(/^ *-+: *$/.test(item.align[i])){item.align[i]="right"}else if(/^ *:-+: *$/.test(item.align[i])){item.align[i]="center"}else if(/^ *:-+ *$/.test(item.align[i])){item.align[i]="left"}else{item.align[i]=null}}for(i=0;i<item.cells.length;i++){item.cells[i]=item.cells[i].split(/ *\| */)}this.tokens.push(item);continue}if(cap=this.rules.lheading.exec(src)){src=src.substring(cap[0].length);this.tokens.push({type:"heading",depth:cap[2]==="="?1:2,text:cap[1]});continue}if(cap=this.rules.hr.exec(src)){src=src.substring(cap[0].length);this.tokens.push({type:"hr"});continue}if(cap=this.rules.blockquote.exec(src)){src=src.substring(cap[0].length);this.tokens.push({type:"blockquote_start"});cap=cap[0].replace(/^ *> ?/gm,"");this.token(cap,top,true);this.tokens.push({type:"blockquote_end"});continue}if(cap=this.rules.list.exec(src)){src=src.substring(cap[0].length);bull=cap[2];this.tokens.push({type:"list_start",ordered:bull.length>1});cap=cap[0].match(this.rules.item);next=false;l=cap.length;i=0;for(;i<l;i++){item=cap[i];space=item.length;item=item.replace(/^ *([*+-]|\d+\.) +/,"");if(~item.indexOf("\n ")){space-=item.length;item=!this.options.pedantic?item.replace(new RegExp("^ {1,"+space+"}","gm"),""):item.replace(/^ {1,4}/gm,"")}if(this.options.smartLists&&i!==l-1){b=block.bullet.exec(cap[i+1])[0];if(bull!==b&&!(bull.length>1&&b.length>1)){src=cap.slice(i+1).join("\n")+src;i=l-1}}loose=next||/\n\n(?!\s*$)/.test(item);if(i!==l-1){next=item.charAt(item.length-1)==="\n";if(!loose)loose=next}this.tokens.push({type:loose?"loose_item_start":"list_item_start"});this.token(item,false,bq);this.tokens.push({type:"list_item_end"})}this.tokens.push({type:"list_end"});continue}if(cap=this.rules.html.exec(src)){src=src.substring(cap[0].length);this.tokens.push({type:this.options.sanitize?"paragraph":"html",pre:!this.options.sanitizer&&(cap[1]==="pre"||cap[1]==="script"||cap[1]==="style"),text:cap[0]});continue}if(!bq&&top&&(cap=this.rules.def.exec(src))){src=src.substring(cap[0].length);this.tokens.links[cap[1].toLowerCase()]={href:cap[2],title:cap[3]};continue}if(top&&(cap=this.rules.table.exec(src))){src=src.substring(cap[0].length);item={type:"table",header:cap[1].replace(/^ *| *\| *$/g,"").split(/ *\| */),align:cap[2].replace(/^ *|\| *$/g,"").split(/ *\| */),cells:cap[3].replace(/(?: *\| *)?\n$/,"").split("\n")};for(i=0;i<item.align.length;i++){if(/^ *-+: *$/.test(item.align[i])){item.align[i]="right"}else if(/^ *:-+: *$/.test(item.align[i])){item.align[i]="center"}else if(/^ *:-+ *$/.test(item.align[i])){item.align[i]="left"}else{item.align[i]=null}}for(i=0;i<item.cells.length;i++){item.cells[i]=item.cells[i].replace(/^ *\| *| *\| *$/g,"").split(/ *\| */)}this.tokens.push(item);continue}if(top&&(cap=this.rules.paragraph.exec(src))){src=src.substring(cap[0].length);this.tokens.push({type:"paragraph",text:cap[1].charAt(cap[1].length-1)==="\n"?cap[1].slice(0,-1):cap[1]});continue}if(cap=this.rules.text.exec(src)){src=src.substring(cap[0].length);this.tokens.push({type:"text",text:cap[0]});continue}if(src){throw new Error("Infinite loop on byte: "+src.charCodeAt(0))}}return this.tokens};var inline={escape:/^\\([\\`*{}\[\]()#+\-.!_>])/,autolink:/^<([^ >]+(@|:\/)[^ >]+)>/,url:noop,tag:/^<!--[\s\S]*?-->|^<\/?\w+(?:"[^"]*"|'[^']*'|[^'">])*?>/,link:/^!?\[(inside)\]\(href\)/,reflink:/^!?\[(inside)\]\s*\[([^\]]*)\]/,nolink:/^!?\[((?:\[[^\]]*\]|[^\[\]])*)\]/,strong:/^_\_([\s\S]+?)_\_(?!_)|^\*\*([\s\S]+?)\*\*(?!\*)/,em:/^\b_((?:[^_]|_\_)+?)_\b|^\*((?:\*\*|[\s\S])+?)\*(?!\*)/,code:/^(`+)\s*([\s\S]*?[^`])\s*\1(?!`)/,br:/^ {2,}\n(?!\s*$)/,del:noop,text:/^[\s\S]+?(?=[\\<!\[_*`]| {2,}\n|$)/};inline._inside=/(?:\[[^\]]*\]|[^\[\]]|\](?=[^\[]*\]))*/;inline._href=/\s*<?([\s\S]*?)>?(?:\s+['"]([\s\S]*?)['"])?\s*/;inline.link=replace(inline.link)("inside",inline._inside)("href",inline._href)();inline.reflink=replace(inline.reflink)("inside",inline._inside)();inline.normal=merge({},inline);inline.pedantic=merge({},inline.normal,{strong:/^_\_(?=\S)([\s\S]*?\S)_\_(?!_)|^\*\*(?=\S)([\s\S]*?\S)\*\*(?!\*)/,em:/^_(?=\S)([\s\S]*?\S)_(?!_)|^\*(?=\S)([\s\S]*?\S)\*(?!\*)/});inline.gfm=merge({},inline.normal,{escape:replace(inline.escape)("])","~|])")(),url:/^(https?:\/\/[^\s<]+[^<.,:;"')\]\s])/,del:/^~~(?=\S)([\s\S]*?\S)~~/,text:replace(inline.text)("]|","~]|")("|","|https?://|")()});inline.breaks=merge({},inline.gfm,{br:replace(inline.br)("{2,}","*")(),text:replace(inline.gfm.text)("{2,}","*")()});function InlineLexer(links,options){this.options=options||marked.defaults;this.links=links;this.rules=inline.normal;this.renderer=this.options.renderer||new Renderer;this.renderer.options=this.options;if(!this.links){throw new Error("Tokens array requires a `links` property.")}if(this.options.gfm){if(this.options.breaks){this.rules=inline.breaks}else{this.rules=inline.gfm}}else if(this.options.pedantic){this.rules=inline.pedantic}}InlineLexer.rules=inline;InlineLexer.output=function(src,links,options){var inline=new InlineLexer(links,options);return inline.output(src)};InlineLexer.prototype.output=function(src){var out="",link,text,href,cap;while(src){if(cap=this.rules.escape.exec(src)){src=src.substring(cap[0].length);out+=cap[1];continue}if(cap=this.rules.autolink.exec(src)){src=src.substring(cap[0].length);if(cap[2]==="@"){text=cap[1].charAt(6)===":"?this.mangle(cap[1].substring(7)):this.mangle(cap[1]);href=this.mangle("mailto:")+text}else{text=escape(cap[1]);href=text}out+=this.renderer.link(href,null,text);continue}if(!this.inLink&&(cap=this.rules.url.exec(src))){src=src.substring(cap[0].length);text=escape(cap[1]);href=text;out+=this.renderer.link(href,null,text);continue}if(cap=this.rules.tag.exec(src)){if(!this.inLink&&/^<a /i.test(cap[0])){this.inLink=true}else if(this.inLink&&/^<\/a>/i.test(cap[0])){this.inLink=false}src=src.substring(cap[0].length);out+=this.options.sanitize?this.options.sanitizer?this.options.sanitizer(cap[0]):escape(cap[0]):cap[0];continue}if(cap=this.rules.link.exec(src)){src=src.substring(cap[0].length);this.inLink=true;out+=this.outputLink(cap,{href:cap[2],title:cap[3]});this.inLink=false;continue}if((cap=this.rules.reflink.exec(src))||(cap=this.rules.nolink.exec(src))){src=src.substring(cap[0].length);link=(cap[2]||cap[1]).replace(/\s+/g," ");link=this.links[link.toLowerCase()];if(!link||!link.href){out+=cap[0].charAt(0);src=cap[0].substring(1)+src;continue}this.inLink=true;out+=this.outputLink(cap,link);this.inLink=false;continue}if(cap=this.rules.strong.exec(src)){src=src.substring(cap[0].length);out+=this.renderer.strong(this.output(cap[2]||cap[1]));continue}if(cap=this.rules.em.exec(src)){src=src.substring(cap[0].length);out+=this.renderer.em(this.output(cap[2]||cap[1]));continue}if(cap=this.rules.code.exec(src)){src=src.substring(cap[0].length);out+=this.renderer.codespan(escape(cap[2],true));continue}if(cap=this.rules.br.exec(src)){src=src.substring(cap[0].length);out+=this.renderer.br();continue}if(cap=this.rules.del.exec(src)){src=src.substring(cap[0].length);out+=this.renderer.del(this.output(cap[1]));continue}if(cap=this.rules.text.exec(src)){src=src.substring(cap[0].length);out+=this.renderer.text(escape(this.smartypants(cap[0])));continue}if(src){throw new Error("Infinite loop on byte: "+src.charCodeAt(0))}}return out};InlineLexer.prototype.outputLink=function(cap,link){var href=escape(link.href),title=link.title?escape(link.title):null;return cap[0].charAt(0)!=="!"?this.renderer.link(href,title,this.output(cap[1])):this.renderer.image(href,title,escape(cap[1]))};InlineLexer.prototype.smartypants=function(text){if(!this.options.smartypants)return text;return text.replace(/---/g,"—").replace(/--/g,"–").replace(/(^|[-\u2014\/(\[{"\s])'/g,"$1‘").replace(/'/g,"’").replace(/(^|[-\u2014\/(\[{\u2018\s])"/g,"$1“").replace(/"/g,"”").replace(/\.{3}/g,"…")};InlineLexer.prototype.mangle=function(text){if(!this.options.mangle)return text;var out="",l=text.length,i=0,ch;for(;i<l;i++){ch=text.charCodeAt(i);if(Math.random()>.5){ch="x"+ch.toString(16)}out+="&#"+ch+";"}return out};function Renderer(options){this.options=options||{}}Renderer.prototype.code=function(code,lang,escaped){if(this.options.highlight){var out=this.options.highlight(code,lang);if(out!=null&&out!==code){escaped=true;code=out}}if(!lang){return"<pre><code>"+(escaped?code:escape(code,true))+"\n</code></pre>"}return'<pre><code class="'+this.options.langPrefix+escape(lang,true)+'">'+(escaped?code:escape(code,true))+"\n</code></pre>\n"};Renderer.prototype.blockquote=function(quote){return"<blockquote>\n"+quote+"</blockquote>\n"};Renderer.prototype.html=function(html){return html};Renderer.prototype.heading=function(text,level,raw){return"<h"+level+' id="'+this.options.headerPrefix+raw.toLowerCase().replace(/[^\w]+/g,"-")+'">'+text+"</h"+level+">\n"};Renderer.prototype.hr=function(){return this.options.xhtml?"<hr/>\n":"<hr>\n"};Renderer.prototype.list=function(body,ordered){var type=ordered?"ol":"ul";return"<"+type+">\n"+body+"</"+type+">\n"};Renderer.prototype.listitem=function(text){return"<li>"+text+"</li>\n"};Renderer.prototype.paragraph=function(text){return"<p>"+text+"</p>\n"};Renderer.prototype.table=function(header,body){return"<table>\n"+"<thead>\n"+header+"</thead>\n"+"<tbody>\n"+body+"</tbody>\n"+"</table>\n"};Renderer.prototype.tablerow=function(content){return"<tr>\n"+content+"</tr>\n"};Renderer.prototype.tablecell=function(content,flags){var type=flags.header?"th":"td";var tag=flags.align?"<"+type+' style="text-align:'+flags.align+'">':"<"+type+">";return tag+content+"</"+type+">\n"};Renderer.prototype.strong=function(text){return"<strong>"+text+"</strong>"};Renderer.prototype.em=function(text){return"<em>"+text+"</em>"};Renderer.prototype.codespan=function(text){return"<code>"+text+"</code>"};Renderer.prototype.br=function(){return this.options.xhtml?"<br/>":"<br>"};Renderer.prototype.del=function(text){return"<del>"+text+"</del>"};Renderer.prototype.link=function(href,title,text){if(this.options.sanitize){try{var prot=decodeURIComponent(unescape(href)).replace(/[^\w:]/g,"").toLowerCase()}catch(e){return""}if(prot.indexOf("javascript:")===0||prot.indexOf("vbscript:")===0||prot.indexOf("data:")===0){return""}}var out='<a href="'+href+'"';if(title){out+=' title="'+title+'"'}out+=">"+text+"</a>";return out};Renderer.prototype.image=function(href,title,text){var out='<img src="'+href+'" alt="'+text+'"';if(title){out+=' title="'+title+'"'}out+=this.options.xhtml?"/>":">";return out};Renderer.prototype.text=function(text){return text};function Parser(options){this.tokens=[];this.token=null;this.options=options||marked.defaults;this.options.renderer=this.options.renderer||new Renderer;this.renderer=this.options.renderer;this.renderer.options=this.options}Parser.parse=function(src,options,renderer){var parser=new Parser(options,renderer);return parser.parse(src)};Parser.prototype.parse=function(src){this.inline=new InlineLexer(src.links,this.options,this.renderer);this.tokens=src.reverse();var out="";while(this.next()){out+=this.tok()}return out};Parser.prototype.next=function(){return this.token=this.tokens.pop()};Parser.prototype.peek=function(){return this.tokens[this.tokens.length-1]||0};Parser.prototype.parseText=function(){var body=this.token.text;while(this.peek().type==="text"){body+="\n"+this.next().text}return this.inline.output(body)};Parser.prototype.tok=function(){switch(this.token.type){case"space":{return""}case"hr":{return this.renderer.hr()}case"heading":{return this.renderer.heading(this.inline.output(this.token.text),this.token.depth,this.token.text)}case"code":{return this.renderer.code(this.token.text,this.token.lang,this.token.escaped)}case"table":{var header="",body="",i,row,cell,flags,j;cell="";for(i=0;i<this.token.header.length;i++){flags={header:true,align:this.token.align[i]};cell+=this.renderer.tablecell(this.inline.output(this.token.header[i]),{header:true,align:this.token.align[i]})}header+=this.renderer.tablerow(cell);for(i=0;i<this.token.cells.length;i++){row=this.token.cells[i];cell="";for(j=0;j<row.length;j++){cell+=this.renderer.tablecell(this.inline.output(row[j]),{header:false,align:this.token.align[j]})}body+=this.renderer.tablerow(cell)}return this.renderer.table(header,body)}case"blockquote_start":{var body="";while(this.next().type!=="blockquote_end"){body+=this.tok()}return this.renderer.blockquote(body)}case"list_start":{var body="",ordered=this.token.ordered;while(this.next().type!=="list_end"){body+=this.tok()}return this.renderer.list(body,ordered)}case"list_item_start":{var body="";while(this.next().type!=="list_item_end"){body+=this.token.type==="text"?this.parseText():this.tok()}return this.renderer.listitem(body)}case"loose_item_start":{var body="";while(this.next().type!=="list_item_end"){body+=this.tok()}return this.renderer.listitem(body)}case"html":{var html=!this.token.pre&&!this.options.pedantic?this.inline.output(this.token.text):this.token.text;return this.renderer.html(html)}case"paragraph":{return this.renderer.paragraph(this.inline.output(this.token.text))}case"text":{return this.renderer.paragraph(this.parseText())}}};function escape(html,encode){return html.replace(!encode?/&(?!#?\w+;)/g:/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;").replace(/"/g,"&quot;").replace(/'/g,"&#39;")}function unescape(html){return html.replace(/&(#(?:\d+)|(?:#x[0-9A-Fa-f]+)|(?:\w+));?/g,function(_,n){n=n.toLowerCase();if(n==="colon")return":";if(n.charAt(0)==="#"){return n.charAt(1)==="x"?String.fromCharCode(parseInt(n.substring(2),16)):String.fromCharCode(+n.substring(1))}return""})}function replace(regex,opt){regex=regex.source;opt=opt||"";return function self(name,val){if(!name)return new RegExp(regex,opt);val=val.source||val;val=val.replace(/(^|[^\[])\^/g,"$1");regex=regex.replace(name,val);return self}}function noop(){}noop.exec=noop;function merge(obj){var i=1,target,key;for(;i<arguments.length;i++){target=arguments[i];for(key in target){if(Object.prototype.hasOwnProperty.call(target,key)){obj[key]=target[key]}}}return obj}function marked(src,opt,callback){if(callback||typeof opt==="function"){if(!callback){callback=opt;opt=null}opt=merge({},marked.defaults,opt||{});var highlight=opt.highlight,tokens,pending,i=0;try{tokens=Lexer.lex(src,opt)}catch(e){return callback(e)}pending=tokens.length;var done=function(err){if(err){opt.highlight=highlight;return callback(err)}var out;try{out=Parser.parse(tokens,opt)}catch(e){err=e}opt.highlight=highlight;return err?callback(err):callback(null,out)};if(!highlight||highlight.length<3){return done()}delete opt.highlight;if(!pending)return done();for(;i<tokens.length;i++){(function(token){if(token.type!=="code"){return--pending||done()}return highlight(token.text,token.lang,function(err,code){if(err)return done(err);if(code==null||code===token.text){return--pending||done()}token.text=code;token.escaped=true;--pending||done()})})(tokens[i])}return}try{if(opt)opt=merge({},marked.defaults,opt);return Parser.parse(Lexer.lex(src,opt),opt)}catch(e){e.message+="\nPlease report this to https://github.com/chjj/marked.";if((opt||marked.defaults).silent){return"<p>An error occured:</p><pre>"+escape(e.message+"",true)+"</pre>"}throw e}}marked.options=marked.setOptions=function(opt){merge(marked.defaults,opt);return marked};marked.defaults={gfm:true,tables:true,breaks:false,pedantic:false,sanitize:false,sanitizer:null,mangle:true,smartLists:false,silent:false,highlight:null,langPrefix:"lang-",smartypants:false,headerPrefix:"",renderer:new Renderer,xhtml:false};marked.Parser=Parser;marked.parser=Parser.parse;marked.Renderer=Renderer;marked.Lexer=Lexer;marked.lexer=Lexer.lex;marked.InlineLexer=InlineLexer;marked.inlineLexer=InlineLexer.output;marked.parse=marked;if(typeof module!=="undefined"&&typeof exports==="object"){module.exports=marked}else if(typeof define==="function"&&define.amd){define(function(){return marked})}else{this.marked=marked}}).call(function(){return this||(typeof window!=="undefined"?window:global)}());
-
-	return module.exports;
-}();
-
-
-// FORMAT OPTIONS FOR MARKED IMPLEMENTATION
-
-function _Markdown_formatOptions(options)
-{
-	function toHighlight(code, lang)
-	{
-		if (!lang && $elm$core$Maybe$isJust(options.aq))
-		{
-			lang = options.aq.a;
-		}
-
-		if (typeof hljs !== 'undefined' && lang && hljs.listLanguages().indexOf(lang) >= 0)
-		{
-			return hljs.highlight(lang, code, true).value;
-		}
-
-		return code;
-	}
-
-	var gfm = options.aW.a;
-
-	return {
-		highlight: toHighlight,
-		gfm: gfm,
-		tables: gfm && gfm.a6,
-		breaks: gfm && gfm.aQ,
-		sanitize: options.a3,
-		smartypants: options.a4
-	};
 }
 var $elm$core$List$cons = _List_cons;
 var $elm$core$Elm$JsArray$foldr = _JsArray_foldr;
@@ -4535,10 +4436,10 @@ var $elm$core$Basics$EQ = 1;
 var $elm$core$Basics$GT = 2;
 var $elm$core$Basics$LT = 0;
 var $author$project$Main$LinkClicked = function (a) {
-	return {$: 5, a: a};
+	return {$: 4, a: a};
 };
 var $author$project$Main$UrlChanged = function (a) {
-	return {$: 6, a: a};
+	return {$: 5, a: a};
 };
 var $elm$core$Result$Err = function (a) {
 	return {$: 1, a: a};
@@ -4866,25 +4767,25 @@ var $elm$core$Array$treeFromBuilder = F2(
 	});
 var $elm$core$Array$builderToArray = F2(
 	function (reverseNodeList, builder) {
-		if (!builder.b) {
+		if (!builder.a) {
 			return A4(
 				$elm$core$Array$Array_elm_builtin,
-				$elm$core$Elm$JsArray$length(builder.d),
+				$elm$core$Elm$JsArray$length(builder.c),
 				$elm$core$Array$shiftStep,
 				$elm$core$Elm$JsArray$empty,
-				builder.d);
+				builder.c);
 		} else {
-			var treeLen = builder.b * $elm$core$Array$branchFactor;
+			var treeLen = builder.a * $elm$core$Array$branchFactor;
 			var depth = $elm$core$Basics$floor(
 				A2($elm$core$Basics$logBase, $elm$core$Array$branchFactor, treeLen - 1));
-			var correctNodeList = reverseNodeList ? $elm$core$List$reverse(builder.e) : builder.e;
-			var tree = A2($elm$core$Array$treeFromBuilder, correctNodeList, builder.b);
+			var correctNodeList = reverseNodeList ? $elm$core$List$reverse(builder.d) : builder.d;
+			var tree = A2($elm$core$Array$treeFromBuilder, correctNodeList, builder.a);
 			return A4(
 				$elm$core$Array$Array_elm_builtin,
-				$elm$core$Elm$JsArray$length(builder.d) + treeLen,
+				$elm$core$Elm$JsArray$length(builder.c) + treeLen,
 				A2($elm$core$Basics$max, 5, depth * $elm$core$Array$shiftStep),
 				tree,
-				builder.d);
+				builder.c);
 		}
 	});
 var $elm$core$Basics$idiv = _Basics_idiv;
@@ -4897,7 +4798,7 @@ var $elm$core$Array$initializeHelp = F5(
 				return A2(
 					$elm$core$Array$builderToArray,
 					false,
-					{e: nodeList, b: (len / $elm$core$Array$branchFactor) | 0, d: tail});
+					{d: nodeList, a: (len / $elm$core$Array$branchFactor) | 0, c: tail});
 			} else {
 				var leaf = $elm$core$Array$Leaf(
 					A3($elm$core$Elm$JsArray$initialize, $elm$core$Array$branchFactor, fromIndex, fn));
@@ -4964,7 +4865,7 @@ var $elm$url$Url$Http = 0;
 var $elm$url$Url$Https = 1;
 var $elm$url$Url$Url = F6(
 	function (protocol, host, port_, path, query, fragment) {
-		return {aV: fragment, au: host, ax: path, az: port_, aC: protocol, aD: query};
+		return {au: fragment, V: host, Y: path, _: port_, ac: protocol, ad: query};
 	});
 var $elm$core$String$contains = _String_contains;
 var $elm$core$String$length = _String_length;
@@ -5244,7 +5145,6 @@ var $elm$core$Task$perform = F2(
 	});
 var $elm$browser$Browser$application = _Browser_application;
 var $author$project$Main$Dark = 1;
-var $author$project$Main$English = 0;
 var $elm$core$Set$Set_elm_builtin = $elm$core$Basics$identity;
 var $elm$core$Dict$RBEmpty_elm_builtin = {$: -2};
 var $elm$core$Dict$empty = $elm$core$Dict$RBEmpty_elm_builtin;
@@ -5254,49 +5154,38 @@ var $elm$core$Platform$Cmd$none = $elm$core$Platform$Cmd$batch(_List_Nil);
 var $author$project$Main$BibTeXPage = function (a) {
 	return {$: 1, a: a};
 };
-var $author$project$Main$French = 1;
-var $author$project$Main$Japanese = 2;
 var $author$project$Main$MainPage = {$: 0};
-var $author$project$Main$NotesList = {$: 2};
 var $author$project$Main$bibtexFrobt2024 = '@article{shimada2024tangle,\n  title={Tangle- and contact-free path planning for a tethered mobile robot using deep reinforcement learning},\n  author={Shimada, Ryuki and Ishigami, Genya},\n  journal={Frontiers in Robotics and AI},\n  volume={11},\n  pages={1388634},\n  year={2024},\n  publisher={Frontiers Media SA}\n}';
 var $author$project$Main$bibtexIsts2023 = '@inproceedings{shimada2023path,\n  title={Path planning with cable-obstacles avoidance for a tethered mobile robot in unstructured environments},\n  author={Shimada, Ryuki and Ishigami, Genya},\n  booktitle={Proceedings of the International Symposium on Space Technology and Science},\n  year={2023}\n}';
-var $author$project$Main$stateFromUrl = F2(
-	function (url, currentLang) {
-		var _v0 = url.aV;
-		_v0$5:
-		while (true) {
-			if (!_v0.$) {
-				switch (_v0.a) {
-					case 'ja':
-						return {a: 2, h: $author$project$Main$MainPage};
-					case 'fr':
-						return {a: 1, h: $author$project$Main$MainPage};
-					case 'notes':
-						return {a: 2, h: $author$project$Main$NotesList};
-					case 'cite/frobt2024':
-						return {
-							a: currentLang,
-							h: $author$project$Main$BibTeXPage($author$project$Main$bibtexFrobt2024)
-						};
-					case 'cite/ists2023':
-						return {
-							a: currentLang,
-							h: $author$project$Main$BibTeXPage($author$project$Main$bibtexIsts2023)
-						};
-					default:
-						break _v0$5;
-				}
-			} else {
-				break _v0$5;
+var $author$project$Main$pageFromUrl = function (url) {
+	var _v0 = url.au;
+	_v0$2:
+	while (true) {
+		if (!_v0.$) {
+			switch (_v0.a) {
+				case 'cite/frobt2024':
+					return $author$project$Main$BibTeXPage($author$project$Main$bibtexFrobt2024);
+				case 'cite/ists2023':
+					return $author$project$Main$BibTeXPage($author$project$Main$bibtexIsts2023);
+				default:
+					break _v0$2;
 			}
+		} else {
+			break _v0$2;
 		}
-		return {a: 0, h: $author$project$Main$MainPage};
-	});
+	}
+	return $author$project$Main$MainPage;
+};
 var $author$project$Main$init = F3(
 	function (_v0, url, key) {
-		var s = A2($author$project$Main$stateFromUrl, url, 0);
 		return _Utils_Tuple2(
-			{T: $elm$core$Maybe$Nothing, ag: key, a: s.a, V: $elm$core$Set$empty, h: s.h, x: 1},
+			{
+				A: $elm$core$Maybe$Nothing,
+				I: key,
+				C: $elm$core$Set$empty,
+				H: $author$project$Main$pageFromUrl(url),
+				x: 1
+			},
 			$elm$core$Platform$Cmd$none);
 	});
 var $elm$core$Platform$Sub$batch = _Platform_batch;
@@ -5415,16 +5304,6 @@ var $elm$core$Set$insert = F2(
 		var dict = _v0;
 		return A3($elm$core$Dict$insert, key, 0, dict);
 	});
-var $author$project$Main$langToFragment = function (lang) {
-	switch (lang) {
-		case 0:
-			return '/';
-		case 1:
-			return '/#fr';
-		default:
-			return '/#ja';
-	}
-};
 var $elm$browser$Browser$Navigation$load = _Browser_load;
 var $elm$browser$Browser$Navigation$pushUrl = _Browser_pushUrl;
 var $elm$url$Url$addPort = F2(
@@ -5449,7 +5328,7 @@ var $elm$url$Url$addPrefixed = F3(
 	});
 var $elm$url$Url$toString = function (url) {
 	var http = function () {
-		var _v0 = url.aC;
+		var _v0 = url.ac;
 		if (!_v0) {
 			return 'http://';
 		} else {
@@ -5459,17 +5338,17 @@ var $elm$url$Url$toString = function (url) {
 	return A3(
 		$elm$url$Url$addPrefixed,
 		'#',
-		url.aV,
+		url.au,
 		A3(
 			$elm$url$Url$addPrefixed,
 			'?',
-			url.aD,
+			url.ad,
 			_Utils_ap(
 				A2(
 					$elm$url$Url$addPort,
-					url.az,
-					_Utils_ap(http, url.au)),
-				url.ax)));
+					url._,
+					_Utils_ap(http, url.V)),
+				url.Y)));
 };
 var $author$project$Main$update = F2(
 	function (msg, model) {
@@ -5480,14 +5359,14 @@ var $author$project$Main$update = F2(
 					_Utils_update(
 						model,
 						{
-							T: $elm$core$Maybe$Just(paperId)
+							A: $elm$core$Maybe$Just(paperId)
 						}),
 					$elm$core$Platform$Cmd$none);
 			case 1:
 				return _Utils_Tuple2(
 					_Utils_update(
 						model,
-						{T: $elm$core$Maybe$Nothing}),
+						{A: $elm$core$Maybe$Nothing}),
 					$elm$core$Platform$Cmd$none);
 			case 2:
 				var paperId = msg.a;
@@ -5495,34 +5374,24 @@ var $author$project$Main$update = F2(
 					_Utils_update(
 						model,
 						{
-							V: A2($elm$core$Set$insert, paperId, model.V)
+							C: A2($elm$core$Set$insert, paperId, model.C)
 						}),
 					$elm$core$Platform$Cmd$none);
 			case 3:
-				var lang = msg.a;
-				return _Utils_Tuple2(
-					_Utils_update(
-						model,
-						{a: lang}),
-					A2(
-						$elm$browser$Browser$Navigation$pushUrl,
-						model.ag,
-						$author$project$Main$langToFragment(lang)));
-			case 4:
 				var theme = msg.a;
 				return _Utils_Tuple2(
 					_Utils_update(
 						model,
 						{x: theme}),
 					$elm$core$Platform$Cmd$none);
-			case 5:
+			case 4:
 				if (!msg.a.$) {
 					var url = msg.a.a;
 					return _Utils_Tuple2(
 						model,
 						A2(
 							$elm$browser$Browser$Navigation$pushUrl,
-							model.ag,
+							model.I,
 							$elm$url$Url$toString(url)));
 				} else {
 					var url = msg.a.a;
@@ -5532,11 +5401,12 @@ var $author$project$Main$update = F2(
 				}
 			default:
 				var url = msg.a;
-				var s = A2($author$project$Main$stateFromUrl, url, model.a);
 				return _Utils_Tuple2(
 					_Utils_update(
 						model,
-						{a: s.a, h: s.h}),
+						{
+							H: $author$project$Main$pageFromUrl(url)
+						}),
 					$elm$core$Platform$Cmd$none);
 		}
 	});
@@ -5597,16 +5467,6 @@ var $elm$html$Html$Attributes$classList = function (classes) {
 				A2($elm$core$List$filter, $elm$core$Tuple$second, classes))));
 };
 var $elm$html$Html$a = _VirtualDom_node('a');
-var $author$project$Main$getStrings = function (lang) {
-	switch (lang) {
-		case 0:
-			return {D: 'JPY 183K/month', E: 'JST Support for Pioneering Research Initiated by the Next Generation (SPRING)', F: 'Apr. 2025 – Mar. 2026', G: 'EUR 700/month', H: 'French Government Scholarship (Bourse France Excellence Japon)', I: 'Sep. 2019 – Sep. 2021', J: 'https://jp.diplomatie.gouv.fr/fr/bourses-france-excellence', K: 'JPY 227K/month', L: 'JSPS Research Fellow for Young Scientists (DC2)', M: 'Apr. 2026 – Mar. 2028', N: 'JPY 100K', O: 'The Keio University Doctorate Student Grant-in-Aid Program from Ushioda Memorial Fund 2026', P: 'Apr. 2026 – Mar. 2027', k: ', ', Q: 'Fellowships and Scholarships', R: 'CSS: ', S: 'Written in ', W: ' (Oral Presentation)', X: 'A learning-based homotopy-aware path planning method for a tethered mobile robot to avoid cable-obstacles and cable-robot contacts while navigating to goals.', Y: 'A path refinement method for a tethered mobile robot to avoid cable-obstacle contact by considering path curvature and distance from cable base.', Z: 'Publications'};
-		case 1:
-			return {D: 'JPY 183K/month', E: 'Bourse JST pour la recherche pionnière de la prochaine génération (SPRING)', F: 'avr. 2025 – mars 2026', G: 'EUR 700/month', H: 'Bourse du gouvernement français (Bourse France Excellence Japon)', I: 'sept. 2019 – sept. 2021', J: 'https://jp.diplomatie.gouv.fr/fr/bourses-france-excellence', K: 'JPY 227K/month', L: 'Chercheur associé JSPS pour jeunes scientifiques (DC2)', M: 'avr. 2026 – mars 2028', N: 'JPY 100K', O: 'Programme de soutien à la recherche des doctorants de l\'Université Keio par le Fonds commémoratif Ushioda (2026)', P: 'avr. 2026 – mars 2027', k: ', ', Q: 'Bourses et financements', R: 'CSS : ', S: 'Écrit en ', W: ' (Présentation orale)', X: 'A learning-based homotopy-aware path planning method for a tethered mobile robot to avoid cable-obstacles and cable-robot contacts while navigating to goals.', Y: 'A path refinement method for a tethered mobile robot to avoid cable-obstacle contact by considering path curvature and distance from cable base.', Z: 'Publications'};
-		default:
-			return {D: '月18.3万円', E: 'JST次世代研究者挑戦的研究プログラム（SPRING）', F: '2025年4月 – 2026年3月', G: '月700ユーロ', H: 'フランス政府奨学金（Bourse France Excellence Japon）', I: '2019年9月 – 2021年9月', J: 'https://jp.diplomatie.gouv.fr/ja/Bourses-France-Excellence', K: '月22.7万円', L: '日本学術振興会特別研究員（DC2）', M: '2026年4月 – 2028年3月', N: '10万円', O: '潮田記念基金による博士課程学生研究支援プログラム（2026年度）', P: '2026年4月 – 2027年3月', k: '，', Q: '奨学金・フェローシップ', R: 'CSS: ', S: 'Written in: ', W: '（口頭発表）', X: 'A learning-based homotopy-aware path planning method for a tethered mobile robot to avoid cable-obstacles and cable-robot contacts while navigating to goals.', Y: 'A path refinement method for a tethered mobile robot to avoid cable-obstacle contact by considering path curvature and distance from cable base.', Z: '業績'};
-	}
-};
 var $elm$html$Html$h2 = _VirtualDom_node('h2');
 var $elm$html$Html$Attributes$href = function (url) {
 	return A2(
@@ -5617,396 +5477,257 @@ var $elm$html$Html$Attributes$href = function (url) {
 var $elm$html$Html$li = _VirtualDom_node('li');
 var $elm$html$Html$strong = _VirtualDom_node('strong');
 var $elm$html$Html$ul = _VirtualDom_node('ul');
-var $author$project$Main$fellowshipsSection = function (lang) {
-	var s = $author$project$Main$getStrings(lang);
-	return A2(
-		$elm$html$Html$div,
-		_List_fromArray(
-			[
-				$elm$html$Html$Attributes$class('research-section')
-			]),
-		_List_fromArray(
-			[
-				A2(
-				$elm$html$Html$h2,
-				_List_Nil,
-				_List_fromArray(
-					[
-						$elm$html$Html$text(s.Q)
-					])),
-				A2(
-				$elm$html$Html$ul,
-				_List_Nil,
-				_List_fromArray(
-					[
-						A2(
-						$elm$html$Html$li,
-						_List_Nil,
-						_List_fromArray(
-							[
-								A2(
-								$elm$html$Html$strong,
-								_List_Nil,
-								_List_fromArray(
-									[
-										A2(
-										$elm$html$Html$a,
-										_List_fromArray(
-											[
-												$elm$html$Html$Attributes$href('https://www.jsps.go.jp/english/e-pd/')
-											]),
-										_List_fromArray(
-											[
-												$elm$html$Html$text(s.L)
-											]))
-									])),
-								$elm$html$Html$text(s.k),
-								A2(
-								$elm$html$Html$strong,
-								_List_Nil,
-								_List_fromArray(
-									[
-										$elm$html$Html$text(s.K)
-									])),
-								$elm$html$Html$text(s.k),
-								$elm$html$Html$text(s.M)
-							])),
-						A2(
-						$elm$html$Html$li,
-						_List_Nil,
-						_List_fromArray(
-							[
-								A2(
-								$elm$html$Html$strong,
-								_List_Nil,
-								_List_fromArray(
-									[
-										$elm$html$Html$text(s.O)
-									])),
-								$elm$html$Html$text(s.k),
-								A2(
-								$elm$html$Html$strong,
-								_List_Nil,
-								_List_fromArray(
-									[
-										$elm$html$Html$text(s.N)
-									])),
-								$elm$html$Html$text(s.k),
-								$elm$html$Html$text(s.P)
-							])),
-						A2(
-						$elm$html$Html$li,
-						_List_Nil,
-						_List_fromArray(
-							[
-								A2(
-								$elm$html$Html$strong,
-								_List_Nil,
-								_List_fromArray(
-									[
-										A2(
-										$elm$html$Html$a,
-										_List_fromArray(
-											[
-												$elm$html$Html$Attributes$href('https://www.jst.go.jp/jisedai/spring/en/index.html')
-											]),
-										_List_fromArray(
-											[
-												$elm$html$Html$text(s.E)
-											]))
-									])),
-								$elm$html$Html$text(s.k),
-								A2(
-								$elm$html$Html$strong,
-								_List_Nil,
-								_List_fromArray(
-									[
-										$elm$html$Html$text(s.D)
-									])),
-								$elm$html$Html$text(s.k),
-								$elm$html$Html$text(s.F)
-							])),
-						A2(
-						$elm$html$Html$li,
-						_List_Nil,
-						_List_fromArray(
-							[
-								A2(
-								$elm$html$Html$strong,
-								_List_Nil,
-								_List_fromArray(
-									[
-										A2(
-										$elm$html$Html$a,
-										_List_fromArray(
-											[
-												$elm$html$Html$Attributes$href(s.J)
-											]),
-										_List_fromArray(
-											[
-												$elm$html$Html$text(s.H)
-											]))
-									])),
-								$elm$html$Html$text(s.k),
-								A2(
-								$elm$html$Html$strong,
-								_List_Nil,
-								_List_fromArray(
-									[
-										$elm$html$Html$text(s.G)
-									])),
-								$elm$html$Html$text(s.k),
-								$elm$html$Html$text(s.I)
-							]))
-					]))
-			]));
-};
-var $author$project$Main$footerNote = function (lang) {
-	var s = $author$project$Main$getStrings(lang);
-	return A2(
-		$elm$html$Html$div,
-		_List_fromArray(
-			[
-				$elm$html$Html$Attributes$class('footer-note')
-			]),
-		_List_fromArray(
-			[
-				$elm$html$Html$text(s.S),
-				A2(
-				$elm$html$Html$a,
-				_List_fromArray(
-					[
-						$elm$html$Html$Attributes$href('https://elm-lang.org')
-					]),
-				_List_fromArray(
-					[
-						$elm$html$Html$text('Elm · ')
-					])),
-				$elm$html$Html$text(s.R),
-				A2(
-				$elm$html$Html$a,
-				_List_fromArray(
-					[
-						$elm$html$Html$Attributes$href('https://github.com/jonbarron/jonbarron.github.io?tab=readme-ov-file')
-					]),
-				_List_fromArray(
-					[
-						$elm$html$Html$text('jonbarron/jonbarron.github.io')
-					]))
-			]));
-};
+var $author$project$Main$fellowshipsSection = A2(
+	$elm$html$Html$div,
+	_List_fromArray(
+		[
+			$elm$html$Html$Attributes$class('research-section')
+		]),
+	_List_fromArray(
+		[
+			A2(
+			$elm$html$Html$h2,
+			_List_Nil,
+			_List_fromArray(
+				[
+					$elm$html$Html$text('Fellowships and Scholarships')
+				])),
+			A2(
+			$elm$html$Html$ul,
+			_List_Nil,
+			_List_fromArray(
+				[
+					A2(
+					$elm$html$Html$li,
+					_List_Nil,
+					_List_fromArray(
+						[
+							A2(
+							$elm$html$Html$strong,
+							_List_Nil,
+							_List_fromArray(
+								[
+									A2(
+									$elm$html$Html$a,
+									_List_fromArray(
+										[
+											$elm$html$Html$Attributes$href('https://www.jsps.go.jp/english/e-pd/')
+										]),
+									_List_fromArray(
+										[
+											$elm$html$Html$text('JSPS Research Fellow for Young Scientists (DC2)')
+										]))
+								])),
+							$elm$html$Html$text(', '),
+							A2(
+							$elm$html$Html$strong,
+							_List_Nil,
+							_List_fromArray(
+								[
+									$elm$html$Html$text('JPY 227K/month')
+								])),
+							$elm$html$Html$text(', '),
+							$elm$html$Html$text('Apr. 2026 – Mar. 2028')
+						])),
+					A2(
+					$elm$html$Html$li,
+					_List_Nil,
+					_List_fromArray(
+						[
+							A2(
+							$elm$html$Html$strong,
+							_List_Nil,
+							_List_fromArray(
+								[
+									$elm$html$Html$text('The Keio University Doctorate Student Grant-in-Aid Program from Ushioda Memorial Fund 2026')
+								])),
+							$elm$html$Html$text(', '),
+							A2(
+							$elm$html$Html$strong,
+							_List_Nil,
+							_List_fromArray(
+								[
+									$elm$html$Html$text('JPY 100K')
+								])),
+							$elm$html$Html$text(', '),
+							$elm$html$Html$text('Apr. 2026 – Mar. 2027')
+						])),
+					A2(
+					$elm$html$Html$li,
+					_List_Nil,
+					_List_fromArray(
+						[
+							A2(
+							$elm$html$Html$strong,
+							_List_Nil,
+							_List_fromArray(
+								[
+									A2(
+									$elm$html$Html$a,
+									_List_fromArray(
+										[
+											$elm$html$Html$Attributes$href('https://www.jst.go.jp/jisedai/spring/en/index.html')
+										]),
+									_List_fromArray(
+										[
+											$elm$html$Html$text('JST Support for Pioneering Research Initiated by the Next Generation (SPRING)')
+										]))
+								])),
+							$elm$html$Html$text(', '),
+							A2(
+							$elm$html$Html$strong,
+							_List_Nil,
+							_List_fromArray(
+								[
+									$elm$html$Html$text('JPY 183K/month')
+								])),
+							$elm$html$Html$text(', '),
+							$elm$html$Html$text('Apr. 2025 – Mar. 2026')
+						])),
+					A2(
+					$elm$html$Html$li,
+					_List_Nil,
+					_List_fromArray(
+						[
+							A2(
+							$elm$html$Html$strong,
+							_List_Nil,
+							_List_fromArray(
+								[
+									A2(
+									$elm$html$Html$a,
+									_List_fromArray(
+										[
+											$elm$html$Html$Attributes$href('https://jp.diplomatie.gouv.fr/fr/bourses-france-excellence')
+										]),
+									_List_fromArray(
+										[
+											$elm$html$Html$text('French Government Scholarship (Bourse France Excellence Japon)')
+										]))
+								])),
+							$elm$html$Html$text(', '),
+							A2(
+							$elm$html$Html$strong,
+							_List_Nil,
+							_List_fromArray(
+								[
+									$elm$html$Html$text('EUR 700/month')
+								])),
+							$elm$html$Html$text(', '),
+							$elm$html$Html$text('Sep. 2019 – Sep. 2021')
+						]))
+				]))
+		]));
+var $author$project$Main$footerNote = A2(
+	$elm$html$Html$div,
+	_List_fromArray(
+		[
+			$elm$html$Html$Attributes$class('footer-note')
+		]),
+	_List_fromArray(
+		[
+			$elm$html$Html$text('Written in '),
+			A2(
+			$elm$html$Html$a,
+			_List_fromArray(
+				[
+					$elm$html$Html$Attributes$href('https://elm-lang.org')
+				]),
+			_List_fromArray(
+				[
+					$elm$html$Html$text('Elm · ')
+				])),
+			$elm$html$Html$text('CSS: '),
+			A2(
+			$elm$html$Html$a,
+			_List_fromArray(
+				[
+					$elm$html$Html$Attributes$href('https://github.com/jonbarron/jonbarron.github.io?tab=readme-ov-file')
+				]),
+			_List_fromArray(
+				[
+					$elm$html$Html$text('jonbarron/jonbarron.github.io')
+				]))
+		]));
 var $elm$html$Html$Attributes$alt = $elm$html$Html$Attributes$stringProperty('alt');
 var $elm$html$Html$em = _VirtualDom_node('em');
 var $elm$html$Html$p = _VirtualDom_node('p');
-var $author$project$Main$bioParagraph = function (lang) {
-	switch (lang) {
-		case 0:
-			return A2(
-				$elm$html$Html$p,
-				_List_Nil,
-				_List_fromArray(
-					[
-						$elm$html$Html$text('I am a Ph.D. student at the '),
-						A2(
-						$elm$html$Html$a,
-						_List_fromArray(
-							[
-								$elm$html$Html$Attributes$href('https://www.srg.mech.keio.ac.jp/en/')
-							]),
-						_List_fromArray(
-							[
-								$elm$html$Html$text('Space Robotics Group')
-							])),
-						$elm$html$Html$text(', '),
-						A2(
-						$elm$html$Html$a,
-						_List_fromArray(
-							[
-								$elm$html$Html$Attributes$href('https://www.st.keio.ac.jp/en/')
-							]),
-						_List_fromArray(
-							[
-								$elm$html$Html$text('Keio University')
-							])),
-						$elm$html$Html$text(', under the supervision of Prof. '),
-						A2(
-						$elm$html$Html$a,
-						_List_fromArray(
-							[
-								$elm$html$Html$Attributes$href('https://www.st.keio.ac.jp/en/tprofile/mech/ishigami.html')
-							]),
-						_List_fromArray(
-							[
-								$elm$html$Html$text('Genya Ishigami')
-							])),
-						$elm$html$Html$text('. I study autonomous navigation of tethered mobile robots in unstructured environments such as disaster sites, using techniques from path planning, multimodal perception, and machine learning. I received two Master\'s degrees: '),
-						A2(
-						$elm$html$Html$em,
-						_List_Nil,
-						_List_fromArray(
-							[
-								$elm$html$Html$text('M.S. in Engineering')
-							])),
-						$elm$html$Html$text(' from Keio University and '),
-						A2(
-						$elm$html$Html$em,
-						_List_Nil,
-						_List_fromArray(
-							[
-								$elm$html$Html$text('Diplôme d\'Ingénieur')
-							])),
-						$elm$html$Html$text(' from '),
-						A2(
-						$elm$html$Html$a,
-						_List_fromArray(
-							[
-								$elm$html$Html$Attributes$href('https://www.ec-nantes.fr/engineering-programme-diplome-dingenieur/course-specialisations-yrs-23/robotics?l=1')
-							]),
-						_List_fromArray(
-							[
-								$elm$html$Html$text('École Centrale de Nantes')
-							])),
-						$elm$html$Html$text('. I speak three languages: Japanese, English, and French, so feel free to address me in your preferred language.')
-					]));
-		case 1:
-			return A2(
-				$elm$html$Html$p,
-				_List_Nil,
-				_List_fromArray(
-					[
-						$elm$html$Html$text('Je suis doctorant au '),
-						A2(
-						$elm$html$Html$a,
-						_List_fromArray(
-							[
-								$elm$html$Html$Attributes$href('https://www.srg.mech.keio.ac.jp/en/')
-							]),
-						_List_fromArray(
-							[
-								$elm$html$Html$text('Space Robotics Group')
-							])),
-						$elm$html$Html$text(' de l\''),
-						A2(
-						$elm$html$Html$a,
-						_List_fromArray(
-							[
-								$elm$html$Html$Attributes$href('https://www.st.keio.ac.jp/en/')
-							]),
-						_List_fromArray(
-							[
-								$elm$html$Html$text('Université Keio')
-							])),
-						$elm$html$Html$text(', sous la direction du Pr. '),
-						A2(
-						$elm$html$Html$a,
-						_List_fromArray(
-							[
-								$elm$html$Html$Attributes$href('https://www.st.keio.ac.jp/en/tprofile/mech/ishigami.html')
-							]),
-						_List_fromArray(
-							[
-								$elm$html$Html$text('Genya Ishigami')
-							])),
-						$elm$html$Html$text('. J\'étudie la navigation autonome de robots mobiles téthérés dans des environnements non structurés tels que des sites de catastrophes, en m\'appuyant sur la planification de trajectoires, la perception multimodale et l\'apprentissage automatique. J\'ai obtenu deux masters\u00A0: un '),
-						A2(
-						$elm$html$Html$em,
-						_List_Nil,
-						_List_fromArray(
-							[
-								$elm$html$Html$text('M.S. in Engineering')
-							])),
-						$elm$html$Html$text(' de l\'Université Keio et un '),
-						A2(
-						$elm$html$Html$em,
-						_List_Nil,
-						_List_fromArray(
-							[
-								$elm$html$Html$text('Diplôme d\'Ingénieur')
-							])),
-						$elm$html$Html$text(' de l\''),
-						A2(
-						$elm$html$Html$a,
-						_List_fromArray(
-							[
-								$elm$html$Html$Attributes$href('https://www.ec-nantes.fr/engineering-programme-diplome-dingenieur/course-specialisations-yrs-23/robotics?l=1')
-							]),
-						_List_fromArray(
-							[
-								$elm$html$Html$text('École Centrale de Nantes')
-							])),
-						$elm$html$Html$text('. Je parle trois langues : le japonais, l\'anglais et le français, n\'hésitez donc pas à me contacter dans la langue de votre choix.')
-					]));
-		default:
-			return A2(
-				$elm$html$Html$p,
-				_List_Nil,
-				_List_fromArray(
-					[
-						$elm$html$Html$text('災害現場などの非構造化環境でのテザーロボット（通信・電源ケーブルによって外部と有線接続された移動ロボット）の自律移動技術を研究しています。経路計画、マルチモーダル情報処理、機械学習・強化学習などの知見を活用しています。現在、'),
-						A2(
-						$elm$html$Html$a,
-						_List_fromArray(
-							[
-								$elm$html$Html$Attributes$href('https://www.st.keio.ac.jp/en/')
-							]),
-						_List_fromArray(
-							[
-								$elm$html$Html$text('慶應義塾大学')
-							])),
-						$elm$html$Html$text('の '),
-						A2(
-						$elm$html$Html$a,
-						_List_fromArray(
-							[
-								$elm$html$Html$Attributes$href('https://www.srg.mech.keio.ac.jp/')
-							]),
-						_List_fromArray(
-							[
-								$elm$html$Html$text('Space Robotics Group')
-							])),
-						$elm$html$Html$text(' に博士学生として在籍しています（指導教員：'),
-						A2(
-						$elm$html$Html$a,
-						_List_fromArray(
-							[
-								$elm$html$Html$Attributes$href('https://www.st.keio.ac.jp/en/tprofile/mech/ishigami.html')
-							]),
-						_List_fromArray(
-							[
-								$elm$html$Html$text('石上玄也')
-							])),
-						$elm$html$Html$text('教授）。また、修士号を２つ所持しています：'),
-						A2(
-						$elm$html$Html$em,
-						_List_Nil,
-						_List_fromArray(
-							[
-								$elm$html$Html$text('修士（工学）')
-							])),
-						$elm$html$Html$text('（慶應義塾大学）、'),
-						A2(
-						$elm$html$Html$em,
-						_List_Nil,
-						_List_fromArray(
-							[
-								$elm$html$Html$text('Diplôme d\'Ingénieur')
-							])),
-						$elm$html$Html$text('（'),
-						A2(
-						$elm$html$Html$a,
-						_List_fromArray(
-							[
-								$elm$html$Html$Attributes$href('https://www.ec-nantes.fr/engineering-programme-diplome-dingenieur/course-specialisations-yrs-23/robotics?l=1')
-							]),
-						_List_fromArray(
-							[
-								$elm$html$Html$text('エコール・サントラル・ナント')
-							])),
-						$elm$html$Html$text('）'),
-						$elm$html$Html$text('。日仏英の3言語を話しますので、お好きな言語でご連絡ください。')
-					]));
-	}
-};
+var $author$project$Main$bioParagraph = A2(
+	$elm$html$Html$div,
+	_List_Nil,
+	_List_fromArray(
+		[
+			A2(
+			$elm$html$Html$p,
+			_List_Nil,
+			_List_fromArray(
+				[
+					$elm$html$Html$text('I am a Ph.D. student in the '),
+					A2(
+					$elm$html$Html$a,
+					_List_fromArray(
+						[
+							$elm$html$Html$Attributes$href('https://www.srg.mech.keio.ac.jp/en/')
+						]),
+					_List_fromArray(
+						[
+							$elm$html$Html$text('Space Robotics Group')
+						])),
+					$elm$html$Html$text(' at '),
+					A2(
+					$elm$html$Html$a,
+					_List_fromArray(
+						[
+							$elm$html$Html$Attributes$href('https://www.st.keio.ac.jp/en/')
+						]),
+					_List_fromArray(
+						[
+							$elm$html$Html$text('Keio University')
+						])),
+					$elm$html$Html$text('.')
+				])),
+			A2(
+			$elm$html$Html$p,
+			_List_Nil,
+			_List_fromArray(
+				[
+					$elm$html$Html$text('My research goal is to build intelligent systems for field robots that understand, predict, and leverage physical interactions with the environment — so they can assess risks and navigate more safely and efficiently in extreme environments such as disaster sites and degraded infrastructure.')
+				])),
+			A2(
+			$elm$html$Html$p,
+			_List_Nil,
+			_List_fromArray(
+				[
+					$elm$html$Html$text('I hold two master’s-level degrees: an '),
+					A2(
+					$elm$html$Html$em,
+					_List_Nil,
+					_List_fromArray(
+						[
+							$elm$html$Html$text('M.S. in Engineering')
+						])),
+					$elm$html$Html$text(' from Keio University and a '),
+					A2(
+					$elm$html$Html$em,
+					_List_Nil,
+					_List_fromArray(
+						[
+							$elm$html$Html$text('Diplôme d’Ingénieur')
+						])),
+					$elm$html$Html$text(' from '),
+					A2(
+					$elm$html$Html$a,
+					_List_fromArray(
+						[
+							$elm$html$Html$Attributes$href('https://www.ec-nantes.fr/engineering-programme-diplome-dingenieur/course-specialisations-yrs-23/robotics?l=1')
+						]),
+					_List_fromArray(
+						[
+							$elm$html$Html$text('École Centrale de Nantes')
+						])),
+					$elm$html$Html$text('.')
+				]))
+		]));
 var $elm$html$Html$h1 = _VirtualDom_node('h1');
 var $elm$html$Html$img = _VirtualDom_node('img');
 var $elm$html$Html$Attributes$src = function (url) {
@@ -6016,7 +5737,6 @@ var $elm$html$Html$Attributes$src = function (url) {
 		_VirtualDom_noJavaScriptOrHtmlUri(url));
 };
 var $author$project$Main$headerSection = function (model) {
-	var lang = model.a;
 	return A2(
 		$elm$html$Html$div,
 		_List_fromArray(
@@ -6043,74 +5763,59 @@ var $author$project$Main$headerSection = function (model) {
 							[
 								$elm$html$Html$text('Ryuki Shimada')
 							])),
-						$author$project$Main$bioParagraph(lang),
+						$author$project$Main$bioParagraph,
 						A2(
 						$elm$html$Html$div,
 						_List_fromArray(
 							[
 								$elm$html$Html$Attributes$class('links')
 							]),
-						_Utils_ap(
-							_List_fromArray(
-								[
-									A2(
-									$elm$html$Html$a,
-									_List_fromArray(
-										[
-											$elm$html$Html$Attributes$href('https://github.com/rieuky')
-										]),
-									_List_fromArray(
-										[
-											$elm$html$Html$text('GitHub')
-										])),
-									$elm$html$Html$text(' / '),
-									A2(
-									$elm$html$Html$a,
-									_List_fromArray(
-										[
-											$elm$html$Html$Attributes$href('https://scholar.google.com/citations?user=Az5KGOYAAAAJ&hl=en')
-										]),
-									_List_fromArray(
-										[
-											$elm$html$Html$text('Google Scholar')
-										])),
-									$elm$html$Html$text(' / '),
-									A2(
-									$elm$html$Html$a,
-									_List_fromArray(
-										[
-											$elm$html$Html$Attributes$href('https://www.linkedin.com/in/ryuki-shimada-60790a16a/')
-										]),
-									_List_fromArray(
-										[
-											$elm$html$Html$text('LinkedIn')
-										])),
-									$elm$html$Html$text(' / '),
-									A2(
-									$elm$html$Html$a,
-									_List_fromArray(
-										[
-											$elm$html$Html$Attributes$href('mailto:ryukishimada218@keio.jp')
-										]),
-									_List_fromArray(
-										[
-											$elm$html$Html$text('Email')
-										]))
-								]),
-							(lang === 2) ? _List_fromArray(
-								[
-									$elm$html$Html$text(' / '),
-									A2(
-									$elm$html$Html$a,
-									_List_fromArray(
-										[
-											$elm$html$Html$Attributes$href('#notes')
-										]),
-									_List_fromArray(
-										[
-											$elm$html$Html$text('雑記')
-										]))
-								]) : _List_Nil))
+						_List_fromArray(
+							[
+								A2(
+								$elm$html$Html$a,
+								_List_fromArray(
+									[
+										$elm$html$Html$Attributes$href('https://github.com/rieuky')
+									]),
+								_List_fromArray(
+									[
+										$elm$html$Html$text('GitHub')
+									])),
+								$elm$html$Html$text(' / '),
+								A2(
+								$elm$html$Html$a,
+								_List_fromArray(
+									[
+										$elm$html$Html$Attributes$href('https://scholar.google.com/citations?user=Az5KGOYAAAAJ&hl=en')
+									]),
+								_List_fromArray(
+									[
+										$elm$html$Html$text('Google Scholar')
+									])),
+								$elm$html$Html$text(' / '),
+								A2(
+								$elm$html$Html$a,
+								_List_fromArray(
+									[
+										$elm$html$Html$Attributes$href('https://www.linkedin.com/in/ryuki-shimada-60790a16a/')
+									]),
+								_List_fromArray(
+									[
+										$elm$html$Html$text('LinkedIn')
+									])),
+								$elm$html$Html$text(' / '),
+								A2(
+								$elm$html$Html$a,
+								_List_fromArray(
+									[
+										$elm$html$Html$Attributes$href('mailto:ryukishimada218@keio.jp')
+									]),
+								_List_fromArray(
+									[
+										$elm$html$Html$text('Email')
+									]))
+							]))
 					])),
 				A2(
 				$elm$html$Html$div,
@@ -6132,92 +5837,6 @@ var $author$project$Main$headerSection = function (model) {
 					]))
 			]));
 };
-var $author$project$Main$allNotes = _List_fromArray(
-	[
-		{ae: '\n「彼らはこの夏からフランス政府給費留学生として渡仏するエリートたちです。」\n\nK先生は講義終盤、そう言って壇上にふたりの学生を招き入れた。臆面もなくエリートという言葉を使った先生に周囲は少し引いたようだったが、私はその言葉にかえって引き寄せられた。壇上にあがったふたりは、そんな紹介をされながらも誇らしげな様子はなく、むしろ気恥ずかしそうだった。\n\n「フランス政府から年間百万円以上のお金をもらってフランスの学位を取りに行きます。しかも帰国後は、政府給費留学経験者だけが参加を許される秘密結社に招待されます。」\n\n人と違う経験をして「何者か」になりたかった当時の私にとって、K先生の言葉はあまりにも刺激が強すぎたのだろう。ふたりが自己紹介をし終えるよりもまえに、留学しようと決めた。大学一年生の五月だった。\n', af: '2025-04-05', ab: '留学のきっかけ'},
-		{ae: '\n![説明文](images/notes/example.jpg)\n\n（ここにエッセイを書く）\n', af: '2025-04-01', ab: 'フランス留学の思い出②'}
-	]);
-var $elm_explorations$markdown$Markdown$defaultOptions = {
-	aq: $elm$core$Maybe$Nothing,
-	aW: $elm$core$Maybe$Just(
-		{aQ: false, a6: false}),
-	a3: true,
-	a4: false
-};
-var $elm$core$Maybe$isJust = function (maybe) {
-	if (!maybe.$) {
-		return true;
-	} else {
-		return false;
-	}
-};
-var $elm_explorations$markdown$Markdown$toHtmlWith = _Markdown_toHtml;
-var $elm_explorations$markdown$Markdown$toHtml = $elm_explorations$markdown$Markdown$toHtmlWith($elm_explorations$markdown$Markdown$defaultOptions);
-var $author$project$Main$noteView = function (note) {
-	return A2(
-		$elm$html$Html$div,
-		_List_fromArray(
-			[
-				$elm$html$Html$Attributes$class('note-entry')
-			]),
-		_List_fromArray(
-			[
-				A2(
-				$elm$html$Html$h2,
-				_List_Nil,
-				_List_fromArray(
-					[
-						$elm$html$Html$text(note.ab)
-					])),
-				A2(
-				$elm$html$Html$p,
-				_List_fromArray(
-					[
-						$elm$html$Html$Attributes$class('note-date')
-					]),
-				_List_fromArray(
-					[
-						$elm$html$Html$text(note.af)
-					])),
-				A2(
-				$elm_explorations$markdown$Markdown$toHtml,
-				_List_fromArray(
-					[
-						$elm$html$Html$Attributes$class('note-body')
-					]),
-				note.ae)
-			]));
-};
-var $author$project$Main$notesListView = A2(
-	$elm$html$Html$div,
-	_List_fromArray(
-		[
-			$elm$html$Html$Attributes$class('notes-section')
-		]),
-	_Utils_ap(
-		_List_fromArray(
-			[
-				A2(
-				$elm$html$Html$div,
-				_List_fromArray(
-					[
-						$elm$html$Html$Attributes$class('notes-nav')
-					]),
-				_List_fromArray(
-					[
-						A2(
-						$elm$html$Html$a,
-						_List_fromArray(
-							[
-								$elm$html$Html$Attributes$href('/')
-							]),
-						_List_fromArray(
-							[
-								$elm$html$Html$text('← ホームへ')
-							]))
-					]))
-			]),
-		A2($elm$core$List$map, $author$project$Main$noteView, $author$project$Main$allNotes)));
 var $elm$html$Html$br = _VirtualDom_node('br');
 var $elm$html$Html$span = _VirtualDom_node('span');
 var $author$project$Main$GifLoadFailed = function (a) {
@@ -6315,9 +5934,9 @@ var $elm$html$Html$Attributes$width = function (n) {
 var $author$project$Main$viewPaperImage = F2(
 	function (model, paperId) {
 		var isHovered = _Utils_eq(
-			model.T,
+			model.A,
 			$elm$core$Maybe$Just(paperId));
-		var gifSupported = !A2($elm$core$Set$member, paperId, model.V);
+		var gifSupported = !A2($elm$core$Set$member, paperId, model.C);
 		var imgSrc = (isHovered && gifSupported) ? A2($author$project$Main$getImagePath, paperId, '.gif') : A2($author$project$Main$getImagePath, paperId, '.jpg');
 		return A2(
 			$elm$html$Html$div,
@@ -6350,7 +5969,6 @@ var $author$project$Main$viewPaperImage = F2(
 				]));
 	});
 var $author$project$Main$publicationsSection = function (model) {
-	var s = $author$project$Main$getStrings(model.a);
 	return A2(
 		$elm$html$Html$div,
 		_List_fromArray(
@@ -6364,7 +5982,7 @@ var $author$project$Main$publicationsSection = function (model) {
 				_List_Nil,
 				_List_fromArray(
 					[
-						$elm$html$Html$text(s.Z)
+						$elm$html$Html$text('Publications')
 					])),
 				A2(
 				$elm$html$Html$div,
@@ -6448,7 +6066,7 @@ var $author$project$Main$publicationsSection = function (model) {
 								_List_Nil,
 								_List_fromArray(
 									[
-										$elm$html$Html$text(s.X)
+										$elm$html$Html$text('A learning-based homotopy-aware path planning method for a tethered mobile robot to avoid cable-obstacles and cable-robot contacts while navigating to goals.')
 									]))
 							]))
 					])),
@@ -6514,7 +6132,7 @@ var $author$project$Main$publicationsSection = function (model) {
 									]),
 								_List_fromArray(
 									[
-										$elm$html$Html$text(s.W)
+										$elm$html$Html$text(' (Oral Presentation)')
 									])),
 								A2($elm$html$Html$br, _List_Nil, _List_Nil),
 								A2(
@@ -6544,18 +6162,15 @@ var $author$project$Main$publicationsSection = function (model) {
 								_List_Nil,
 								_List_fromArray(
 									[
-										$elm$html$Html$text(s.Y)
+										$elm$html$Html$text('A path refinement method for a tethered mobile robot to avoid cable-obstacle contact by considering path curvature and distance from cable base.')
 									]))
 							]))
 					]))
 			]));
 };
 var $author$project$Main$Light = 0;
-var $author$project$Main$SetLanguage = function (a) {
-	return {$: 3, a: a};
-};
 var $author$project$Main$SetTheme = function (a) {
-	return {$: 4, a: a};
+	return {$: 3, a: a};
 };
 var $elm$html$Html$Events$onClick = function (msg) {
 	return A2(
@@ -6573,86 +6188,6 @@ var $author$project$Main$toggleBar = function (model) {
 		_List_fromArray(
 			[
 				A2(
-				$elm$html$Html$div,
-				_List_fromArray(
-					[
-						$elm$html$Html$Attributes$class('lang-toggle')
-					]),
-				_List_fromArray(
-					[
-						A2(
-						$elm$html$Html$span,
-						_List_fromArray(
-							[
-								$elm$html$Html$Attributes$classList(
-								_List_fromArray(
-									[
-										_Utils_Tuple2('lang-option', true),
-										_Utils_Tuple2('active', !model.a)
-									])),
-								$elm$html$Html$Events$onClick(
-								$author$project$Main$SetLanguage(0))
-							]),
-						_List_fromArray(
-							[
-								$elm$html$Html$text('EN')
-							])),
-						A2(
-						$elm$html$Html$span,
-						_List_fromArray(
-							[
-								$elm$html$Html$Attributes$class('lang-separator')
-							]),
-						_List_fromArray(
-							[
-								$elm$html$Html$text(' / ')
-							])),
-						A2(
-						$elm$html$Html$span,
-						_List_fromArray(
-							[
-								$elm$html$Html$Attributes$classList(
-								_List_fromArray(
-									[
-										_Utils_Tuple2('lang-option', true),
-										_Utils_Tuple2('active', model.a === 1)
-									])),
-								$elm$html$Html$Events$onClick(
-								$author$project$Main$SetLanguage(1))
-							]),
-						_List_fromArray(
-							[
-								$elm$html$Html$text('FR')
-							])),
-						A2(
-						$elm$html$Html$span,
-						_List_fromArray(
-							[
-								$elm$html$Html$Attributes$class('lang-separator')
-							]),
-						_List_fromArray(
-							[
-								$elm$html$Html$text(' / ')
-							])),
-						A2(
-						$elm$html$Html$span,
-						_List_fromArray(
-							[
-								$elm$html$Html$Attributes$classList(
-								_List_fromArray(
-									[
-										_Utils_Tuple2('lang-option', true),
-										_Utils_Tuple2('active', model.a === 2)
-									])),
-								$elm$html$Html$Events$onClick(
-								$author$project$Main$SetLanguage(2))
-							]),
-						_List_fromArray(
-							[
-								$elm$html$Html$text('日本語')
-							]))
-					])),
-				A2(
 				$elm$html$Html$span,
 				_List_fromArray(
 					[
@@ -6668,66 +6203,48 @@ var $author$project$Main$toggleBar = function (model) {
 			]));
 };
 var $author$project$Main$view = function (model) {
-	var _v0 = model.h;
-	switch (_v0.$) {
-		case 0:
-			return A2(
-				$elm$html$Html$div,
-				_List_fromArray(
-					[
-						$elm$html$Html$Attributes$classList(
-						_List_fromArray(
-							[
-								_Utils_Tuple2('container', true),
-								_Utils_Tuple2('dark', model.x === 1)
-							]))
-					]),
-				_List_fromArray(
-					[
-						$author$project$Main$toggleBar(model),
-						$author$project$Main$headerSection(model),
-						$author$project$Main$publicationsSection(model),
-						$author$project$Main$fellowshipsSection(model.a),
-						$author$project$Main$footerNote(model.a)
-					]));
-		case 1:
-			var content = _v0.a;
-			return $author$project$Main$bibTeXView(content);
-		default:
-			return A2(
-				$elm$html$Html$div,
-				_List_fromArray(
-					[
-						$elm$html$Html$Attributes$classList(
-						_List_fromArray(
-							[
-								_Utils_Tuple2('container', true),
-								_Utils_Tuple2('dark', model.x === 1)
-							]))
-					]),
-				_List_fromArray(
-					[
-						$author$project$Main$toggleBar(model),
-						$author$project$Main$notesListView
-					]));
+	var _v0 = model.H;
+	if (!_v0.$) {
+		return A2(
+			$elm$html$Html$div,
+			_List_fromArray(
+				[
+					$elm$html$Html$Attributes$classList(
+					_List_fromArray(
+						[
+							_Utils_Tuple2('container', true),
+							_Utils_Tuple2('dark', model.x === 1)
+						]))
+				]),
+			_List_fromArray(
+				[
+					$author$project$Main$toggleBar(model),
+					$author$project$Main$headerSection(model),
+					$author$project$Main$publicationsSection(model),
+					$author$project$Main$fellowshipsSection,
+					$author$project$Main$footerNote
+				]));
+	} else {
+		var content = _v0.a;
+		return $author$project$Main$bibTeXView(content);
 	}
 };
 var $author$project$Main$main = $elm$browser$Browser$application(
 	{
-		aZ: $author$project$Main$init,
-		a$: $author$project$Main$UrlChanged,
-		a0: $author$project$Main$LinkClicked,
-		a5: function (_v0) {
+		ax: $author$project$Main$init,
+		az: $author$project$Main$UrlChanged,
+		aA: $author$project$Main$LinkClicked,
+		aD: function (_v0) {
 			return $elm$core$Platform$Sub$none;
 		},
-		a7: $author$project$Main$update,
-		a8: function (model) {
+		aF: $author$project$Main$update,
+		aG: function (model) {
 			return {
-				aP: _List_fromArray(
+				ap: _List_fromArray(
 					[
 						$author$project$Main$view(model)
 					]),
-				ab: 'Ryuki Shimada'
+				aE: 'Ryuki Shimada'
 			};
 		}
 	});
