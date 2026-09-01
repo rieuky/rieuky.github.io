@@ -278,3 +278,17 @@ em {
   white-space: pre;
 }
 
+.bio-list-lead {
+  margin-bottom: 4px;
+}
+
+.bio-list {
+  font-family: 'Lato', Verdana, Helvetica, sans-serif;
+  font-size: 14px;
+  margin: 0 0 16px;
+  padding-left: 16px;
+}
+
+.bio-list li {
+  margin-bottom: 4px;
+}

@@ -184,14 +184,18 @@ bioParagraph =
         , p []
             [ text "My research goal is to build intelligent systems for field robots that understand, predict, and leverage physical interactions with the environment — so they can assess risks and navigate more safely and efficiently in extreme environments such as disaster sites and degraded infrastructure."
             ]
-        , p []
-            [ text "I hold two master’s-level degrees: an "
-            , em [] [ text "M.S. in Engineering" ]
-            , text " from Keio University and a "
-            , em [] [ text "Diplôme d’Ingénieur" ]
-            , text " from "
-            , a [ href "https://www.ec-nantes.fr/engineering-programme-diplome-dingenieur/course-specialisations-yrs-23/robotics?l=1" ] [ text "École Centrale de Nantes" ]
-            , text "."
+        , p [ class "bio-list-lead" ] [ text "I hold two master’s-level degrees:" ]
+        , ul [ class "bio-list" ]
+            [ li []
+                [ em [] [ text "M.S. in Engineering" ]
+                , text ", Keio University, Japan"
+                ]
+            , li []
+                [ em [] [ text "Diplôme d’Ingénieur" ]
+                , text ", "
+                , a [ href "https://www.ec-nantes.fr/engineering-programme-diplome-dingenieur/course-specialisations-yrs-23/robotics?l=1" ] [ text "École Centrale de Nantes" ]
+                , text ", France"
+                ]
             ]
         ]
 
