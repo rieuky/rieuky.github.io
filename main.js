@@ -5695,37 +5695,61 @@ var $author$project$Main$bioParagraph = A2(
 				])),
 			A2(
 			$elm$html$Html$p,
-			_List_Nil,
 			_List_fromArray(
 				[
-					$elm$html$Html$text('I hold two master’s-level degrees: an '),
+					$elm$html$Html$Attributes$class('bio-list-lead')
+				]),
+			_List_fromArray(
+				[
+					$elm$html$Html$text('I hold two master’s-level degrees:')
+				])),
+			A2(
+			$elm$html$Html$ul,
+			_List_fromArray(
+				[
+					$elm$html$Html$Attributes$class('bio-list')
+				]),
+			_List_fromArray(
+				[
 					A2(
-					$elm$html$Html$em,
+					$elm$html$Html$li,
 					_List_Nil,
 					_List_fromArray(
 						[
-							$elm$html$Html$text('M.S. in Engineering')
+							A2(
+							$elm$html$Html$em,
+							_List_Nil,
+							_List_fromArray(
+								[
+									$elm$html$Html$text('M.S. in Engineering')
+								])),
+							$elm$html$Html$text(', Keio University, Japan')
 						])),
-					$elm$html$Html$text(' from Keio University and a '),
 					A2(
-					$elm$html$Html$em,
+					$elm$html$Html$li,
 					_List_Nil,
 					_List_fromArray(
 						[
-							$elm$html$Html$text('Diplôme d’Ingénieur')
-						])),
-					$elm$html$Html$text(' from '),
-					A2(
-					$elm$html$Html$a,
-					_List_fromArray(
-						[
-							$elm$html$Html$Attributes$href('https://www.ec-nantes.fr/engineering-programme-diplome-dingenieur/course-specialisations-yrs-23/robotics?l=1')
-						]),
-					_List_fromArray(
-						[
-							$elm$html$Html$text('École Centrale de Nantes')
-						])),
-					$elm$html$Html$text('.')
+							A2(
+							$elm$html$Html$em,
+							_List_Nil,
+							_List_fromArray(
+								[
+									$elm$html$Html$text('Diplôme d’Ingénieur')
+								])),
+							$elm$html$Html$text(', '),
+							A2(
+							$elm$html$Html$a,
+							_List_fromArray(
+								[
+									$elm$html$Html$Attributes$href('https://www.ec-nantes.fr/engineering-programme-diplome-dingenieur/course-specialisations-yrs-23/robotics?l=1')
+								]),
+							_List_fromArray(
+								[
+									$elm$html$Html$text('École Centrale de Nantes')
+								])),
+							$elm$html$Html$text(', France')
+						]))
 				]))
 		]));
 var $elm$html$Html$h1 = _VirtualDom_node('h1');
