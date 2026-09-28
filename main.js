@@ -5387,11 +5387,14 @@ var $author$project$Main$update = F2(
 			case 4:
 				if (!msg.a.$) {
 					var url = msg.a.a;
-					return _Utils_Tuple2(
+					return ((url.Y === '/') || (url.Y === '/index.html')) ? _Utils_Tuple2(
 						model,
 						A2(
 							$elm$browser$Browser$Navigation$pushUrl,
 							model.I,
+							$elm$url$Url$toString(url))) : _Utils_Tuple2(
+						model,
+						$elm$browser$Browser$Navigation$load(
 							$elm$url$Url$toString(url)));
 				} else {
 					var url = msg.a.a;
@@ -5861,6 +5864,50 @@ var $author$project$Main$headerSection = function (model) {
 					]))
 			]));
 };
+var $author$project$Main$newsSection = A2(
+	$elm$html$Html$div,
+	_List_fromArray(
+		[
+			$elm$html$Html$Attributes$class('research-section')
+		]),
+	_List_fromArray(
+		[
+			A2(
+			$elm$html$Html$h2,
+			_List_Nil,
+			_List_fromArray(
+				[
+					$elm$html$Html$text('News')
+				])),
+			A2(
+			$elm$html$Html$ul,
+			_List_Nil,
+			_List_fromArray(
+				[
+					A2(
+					$elm$html$Html$li,
+					_List_Nil,
+					_List_fromArray(
+						[
+							A2(
+							$elm$html$Html$strong,
+							_List_Nil,
+							_List_fromArray(
+								[
+									$elm$html$Html$text('2026.09.06')
+								])),
+							$elm$html$Html$text(' – Our paper on cable tension sensing for tethered mobile robot navigation was accepted to '),
+							A2(
+							$elm$html$Html$strong,
+							_List_Nil,
+							_List_fromArray(
+								[
+									$elm$html$Html$text('IEEE SSRR 2026')
+								])),
+							$elm$html$Html$text(' in Incheon, Korea.')
+						]))
+				]))
+		]));
 var $elm$html$Html$br = _VirtualDom_node('br');
 var $elm$html$Html$span = _VirtualDom_node('span');
 var $author$project$Main$GifLoadFailed = function (a) {
@@ -6244,6 +6291,7 @@ var $author$project$Main$view = function (model) {
 				[
 					$author$project$Main$toggleBar(model),
 					$author$project$Main$headerSection(model),
+					$author$project$Main$newsSection,
 					$author$project$Main$publicationsSection(model),
 					$author$project$Main$fellowshipsSection,
 					$author$project$Main$footerNote
