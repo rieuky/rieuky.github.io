@@ -224,7 +224,7 @@ publicationsSection model =
         , div [ class "paper" ]
             [ viewPaperImage model "ists_2023"
             , div [ class "paper-info" ]
-                [ a [ href "https://archive.ists.ne.jp/upload_pdf/2023-k-2-02.pdf" ] [ span [ class "papertitle" ] [ text "Path Planning with Cable-obstacles Avoidance for a Tethered Mobile Robot in Unstructured Environments" ] ]
+                [ a [ href "conferences/ists2023/" ] [ span [ class "papertitle" ] [ text "Path Planning with Cable-obstacles Avoidance for a Tethered Mobile Robot in Unstructured Environments" ] ]
                 , br [] []
                 , strong [] [ text "Ryuki Shimada" ]
                 , text " and Genya Ishigami"
@@ -233,7 +233,7 @@ publicationsSection model =
                 , text ", 2023"
                 , span [ class "oral-presentation" ] [ text " (Oral Presentation)" ]
                 , br [] []
-                , a [ href "https://archive.ists.ne.jp/upload_pdf/2023-k-2-02.pdf" ] [ text "Paper" ]
+                , a [ href "conferences/ists2023/ists2023_shimada.pdf" ] [ text "Paper" ]
                 , text " / "
                 , a [ href "#cite/ists2023", class "cite-link" ] [ text "Cite" ]
                 , p [] [ text "A path refinement method for a tethered mobile robot to avoid cable-obstacle contact by considering path curvature and distance from cable base." ]
@@ -370,9 +370,10 @@ bibtexFrobt2024 =
 bibtexIsts2023 : String
 bibtexIsts2023 =
     """@inproceedings{shimada2023path,
-  title={Path planning with cable-obstacles avoidance for a tethered mobile robot in unstructured environments},
+  title={Path Planning with Cable-obstacles Avoidance for a Tethered Mobile Robot in Unstructured Environments},
   author={Shimada, Ryuki and Ishigami, Genya},
-  booktitle={Proceedings of the International Symposium on Space Technology and Science},
+  booktitle={Proceedings of the 34th International Symposium on Space Technology and Science (ISTS)},
+  number={2023-k-04},
   year={2023}
 }"""
 
