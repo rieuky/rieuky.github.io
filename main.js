@@ -5156,7 +5156,7 @@ var $author$project$Main$BibTeXPage = function (a) {
 };
 var $author$project$Main$MainPage = {$: 0};
 var $author$project$Main$bibtexFrobt2024 = '@article{shimada2024tangle,\n  title={Tangle- and contact-free path planning for a tethered mobile robot using deep reinforcement learning},\n  author={Shimada, Ryuki and Ishigami, Genya},\n  journal={Frontiers in Robotics and AI},\n  volume={11},\n  pages={1388634},\n  year={2024},\n  publisher={Frontiers Media SA}\n}';
-var $author$project$Main$bibtexIsts2023 = '@inproceedings{shimada2023path,\n  title={Path planning with cable-obstacles avoidance for a tethered mobile robot in unstructured environments},\n  author={Shimada, Ryuki and Ishigami, Genya},\n  booktitle={Proceedings of the International Symposium on Space Technology and Science},\n  year={2023}\n}';
+var $author$project$Main$bibtexIsts2023 = '@inproceedings{shimada2023path,\n  title={Path Planning with Cable-obstacles Avoidance for a Tethered Mobile Robot in Unstructured Environments},\n  author={Shimada, Ryuki and Ishigami, Genya},\n  booktitle={Proceedings of the 34th International Symposium on Space Technology and Science (ISTS)},\n  number={2023-k-04},\n  year={2023}\n}';
 var $author$project$Main$pageFromUrl = function (url) {
 	var _v0 = url.au;
 	_v0$2:
@@ -6115,7 +6115,7 @@ var $author$project$Main$publicationsSection = function (model) {
 								$elm$html$Html$a,
 								_List_fromArray(
 									[
-										$elm$html$Html$Attributes$href('https://archive.ists.ne.jp/upload_pdf/2023-k-2-02.pdf')
+										$elm$html$Html$Attributes$href('conferences/ists2023/')
 									]),
 								_List_fromArray(
 									[
@@ -6163,7 +6163,7 @@ var $author$project$Main$publicationsSection = function (model) {
 								$elm$html$Html$a,
 								_List_fromArray(
 									[
-										$elm$html$Html$Attributes$href('https://archive.ists.ne.jp/upload_pdf/2023-k-2-02.pdf')
+										$elm$html$Html$Attributes$href('conferences/ists2023/ists2023_shimada.pdf')
 									]),
 								_List_fromArray(
 									[
