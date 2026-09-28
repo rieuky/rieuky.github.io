@@ -100,7 +100,12 @@ update msg model =
             ( { model | theme = theme }, Cmd.none )
 
         LinkClicked (Browser.Internal url) ->
-            ( model, Nav.pushUrl model.key (Url.toString url) )
+            -- Only the app's own page is routed in Elm; other files (PDFs, paper pages) need a full load
+            if url.path == "/" || url.path == "/index.html" then
+                ( model, Nav.pushUrl model.key (Url.toString url) )
+
+            else
+                ( model, Nav.load (Url.toString url) )
 
         LinkClicked (Browser.External url) ->
             ( model, Nav.load url )
@@ -117,6 +122,7 @@ view model =
                 [ classList [ ( "container", True ), ( "dark", model.theme == Dark ) ] ]
                 [ toggleBar model
                 , headerSection model
+                , newsSection
                 , publicationsSection model
                 , fellowshipsSection
                 , footerNote
@@ -195,6 +201,21 @@ bioParagraph =
                 , text ", "
                 , a [ href "https://www.ec-nantes.fr/engineering-programme-diplome-dingenieur/course-specialisations-yrs-23/robotics?l=1" ] [ text "École Centrale de Nantes" ]
                 , text ", France"
+                ]
+            ]
+        ]
+
+
+newsSection : Html Msg
+newsSection =
+    div [ class "research-section" ]
+        [ h2 [] [ text "News" ]
+        , ul []
+            [ li []
+                [ strong [] [ text "2026.09.06" ]
+                , text " – Our paper on cable tension sensing for tethered mobile robot navigation was accepted to "
+                , strong [] [ text "IEEE SSRR 2026" ]
+                , text " in Incheon, Korea."
                 ]
             ]
         ]
