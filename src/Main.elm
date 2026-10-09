@@ -329,7 +329,7 @@ educationSection =
                  ]
                     ++ (case advisor of
                             Just name ->
-                                [ text (" (Advisor: " ++ name ++ ")") ]
+                                [ ul [] [ li [] [ text ("Advisor: " ++ name) ] ] ]
 
                             Nothing ->
                                 []
@@ -338,7 +338,7 @@ educationSection =
     in
     div [ class "research-section" ]
         [ h2 [] [ text "Education" ]
-        , ul []
+        , ul [ class "education-list" ]
             [ entry "Sep. 2023 – present" "Ph.D. Program" "Keio University" (Just "Prof. Genya Ishigami")
             , entry "Sep. 2021 – Sep. 2023" "M.S. in Engineering" "Keio University" (Just "Prof. Genya Ishigami")
             , entry "Sep. 2019 – Sep. 2021" "Diplôme d’Ingénieur" "École Centrale de Nantes, France" Nothing
@@ -356,30 +356,30 @@ fellowshipsSection =
         [ h2 [] [ text "Fellowships and Scholarships" ]
         , ul []
             [ li []
-                [ strong [] [ a [ href "https://www.jsps.go.jp/english/e-pd/" ] [ text "JSPS Research Fellow for Young Scientists (DC2)" ] ]
+                [ a [ href "https://www.jsps.go.jp/english/e-pd/" ] [ text "JSPS Research Fellow for Young Scientists (DC2)" ]
                 , text ", "
-                , strong [] [ text "JPY 227K/month" ]
+                , text "JPY 227K/month"
                 , text ", "
                 , text "Apr. 2026 – Mar. 2028"
                 ]
             , li []
-                [ strong [] [ text "The Keio University Doctorate Student Grant-in-Aid Program from Ushioda Memorial Fund 2026" ]
+                [ text "The Keio University Doctorate Student Grant-in-Aid Program from Ushioda Memorial Fund 2026"
                 , text ", "
-                , strong [] [ text "JPY 100K" ]
+                , text "JPY 100K"
                 , text ", "
                 , text "Apr. 2026 – Mar. 2027"
                 ]
             , li []
-                [ strong [] [ a [ href "https://www.jst.go.jp/jisedai/spring/en/index.html" ] [ text "JST Support for Pioneering Research Initiated by the Next Generation (SPRING)" ] ]
+                [ a [ href "https://www.jst.go.jp/jisedai/spring/en/index.html" ] [ text "JST Support for Pioneering Research Initiated by the Next Generation (SPRING)" ]
                 , text ", "
-                , strong [] [ text "JPY 183K/month" ]
+                , text "JPY 183K/month"
                 , text ", "
                 , text "Apr. 2025 – Mar. 2026"
                 ]
             , li []
-                [ strong [] [ a [ href "https://jp.diplomatie.gouv.fr/fr/bourses-france-excellence" ] [ text "French Government Scholarship (Bourse France Excellence Japon)" ] ]
+                [ a [ href "https://jp.diplomatie.gouv.fr/fr/bourses-france-excellence" ] [ text "French Government Scholarship (Bourse France Excellence Japon)" ]
                 , text ", "
-                , strong [] [ text "EUR 700/month" ]
+                , text "EUR 700/month"
                 , text ", "
                 , text "Sep. 2019 – Sep. 2021"
                 ]

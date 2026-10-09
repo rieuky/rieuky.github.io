@@ -161,6 +161,18 @@ em {
   margin: 20px 0;
 }
 
+.research-section li {
+  margin-bottom: 4px;
+}
+
+.education-list > li {
+  margin-bottom: 10px;
+}
+
+.education-list li li {
+  margin: 2px 0 0;
+}
+
 .publications-section {
   margin: 20px 0;
 }
