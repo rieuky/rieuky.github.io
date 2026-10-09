@@ -124,6 +124,7 @@ view model =
                 , headerSection model
                 , newsSection
                 , publicationsSection model
+                , educationSection
                 , fellowshipsSection
                 , footerNote
                 ]
@@ -315,6 +316,35 @@ viewPaperImage model paperId =
             []
         ]
 
+
+
+educationSection : Html Msg
+educationSection =
+    let
+        entry period degree school advisor =
+            li []
+                ([ text (period ++ " : ")
+                 , em [] [ text degree ]
+                 , text (", " ++ school)
+                 ]
+                    ++ (case advisor of
+                            Just name ->
+                                [ br [] [], text ("Advisor: " ++ name) ]
+
+                            Nothing ->
+                                []
+                       )
+                )
+    in
+    div [ class "research-section" ]
+        [ h2 [] [ text "Education" ]
+        , ul []
+            [ entry "Sep. 2023 – present" "Ph.D. Program" "Keio University" (Just "Prof. Genya Ishigami")
+            , entry "Sep. 2021 – Sep. 2023" "M.S. in Engineering" "Keio University" (Just "Prof. Genya Ishigami")
+            , entry "Sep. 2019 – Sep. 2021" "Diplôme d’Ingénieur" "École Centrale de Nantes, France" Nothing
+            , entry "Apr. 2017 – Sep. 2019" "Bachelor’s Program" "Keio University" Nothing
+            ]
+        ]
 
 
 -- Simple list of fellowships and scholarships
