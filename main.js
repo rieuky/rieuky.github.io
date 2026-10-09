@@ -5469,7 +5469,6 @@ var $elm$html$Html$Attributes$classList = function (classes) {
 				$elm$core$Tuple$first,
 				A2($elm$core$List$filter, $elm$core$Tuple$second, classes))));
 };
-var $elm$html$Html$br = _VirtualDom_node('br');
 var $elm$html$Html$em = _VirtualDom_node('em');
 var $elm$html$Html$h2 = _VirtualDom_node('h2');
 var $elm$html$Html$li = _VirtualDom_node('li');
@@ -5498,8 +5497,19 @@ var $author$project$Main$educationSection = function () {
 							var name = advisor.a;
 							return _List_fromArray(
 								[
-									A2($elm$html$Html$br, _List_Nil, _List_Nil),
-									$elm$html$Html$text('Advisor: ' + name)
+									A2(
+									$elm$html$Html$ul,
+									_List_Nil,
+									_List_fromArray(
+										[
+											A2(
+											$elm$html$Html$li,
+											_List_Nil,
+											_List_fromArray(
+												[
+													$elm$html$Html$text('Advisor: ' + name)
+												]))
+										]))
 								]);
 						} else {
 							return _List_Nil;
@@ -5523,7 +5533,10 @@ var $author$project$Main$educationSection = function () {
 					])),
 				A2(
 				$elm$html$Html$ul,
-				_List_Nil,
+				_List_fromArray(
+					[
+						$elm$html$Html$Attributes$class('education-list')
+					]),
 				_List_fromArray(
 					[
 						A4(
@@ -5550,7 +5563,6 @@ var $elm$html$Html$Attributes$href = function (url) {
 		'href',
 		_VirtualDom_noJavaScriptUri(url));
 };
-var $elm$html$Html$strong = _VirtualDom_node('strong');
 var $author$project$Main$fellowshipsSection = A2(
 	$elm$html$Html$div,
 	_List_fromArray(
@@ -5577,29 +5589,17 @@ var $author$project$Main$fellowshipsSection = A2(
 					_List_fromArray(
 						[
 							A2(
-							$elm$html$Html$strong,
-							_List_Nil,
+							$elm$html$Html$a,
 							_List_fromArray(
 								[
-									A2(
-									$elm$html$Html$a,
-									_List_fromArray(
-										[
-											$elm$html$Html$Attributes$href('https://www.jsps.go.jp/english/e-pd/')
-										]),
-									_List_fromArray(
-										[
-											$elm$html$Html$text('JSPS Research Fellow for Young Scientists (DC2)')
-										]))
+									$elm$html$Html$Attributes$href('https://www.jsps.go.jp/english/e-pd/')
+								]),
+							_List_fromArray(
+								[
+									$elm$html$Html$text('JSPS Research Fellow for Young Scientists (DC2)')
 								])),
 							$elm$html$Html$text(', '),
-							A2(
-							$elm$html$Html$strong,
-							_List_Nil,
-							_List_fromArray(
-								[
-									$elm$html$Html$text('JPY 227K/month')
-								])),
+							$elm$html$Html$text('JPY 227K/month'),
 							$elm$html$Html$text(', '),
 							$elm$html$Html$text('Apr. 2026 – Mar. 2028')
 						])),
@@ -5608,21 +5608,9 @@ var $author$project$Main$fellowshipsSection = A2(
 					_List_Nil,
 					_List_fromArray(
 						[
-							A2(
-							$elm$html$Html$strong,
-							_List_Nil,
-							_List_fromArray(
-								[
-									$elm$html$Html$text('The Keio University Doctorate Student Grant-in-Aid Program from Ushioda Memorial Fund 2026')
-								])),
+							$elm$html$Html$text('The Keio University Doctorate Student Grant-in-Aid Program from Ushioda Memorial Fund 2026'),
 							$elm$html$Html$text(', '),
-							A2(
-							$elm$html$Html$strong,
-							_List_Nil,
-							_List_fromArray(
-								[
-									$elm$html$Html$text('JPY 100K')
-								])),
+							$elm$html$Html$text('JPY 100K'),
 							$elm$html$Html$text(', '),
 							$elm$html$Html$text('Apr. 2026 – Mar. 2027')
 						])),
@@ -5632,29 +5620,17 @@ var $author$project$Main$fellowshipsSection = A2(
 					_List_fromArray(
 						[
 							A2(
-							$elm$html$Html$strong,
-							_List_Nil,
+							$elm$html$Html$a,
 							_List_fromArray(
 								[
-									A2(
-									$elm$html$Html$a,
-									_List_fromArray(
-										[
-											$elm$html$Html$Attributes$href('https://www.jst.go.jp/jisedai/spring/en/index.html')
-										]),
-									_List_fromArray(
-										[
-											$elm$html$Html$text('JST Support for Pioneering Research Initiated by the Next Generation (SPRING)')
-										]))
+									$elm$html$Html$Attributes$href('https://www.jst.go.jp/jisedai/spring/en/index.html')
+								]),
+							_List_fromArray(
+								[
+									$elm$html$Html$text('JST Support for Pioneering Research Initiated by the Next Generation (SPRING)')
 								])),
 							$elm$html$Html$text(', '),
-							A2(
-							$elm$html$Html$strong,
-							_List_Nil,
-							_List_fromArray(
-								[
-									$elm$html$Html$text('JPY 183K/month')
-								])),
+							$elm$html$Html$text('JPY 183K/month'),
 							$elm$html$Html$text(', '),
 							$elm$html$Html$text('Apr. 2025 – Mar. 2026')
 						])),
@@ -5664,29 +5640,17 @@ var $author$project$Main$fellowshipsSection = A2(
 					_List_fromArray(
 						[
 							A2(
-							$elm$html$Html$strong,
-							_List_Nil,
+							$elm$html$Html$a,
 							_List_fromArray(
 								[
-									A2(
-									$elm$html$Html$a,
-									_List_fromArray(
-										[
-											$elm$html$Html$Attributes$href('https://jp.diplomatie.gouv.fr/fr/bourses-france-excellence')
-										]),
-									_List_fromArray(
-										[
-											$elm$html$Html$text('French Government Scholarship (Bourse France Excellence Japon)')
-										]))
+									$elm$html$Html$Attributes$href('https://jp.diplomatie.gouv.fr/fr/bourses-france-excellence')
+								]),
+							_List_fromArray(
+								[
+									$elm$html$Html$text('French Government Scholarship (Bourse France Excellence Japon)')
 								])),
 							$elm$html$Html$text(', '),
-							A2(
-							$elm$html$Html$strong,
-							_List_Nil,
-							_List_fromArray(
-								[
-									$elm$html$Html$text('EUR 700/month')
-								])),
+							$elm$html$Html$text('EUR 700/month'),
 							$elm$html$Html$text(', '),
 							$elm$html$Html$text('Sep. 2019 – Sep. 2021')
 						]))
@@ -5934,6 +5898,7 @@ var $author$project$Main$headerSection = function (model) {
 					]))
 			]));
 };
+var $elm$html$Html$strong = _VirtualDom_node('strong');
 var $author$project$Main$newsSection = A2(
 	$elm$html$Html$div,
 	_List_fromArray(
@@ -5978,6 +5943,7 @@ var $author$project$Main$newsSection = A2(
 						]))
 				]))
 		]));
+var $elm$html$Html$br = _VirtualDom_node('br');
 var $elm$html$Html$span = _VirtualDom_node('span');
 var $author$project$Main$GifLoadFailed = function (a) {
 	return {$: 2, a: a};
