@@ -162,11 +162,7 @@ em {
 }
 
 .research-section li {
-  margin-bottom: 4px;
-}
-
-.education-list > li {
-  margin-bottom: 10px;
+  margin-bottom: 6px;
 }
 
 .education-list li li {
@@ -302,5 +298,5 @@ em {
 }
 
 .bio-list li {
-  margin-bottom: 4px;
+  margin-bottom: 6px;
 }
