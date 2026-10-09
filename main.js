@@ -5469,17 +5469,88 @@ var $elm$html$Html$Attributes$classList = function (classes) {
 				$elm$core$Tuple$first,
 				A2($elm$core$List$filter, $elm$core$Tuple$second, classes))));
 };
-var $elm$html$Html$a = _VirtualDom_node('a');
+var $elm$html$Html$br = _VirtualDom_node('br');
+var $elm$html$Html$em = _VirtualDom_node('em');
 var $elm$html$Html$h2 = _VirtualDom_node('h2');
+var $elm$html$Html$li = _VirtualDom_node('li');
+var $elm$html$Html$ul = _VirtualDom_node('ul');
+var $author$project$Main$educationSection = function () {
+	var entry = F4(
+		function (period, degree, school, advisor) {
+			return A2(
+				$elm$html$Html$li,
+				_List_Nil,
+				_Utils_ap(
+					_List_fromArray(
+						[
+							$elm$html$Html$text(period + ' : '),
+							A2(
+							$elm$html$Html$em,
+							_List_Nil,
+							_List_fromArray(
+								[
+									$elm$html$Html$text(degree)
+								])),
+							$elm$html$Html$text(', ' + school)
+						]),
+					function () {
+						if (!advisor.$) {
+							var name = advisor.a;
+							return _List_fromArray(
+								[
+									A2($elm$html$Html$br, _List_Nil, _List_Nil),
+									$elm$html$Html$text('Advisor: ' + name)
+								]);
+						} else {
+							return _List_Nil;
+						}
+					}()));
+		});
+	return A2(
+		$elm$html$Html$div,
+		_List_fromArray(
+			[
+				$elm$html$Html$Attributes$class('research-section')
+			]),
+		_List_fromArray(
+			[
+				A2(
+				$elm$html$Html$h2,
+				_List_Nil,
+				_List_fromArray(
+					[
+						$elm$html$Html$text('Education')
+					])),
+				A2(
+				$elm$html$Html$ul,
+				_List_Nil,
+				_List_fromArray(
+					[
+						A4(
+						entry,
+						'Sep. 2023 – present',
+						'Ph.D. Program',
+						'Keio University',
+						$elm$core$Maybe$Just('Prof. Genya Ishigami')),
+						A4(
+						entry,
+						'Sep. 2021 – Sep. 2023',
+						'M.S. in Engineering',
+						'Keio University',
+						$elm$core$Maybe$Just('Prof. Genya Ishigami')),
+						A4(entry, 'Sep. 2019 – Sep. 2021', 'Diplôme d’Ingénieur', 'École Centrale de Nantes, France', $elm$core$Maybe$Nothing),
+						A4(entry, 'Apr. 2017 – Sep. 2019', 'Bachelor’s Program', 'Keio University', $elm$core$Maybe$Nothing)
+					]))
+			]));
+}();
+var $elm$html$Html$a = _VirtualDom_node('a');
 var $elm$html$Html$Attributes$href = function (url) {
 	return A2(
 		$elm$html$Html$Attributes$stringProperty,
 		'href',
 		_VirtualDom_noJavaScriptUri(url));
 };
-var $elm$html$Html$li = _VirtualDom_node('li');
 var $elm$html$Html$strong = _VirtualDom_node('strong');
-var $elm$html$Html$ul = _VirtualDom_node('ul');
 var $author$project$Main$fellowshipsSection = A2(
 	$elm$html$Html$div,
 	_List_fromArray(
@@ -5653,7 +5724,6 @@ var $author$project$Main$footerNote = A2(
 				]))
 		]));
 var $elm$html$Html$Attributes$alt = $elm$html$Html$Attributes$stringProperty('alt');
-var $elm$html$Html$em = _VirtualDom_node('em');
 var $elm$html$Html$p = _VirtualDom_node('p');
 var $author$project$Main$bioParagraph = A2(
 	$elm$html$Html$div,
@@ -5908,7 +5978,6 @@ var $author$project$Main$newsSection = A2(
 						]))
 				]))
 		]));
-var $elm$html$Html$br = _VirtualDom_node('br');
 var $elm$html$Html$span = _VirtualDom_node('span');
 var $author$project$Main$GifLoadFailed = function (a) {
 	return {$: 2, a: a};
@@ -6293,6 +6362,7 @@ var $author$project$Main$view = function (model) {
 					$author$project$Main$headerSection(model),
 					$author$project$Main$newsSection,
 					$author$project$Main$publicationsSection(model),
+					$author$project$Main$educationSection,
 					$author$project$Main$fellowshipsSection,
 					$author$project$Main$footerNote
 				]));
