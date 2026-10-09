@@ -329,7 +329,7 @@ educationSection =
                  ]
                     ++ (case advisor of
                             Just name ->
-                                [ br [] [], text ("Advisor: " ++ name) ]
+                                [ text (" (Advisor: " ++ name ++ ")") ]
 
                             Nothing ->
                                 []
