@@ -5157,21 +5157,24 @@ var $author$project$Main$BibTeXPage = function (a) {
 var $author$project$Main$MainPage = {$: 0};
 var $author$project$Main$bibtexFrobt2024 = '@article{shimada2024tangle,\n  title={Tangle- and contact-free path planning for a tethered mobile robot using deep reinforcement learning},\n  author={Shimada, Ryuki and Ishigami, Genya},\n  journal={Frontiers in Robotics and AI},\n  volume={11},\n  pages={1388634},\n  year={2024},\n  publisher={Frontiers Media SA}\n}';
 var $author$project$Main$bibtexIsts2023 = '@inproceedings{shimada2023path,\n  title={Path Planning with Cable-obstacles Avoidance for a Tethered Mobile Robot in Unstructured Environments},\n  author={Shimada, Ryuki and Ishigami, Genya},\n  booktitle={Proceedings of the 34th International Symposium on Space Technology and Science (ISTS)},\n  number={2023-k-04},\n  year={2023}\n}';
+var $author$project$Main$bibtexSsrr2026 = '@inproceedings{shimada2026tension,\n  title={Tension Tells the Tail: Cable-Obstacle Interaction Sensing for Tethered Mobile Robot Navigation},\n  author={Shimada, Ryuki and Suzuki, Koki and Ishigami, Genya},\n  booktitle={Proceedings of the IEEE International Symposium on Safety, Security, and Rescue Robotics (SSRR)},\n  year={2026}\n}';
 var $author$project$Main$pageFromUrl = function (url) {
 	var _v0 = url.au;
-	_v0$2:
+	_v0$3:
 	while (true) {
 		if (!_v0.$) {
 			switch (_v0.a) {
+				case 'cite/ssrr2026':
+					return $author$project$Main$BibTeXPage($author$project$Main$bibtexSsrr2026);
 				case 'cite/frobt2024':
 					return $author$project$Main$BibTeXPage($author$project$Main$bibtexFrobt2024);
 				case 'cite/ists2023':
 					return $author$project$Main$BibTeXPage($author$project$Main$bibtexIsts2023);
 				default:
-					break _v0$2;
+					break _v0$3;
 			}
 		} else {
-			break _v0$2;
+			break _v0$3;
 		}
 	}
 	return $author$project$Main$MainPage;
@@ -5929,6 +5932,28 @@ var $author$project$Main$newsSection = A2(
 							_List_Nil,
 							_List_fromArray(
 								[
+									$elm$html$Html$text('2026.10.10')
+								])),
+							$elm$html$Html$text(' – Our paper at '),
+							A2(
+							$elm$html$Html$strong,
+							_List_Nil,
+							_List_fromArray(
+								[
+									$elm$html$Html$text('IEEE SSRR 2026')
+								])),
+							$elm$html$Html$text(' was selected as a Best Paper Award Finalist.')
+						])),
+					A2(
+					$elm$html$Html$li,
+					_List_Nil,
+					_List_fromArray(
+						[
+							A2(
+							$elm$html$Html$strong,
+							_List_Nil,
+							_List_fromArray(
+								[
 									$elm$html$Html$text('2026.09.06')
 								])),
 							$elm$html$Html$text(' – Our paper on cable tension sensing for tethered mobile robot navigation was accepted to '),
@@ -6098,7 +6123,103 @@ var $author$project$Main$publicationsSection = function (model) {
 					]),
 				_List_fromArray(
 					[
-						A2($author$project$Main$viewPaperImage, model, 'frobt_2024'),
+						A2($author$project$Main$viewPaperImage, model, 'ssrr2026_shimada'),
+						A2(
+						$elm$html$Html$div,
+						_List_fromArray(
+							[
+								$elm$html$Html$Attributes$class('paper-info')
+							]),
+						_List_fromArray(
+							[
+								A2(
+								$elm$html$Html$a,
+								_List_fromArray(
+									[
+										$elm$html$Html$Attributes$href('https://arxiv.org/abs/2610.24449')
+									]),
+								_List_fromArray(
+									[
+										A2(
+										$elm$html$Html$span,
+										_List_fromArray(
+											[
+												$elm$html$Html$Attributes$class('papertitle')
+											]),
+										_List_fromArray(
+											[
+												$elm$html$Html$text('Tension Tells the Tail: Cable-Obstacle Interaction Sensing for Tethered Mobile Robot Navigation')
+											]))
+									])),
+								A2($elm$html$Html$br, _List_Nil, _List_Nil),
+								A2(
+								$elm$html$Html$strong,
+								_List_Nil,
+								_List_fromArray(
+									[
+										$elm$html$Html$text('Ryuki Shimada')
+									])),
+								$elm$html$Html$text(', Koki Suzuki, and Genya Ishigami'),
+								A2($elm$html$Html$br, _List_Nil, _List_Nil),
+								A2(
+								$elm$html$Html$em,
+								_List_Nil,
+								_List_fromArray(
+									[
+										$elm$html$Html$text('IEEE SSRR')
+									])),
+								$elm$html$Html$text(', 2026, to appear'),
+								A2(
+								$elm$html$Html$span,
+								_List_fromArray(
+									[
+										$elm$html$Html$Attributes$class('oral-presentation')
+									]),
+								_List_fromArray(
+									[
+										$elm$html$Html$text(' (Oral Presentation) (Best Paper Award Finalist)')
+									])),
+								A2($elm$html$Html$br, _List_Nil, _List_Nil),
+								A2(
+								$elm$html$Html$a,
+								_List_fromArray(
+									[
+										$elm$html$Html$Attributes$href('https://arxiv.org/abs/2610.24449')
+									]),
+								_List_fromArray(
+									[
+										$elm$html$Html$text('arXiv')
+									])),
+								$elm$html$Html$text(' / '),
+								A2(
+								$elm$html$Html$a,
+								_List_fromArray(
+									[
+										$elm$html$Html$Attributes$href('#cite/ssrr2026'),
+										$elm$html$Html$Attributes$class('cite-link')
+									]),
+								_List_fromArray(
+									[
+										$elm$html$Html$text('Cite')
+									])),
+								A2(
+								$elm$html$Html$p,
+								_List_Nil,
+								_List_fromArray(
+									[
+										$elm$html$Html$text('A cable-tension-based obstacle movability estimation method for a tethered mobile robot to determine whether an obstacle touching the cable is movable or stays in place during the interaction.')
+									]))
+							]))
+					])),
+				A2(
+				$elm$html$Html$div,
+				_List_fromArray(
+					[
+						$elm$html$Html$Attributes$class('paper')
+					]),
+				_List_fromArray(
+					[
+						A2($author$project$Main$viewPaperImage, model, 'frobt2024_shimada'),
 						A2(
 						$elm$html$Html$div,
 						_List_fromArray(
@@ -6184,7 +6305,7 @@ var $author$project$Main$publicationsSection = function (model) {
 					]),
 				_List_fromArray(
 					[
-						A2($author$project$Main$viewPaperImage, model, 'ists_2023'),
+						A2($author$project$Main$viewPaperImage, model, 'ists2023_shimada'),
 						A2(
 						$elm$html$Html$div,
 						_List_fromArray(
