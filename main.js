@@ -5602,7 +5602,7 @@ var $author$project$Main$fellowshipsSection = A2(
 									$elm$html$Html$text('JSPS Research Fellow for Young Scientists (DC2)')
 								])),
 							$elm$html$Html$text(', '),
-							$elm$html$Html$text('JPY 227K/month'),
+							$elm$html$Html$text('JPY 227K/month + JPY 1.4M research grant'),
 							$elm$html$Html$text(', '),
 							$elm$html$Html$text('Apr. 2026 – Mar. 2028')
 						])),
@@ -5611,7 +5611,7 @@ var $author$project$Main$fellowshipsSection = A2(
 					_List_Nil,
 					_List_fromArray(
 						[
-							$elm$html$Html$text('The Keio University Doctorate Student Grant-in-Aid Program from Ushioda Memorial Fund 2026'),
+							$elm$html$Html$text('Keio Doctoral Student Grant-in-Aid Program (Ushioda Memorial Fund)'),
 							$elm$html$Html$text(', '),
 							$elm$html$Html$text('JPY 100K'),
 							$elm$html$Html$text(', '),
@@ -5626,14 +5626,14 @@ var $author$project$Main$fellowshipsSection = A2(
 							$elm$html$Html$a,
 							_List_fromArray(
 								[
-									$elm$html$Html$Attributes$href('https://www.jst.go.jp/jisedai/spring/en/index.html')
+									$elm$html$Html$Attributes$href('https://doctoral-support.keio.ac.jp/spring/')
 								]),
 							_List_fromArray(
 								[
-									$elm$html$Html$text('JST Support for Pioneering Research Initiated by the Next Generation (SPRING)')
+									$elm$html$Html$text('JST Keio-SPRING')
 								])),
 							$elm$html$Html$text(', '),
-							$elm$html$Html$text('JPY 183K/month'),
+							$elm$html$Html$text('JPY 183K/month + JPY 300K research grant'),
 							$elm$html$Html$text(', '),
 							$elm$html$Html$text('Apr. 2025 – Mar. 2026')
 						])),
@@ -5650,7 +5650,7 @@ var $author$project$Main$fellowshipsSection = A2(
 								]),
 							_List_fromArray(
 								[
-									$elm$html$Html$text('French Government Scholarship (Bourse France Excellence Japon)')
+									$elm$html$Html$text('French Government Scholarship (Bourse du gouvernement français)')
 								])),
 							$elm$html$Html$text(', '),
 							$elm$html$Html$text('EUR 700/month'),
