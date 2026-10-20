@@ -227,7 +227,7 @@ publicationsSection model =
     div [ class "publications-section" ]
         [ h2 [] [ text "Publications" ]
         , div [ class "paper" ]
-            [ viewPaperImage model "frobt_2024"
+            [ viewPaperImage model "frobt2024_shimada"
             , div [ class "paper-info" ]
                 [ a [ href "https://www.frontiersin.org/journals/robotics-and-ai/articles/10.3389/frobt.2024.1388634/full" ] [ span [ class "papertitle" ] [ text "Tangle- and Contact-free Path Planning for a Tethered Mobile Robot" ] ]
                 , br [] []
@@ -244,7 +244,7 @@ publicationsSection model =
                 ]
             ]
         , div [ class "paper" ]
-            [ viewPaperImage model "ists_2023"
+            [ viewPaperImage model "ists2023_shimada"
             , div [ class "paper-info" ]
                 [ a [ href "conferences/ists2023/" ] [ span [ class "papertitle" ] [ text "Path Planning with Cable-obstacles Avoidance for a Tethered Mobile Robot in Unstructured Environments" ] ]
                 , br [] []
