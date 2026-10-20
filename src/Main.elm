@@ -385,26 +385,26 @@ fellowshipsSection =
             [ li []
                 [ a [ href "https://www.jsps.go.jp/english/e-pd/" ] [ text "JSPS Research Fellow for Young Scientists (DC2)" ]
                 , text ", "
-                , text "JPY 227K/month"
+                , text "JPY 227K/month + JPY 1.4M research grant"
                 , text ", "
                 , text "Apr. 2026 – Mar. 2028"
                 ]
             , li []
-                [ text "The Keio University Doctorate Student Grant-in-Aid Program from Ushioda Memorial Fund 2026"
+                [ text "Keio Doctoral Student Grant-in-Aid Program (Ushioda Memorial Fund)"
                 , text ", "
                 , text "JPY 100K"
                 , text ", "
                 , text "Apr. 2026 – Mar. 2027"
                 ]
             , li []
-                [ a [ href "https://www.jst.go.jp/jisedai/spring/en/index.html" ] [ text "JST Support for Pioneering Research Initiated by the Next Generation (SPRING)" ]
+                [ a [ href "https://doctoral-support.keio.ac.jp/spring/" ] [ text "JST Keio-SPRING" ]
                 , text ", "
-                , text "JPY 183K/month"
+                , text "JPY 183K/month + JPY 300K research grant"
                 , text ", "
                 , text "Apr. 2025 – Mar. 2026"
                 ]
             , li []
-                [ a [ href "https://jp.diplomatie.gouv.fr/fr/bourses-france-excellence" ] [ text "French Government Scholarship (Bourse France Excellence Japon)" ]
+                [ a [ href "https://jp.diplomatie.gouv.fr/fr/bourses-france-excellence" ] [ text "French Government Scholarship (Bourse du gouvernement français)" ]
                 , text ", "
                 , text "EUR 700/month"
                 , text ", "
