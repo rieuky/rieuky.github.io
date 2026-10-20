@@ -53,6 +53,9 @@ type Msg
 pageFromUrl : Url -> Page
 pageFromUrl url =
     case url.fragment of
+        Just "cite/ssrr2026" ->
+            BibTeXPage bibtexSsrr2026
+
         Just "cite/frobt2024" ->
             BibTeXPage bibtexFrobt2024
 
@@ -213,6 +216,12 @@ newsSection =
         [ h2 [] [ text "News" ]
         , ul []
             [ li []
+                [ strong [] [ text "2026.10.10" ]
+                , text " – Our paper at "
+                , strong [] [ text "IEEE SSRR 2026" ]
+                , text " was selected as a Best Paper Award Finalist."
+                ]
+            , li []
                 [ strong [] [ text "2026.09.06" ]
                 , text " – Our paper on cable tension sensing for tethered mobile robot navigation was accepted to "
                 , strong [] [ text "IEEE SSRR 2026" ]
@@ -226,6 +235,24 @@ publicationsSection : Model -> Html Msg
 publicationsSection model =
     div [ class "publications-section" ]
         [ h2 [] [ text "Publications" ]
+        , div [ class "paper" ]
+            [ viewPaperImage model "ssrr2026_shimada"
+            , div [ class "paper-info" ]
+                [ a [ href "https://arxiv.org/abs/2610.24449" ] [ span [ class "papertitle" ] [ text "Tension Tells the Tail: Cable-Obstacle Interaction Sensing for Tethered Mobile Robot Navigation" ] ]
+                , br [] []
+                , strong [] [ text "Ryuki Shimada" ]
+                , text ", Koki Suzuki, and Genya Ishigami"
+                , br [] []
+                , em [] [ text "IEEE SSRR" ]
+                , text ", 2026, to appear"
+                , span [ class "oral-presentation" ] [ text " (Oral Presentation) (Best Paper Award Finalist)" ]
+                , br [] []
+                , a [ href "https://arxiv.org/abs/2610.24449" ] [ text "arXiv" ]
+                , text " / "
+                , a [ href "#cite/ssrr2026", class "cite-link" ] [ text "Cite" ]
+                , p [] [ text "A cable-tension-based obstacle movability estimation method for a tethered mobile robot to determine whether an obstacle touching the cable is movable or stays in place during the interaction." ]
+                ]
+            ]
         , div [ class "paper" ]
             [ viewPaperImage model "frobt2024_shimada"
             , div [ class "paper-info" ]
@@ -415,6 +442,16 @@ bibtexFrobt2024 =
   pages={1388634},
   year={2024},
   publisher={Frontiers Media SA}
+}"""
+
+
+bibtexSsrr2026 : String
+bibtexSsrr2026 =
+    """@inproceedings{shimada2026tension,
+  title={Tension Tells the Tail: Cable-Obstacle Interaction Sensing for Tethered Mobile Robot Navigation},
+  author={Shimada, Ryuki and Suzuki, Koki and Ishigami, Genya},
+  booktitle={Proceedings of the IEEE International Symposium on Safety, Security, and Rescue Robotics (SSRR)},
+  year={2026}
 }"""
 
 
