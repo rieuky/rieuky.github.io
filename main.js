@@ -6168,7 +6168,7 @@ var $author$project$Main$publicationsSection = function (model) {
 									[
 										$elm$html$Html$text('IEEE SSRR')
 									])),
-								$elm$html$Html$text(', 2026, to appear'),
+								$elm$html$Html$text(', 2026'),
 								A2(
 								$elm$html$Html$span,
 								_List_fromArray(
