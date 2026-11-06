@@ -244,7 +244,7 @@ publicationsSection model =
                 , text ", Koki Suzuki, and Genya Ishigami"
                 , br [] []
                 , em [] [ text "IEEE SSRR" ]
-                , text ", 2026, to appear"
+                , text ", 2026"
                 , span [ class "oral-presentation" ] [ text " (Oral Presentation) (Best Paper Award Finalist)" ]
                 , br [] []
                 , a [ href "https://arxiv.org/abs/2610.24449" ] [ text "arXiv" ]
